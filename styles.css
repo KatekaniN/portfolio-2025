@@ -1,0 +1,847 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  user-select: none;
+}
+
+/* Desktop Background */
+.desktop {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  background-image: radial-gradient(
+      circle at 25% 25%,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 75% 75%,
+      rgba(255, 255, 255, 0.05) 0%,
+      transparent 50%
+    );
+  background-size: 200px 200px, 300px 300px;
+  animation: backgroundShift 30s ease-in-out infinite;
+}
+
+@keyframes backgroundShift {
+  0%,
+  100% {
+    background-position: 0% 0%, 100% 100%;
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    background-position: 100% 100%, 0% 0%;
+    filter: hue-rotate(20deg);
+  }
+}
+
+/* Desktop Icons */
+.desktop-icon {
+  position: absolute;
+  width: 80px;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.desktop-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transform: translateY(-2px);
+}
+
+.desktop-icon.selected {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.icon-image {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  margin-bottom: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.desktop-icon:hover .icon-image {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.icon-label {
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+/* Specific Icon Colors */
+.about-icon .icon-image {
+  background: linear-gradient(135deg, #10b981, #047857);
+}
+.projects-icon .icon-image {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+.contact-icon .icon-image {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+.skills-icon .icon-image {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+.personal-icon .icon-image {
+  background: linear-gradient(135deg, #ec4899, #be185d);
+}
+.resume-icon .icon-image {
+  background: linear-gradient(135deg, #06b6d4, #0891b2);
+}
+
+/* Window Styles */
+.window {
+  position: absolute;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  min-width: 400px;
+  min-height: 300px;
+  display: none;
+  overflow: hidden;
+  resize: both;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.window.active {
+  display: block;
+  z-index: 1000;
+}
+
+.window-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.window-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.window-control {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.window-control:hover {
+  transform: scale(1.1);
+}
+
+.close {
+  background: #ff5f56;
+}
+.minimize {
+  background: #ffbd2e;
+}
+.maximize {
+  background: #27ca3f;
+}
+
+.window-title {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.window-title i {
+  color: #666;
+}
+
+.window-content {
+  padding: 24px;
+  height: calc(100% - 60px);
+  overflow-y: auto;
+  line-height: 1.6;
+}
+
+.window-content h2 {
+  color: #2c3e50;
+  margin-bottom: 16px;
+  font-size: 24px;
+}
+
+.window-content h3 {
+  color: #34495e;
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+.window-content p {
+  color: #666;
+  margin-bottom: 16px;
+}
+
+/* About Window Specific Styles */
+.profile-section {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+  align-items: center;
+}
+
+.profile-image {
+  flex-shrink: 0;
+}
+
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid #667eea;
+  object-fit: cover;
+}
+
+.profile-info h2 {
+  margin-bottom: 8px;
+}
+
+.tagline {
+  color: #667eea !important;
+  font-weight: 600;
+  margin-bottom: 16px !important;
+  font-style: italic;
+}
+
+.about-details {
+  display: grid;
+  gap: 12px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.detail-item i {
+  color: #667eea;
+  width: 20px;
+}
+
+/* Projects Window Styles */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.project-card {
+  background: #f8f9fa;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+  transition: all 0.2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.project-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.project-icon {
+  color: #667eea;
+  font-size: 24px;
+}
+
+.project-card h3 {
+  margin: 0;
+  color: #2c3e50;
+}
+
+.project-card p {
+  margin-bottom: 16px;
+  color: #666;
+}
+
+.tech-stack {
+  margin-bottom: 16px;
+}
+
+.tech-tag {
+  display: inline-block;
+  background: #667eea;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-right: 8px;
+  margin-bottom: 4px;
+}
+
+.project-links {
+  display: flex;
+  gap: 12px;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.project-link.primary {
+  background: #667eea;
+  color: white;
+}
+
+.project-link.primary:hover {
+  background: #5a67d8;
+  transform: translateY(-1px);
+}
+
+.project-link:not(.primary) {
+  background: #e9ecef;
+  color: #495057;
+}
+
+.project-link:not(.primary):hover {
+  background: #dee2e6;
+}
+
+/* Skills Window Styles */
+.skills-category {
+  margin-bottom: 32px;
+}
+
+.skills-category h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  color: #2c3e50;
+}
+
+.skills-category i {
+  color: #667eea;
+  font-size: 20px;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 2px solid;
+}
+
+.skill-tag.expert {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+.skill-tag.advanced {
+  background: #f59e0b;
+  color: white;
+  border-color: #f59e0b;
+}
+
+.skill-tag.intermediate {
+  background: #6b7280;
+  color: white;
+  border-color: #6b7280;
+}
+
+/* Contact Window Styles */
+.contact-methods {
+  margin-top: 24px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+}
+
+.contact-item:hover {
+  background: #e9ecef;
+  transform: translateX(4px);
+}
+
+.contact-item i {
+  font-size: 24px;
+  color: #667eea;
+  width: 30px;
+  text-align: center;
+}
+
+.contact-item strong {
+  display: block;
+  color: #2c3e50;
+  margin-bottom: 4px;
+}
+
+.contact-item p {
+  margin: 0;
+  color: #666;
+}
+
+.contact-item a {
+  color: #667eea;
+  text-decoration: none;
+}
+
+.contact-item a:hover {
+  text-decoration: underline;
+}
+
+.availability {
+  margin-top: 24px;
+  padding: 16px;
+  background: #d4edda;
+  border-radius: 8px;
+  border-left: 4px solid #28a745;
+}
+
+.status-available {
+  color: #155724;
+  font-weight: 600;
+}
+
+/* Personal Window Styles */
+.personal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.personal-item {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.personal-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.personal-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.personal-icon i {
+  font-size: 24px;
+  color: white;
+}
+
+.personal-item h3 {
+  color: #2c3e50;
+  margin-bottom: 12px;
+}
+
+.personal-item p {
+  color: #666;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.personal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #667eea;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.personal-link:hover {
+  background: #5a67d8;
+  transform: translateY(-1px);
+}
+
+/* Resume Window Styles */
+.resume-header {
+  text-align: center;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.resume-header h2 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.resume-header p {
+  color: #667eea;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.download-resume {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #667eea;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.download-resume:hover {
+  background: #5a67d8;
+  transform: translateY(-2px);
+}
+
+.resume-section {
+  margin-bottom: 32px;
+}
+
+.resume-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.resume-section i {
+  color: #667eea;
+}
+
+.experience-item {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.date {
+  color: #666;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.company {
+  color: #667eea;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.experience-item ul {
+  margin-left: 20px;
+}
+
+.experience-item li {
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.education-item {
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+/* Taskbar */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 2000;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.start-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.start-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.taskbar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.open-windows {
+  display: flex;
+  gap: 8px;
+}
+
+.taskbar-window {
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.taskbar-window:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.taskbar-window.active {
+  background: rgba(102, 126, 234, 0.6);
+}
+
+.taskbar-time {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Courier New", monospace;
+}
+
+/* Scrollbar Styling */
+.window-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.window-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.window-content::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.window-content::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .desktop-icon {
+    width: 70px;
+    height: 80px;
+  }
+
+  .icon-image {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .icon-label {
+    font-size: 11px;
+  }
+
+  .window {
+    min-width: 90vw !important;
+    min-height: 80vh !important;
+    top: 10vh !important;
+    left: 5vw !important;
+    width: 90vw !important;
+    height: 80vh !important;
+  }
+
+  .window-content {
+    padding: 16px;
+  }
+
+  .profile-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .personal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .experience-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .taskbar {
+    padding: 0 12px;
+  }
+
+  .start-button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .taskbar-time {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .desktop-icon {
+    width: 60px;
+    height: 70px;
+  }
+
+  .icon-image {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .window-content {
+    padding: 12px;
+  }
+
+  .projects-grid,
+  .personal-grid {
+    gap: 16px;
+  }
+
+  .project-card,
+  .personal-item {
+    padding: 16px;
+  }
+}
+
+/* Animation for window opening */
+@keyframes windowOpen {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.window.opening {
+  animation: windowOpen 0.3s ease-out;
+}
+
+/* Loading animation for personal interests */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.personal-icon:hover {
+  animation: pulse 1s infinite;
+}

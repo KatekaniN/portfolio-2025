@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Desktop Portfolio - Your Name</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="desktop" id="desktop">
+      <!-- Desktop Icons -->
+      <div
+        class="desktop-icon about-icon"
+        style="top: 60px; left: 40px"
+        data-window="about"
+      >
+        <div class="icon-image">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="icon-label">About Me</div>
+      </div>
+
+      <div
+        class="desktop-icon projects-icon"
+        style="top: 60px; left: 140px"
+        data-window="projects"
+      >
+        <div class="icon-image">
+          <i class="fas fa-code"></i>
+        </div>
+        <div class="icon-label">My Work</div>
+      </div>
+
+      <div
+        class="desktop-icon skills-icon"
+        style="top: 170px; left: 40px"
+        data-window="skills"
+      >
+        <div class="icon-image">
+          <i class="fas fa-tools"></i>
+        </div>
+        <div class="icon-label">Skills</div>
+      </div>
+
+      <div
+        class="desktop-icon contact-icon"
+        style="top: 170px; left: 140px"
+        data-window="contact"
+      >
+        <div class="icon-image">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <div class="icon-label">Contact</div>
+      </div>
+
+      <div
+        class="desktop-icon personal-icon"
+        style="top: 280px; left: 40px"
+        data-window="personal"
+      >
+        <div class="icon-image">
+          <i class="fas fa-folder-heart"></i>
+        </div>
+        <div class="icon-label">Personal</div>
+      </div>
+
+      <div
+        class="desktop-icon resume-icon"
+        style="top: 280px; left: 140px"
+        data-window="resume"
+      >
+        <div class="icon-image">
+          <i class="fas fa-file-alt"></i>
+        </div>
+        <div class="icon-label">Resume</div>
+      </div>
+
+      <!-- Windows -->
+      <div
+        class="window"
+        id="about"
+        style="top: 100px; left: 200px; width: 600px; height: 450px"
+      >
+        <div class="window-header">
+          <div class="window-controls">
+            <div
+              class="window-control close"
+              onclick="closeWindow('about')"
+            ></div>
+            <div class="window-control minimize"></div>
+            <div class="window-control maximize"></div>
+          </div>
+          <div class="window-title">
+            <i class="fas fa-user-circle"></i> About Me
+          </div>
+          <div></div>
+        </div>
+        <div class="window-content">
+          <div class="profile-section">
+            <div class="profile-image">
+              <img
+                src="https://via.placeholder.com/120x120/667eea/ffffff?text=You"
+                alt="Profile Picture"
+                class="profile-pic"
+              />
+            </div>
+            <div class="profile-info">
+              <h2>Hello! I'm Alex Johnson</h2>
+              <p class="tagline">
+                Full-Stack Developer & Creative Problem Solver
+              </p>
+              <p>
+                I'm passionate about creating digital experiences that make a
+                difference. With 5+ years of experience in web development, I
+                specialize in turning complex ideas into elegant, user-friendly
+                solutions.
+              </p>
+            </div>
+          </div>
+
+          <div class="about-details">
+            <div class="detail-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span><strong>Location:</strong> San Francisco, CA</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-graduation-cap"></i>
+              <span
+                ><strong>Education:</strong> B.S. Computer Science, Stanford
+                University</span
+              >
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-briefcase"></i>
+              <span
+                ><strong>Experience:</strong> 5+ years in full-stack
+                development</span
+              >
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-heart"></i>
+              <span
+                ><strong>Interests:</strong> Photography, Rock Climbing, Coffee
+                Brewing</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="window"
+        id="projects"
+        style="top: 120px; left: 250px; width: 750px; height: 550px"
+      >
+        <div class="window-header">
+          <div class="window-controls">
+            <div
+              class="window-control close"
+              onclick="closeWindow('projects')"
+            ></div>
+            <div class="window-control minimize"></div>
+            <div class="window-control maximize"></div>
+          </div>
+          <div class="window-title">
+            <i class="fas fa-code"></i> My Projects
+          </div>
+          <div></div>
+        </div>
+        <div class="window-content">
+          <h2>Featured Projects</h2>
+          <div class="projects-grid">
+            <div class="project-card">
+              <div class="project-header">
+                <i class="fas fa-shopping-cart project-icon"></i>
+                <h3>EcoShop Platform</h3>
+              </div>
+              <p>
+                Sustainable e-commerce platform built with React and Node.js.
+                Features eco-friendly product recommendations and carbon
+                footprint tracking.
+              </p>
+              <div class="tech-stack">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">MongoDB</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link primary"
+                  ><i class="fas fa-external-link-alt"></i> Live Demo</a
+                >
+                <a href="#" class="project-link"
+                  ><i class="fab fa-github"></i> GitHub</a
+                >
+              </div>
+            </div>
+
+            <div class="project-card">
+              <div class="project-header">
+                <i class="fas fa-tasks project-icon"></i>
+                <h3>TeamFlow</h3>
+              </div>
+              <p>
+                Collaborative project management tool with real-time updates,
+                file sharing, and integrated video calls for remote teams.
+              </p>
+              <div class="tech-stack">
+                <span class="tech-tag">Vue.js</span>
+                <span class="tech-tag">Firebase</span>
+                <span class="tech-tag">WebRTC</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link primary"
+                  ><i class="fas fa-external-link-alt"></i> Live Demo</a
+                >
+                <a href="#" class="project-link"
+                  ><i class="fab fa-github"></i> GitHub</a
+                >
+              </div>
+            </div>
+
+            <div class="project-card">
+              <div class="project-header">
+                <i class="fas fa-chart-line project-icon"></i>
+                <h3>DataViz Dashboard</h3>
+              </div>
+              <p>
+                Interactive data visualization dashboard for analyzing business
+                metrics with customizable charts and real-time updates.
+              </p>
+              <div class="tech-stack">
+                <span class="tech-tag">D3.js</span>
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">PostgreSQL</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link primary"
+                  ><i class="fas fa-external-link-alt"></i> Live Demo</a
+                >
+                <a href="#" class="project-link"
+                  ><i class="fab fa-github"></i> GitHub</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="window"
+        id="skills"
+        style="top: 80px; left: 300px; width: 550px; height: 480px"
+      >
+        <div class="window-header">
+          <div class="window-controls">
+            <div
+              class="window-control close"
+              onclick="closeWindow('skills')"
+            ></div>
+            <div class="window-control minimize"></div>
+            <div class="window-control maximize"></div>
+          </div>
+          <div class="window-title">
+            <i class="fas fa-tools"></i> Skills & Technologies
+          </div>
+          <div></div>
+        </div>
+        <div class="window-content">
+          <h2>Technical Expertise</h2>
+          <div class="skills-category">
+            <h3><i class="fab fa-js-square"></i> Frontend Development</h3>
+            <div class="skill-tags">
+              <span class="skill-tag expert">JavaScript</span>
+              <span class="skill-tag expert">React</span>
+              <span class="skill-tag advanced">Vue.js</span>
+              <span class="skill-tag expert">HTML5/CSS3</span>
+              <span class="skill-tag advanced">TypeScript</span>
+              <span class="skill-tag intermediate">Angular</span>
+            </div>
+          </div>
+
+          <div class="skills-category">
+            <h3><i class="fas fa-server"></i> Backend Development</h3>
+            <div class="skill-tags">
+              <span class="skill-tag expert">Node.js</span>
+              <span class="skill-tag advanced">Python</span>
+              <span class="skill-tag expert">Express.js</span>
+              <span class="skill-tag intermediate">Django</span>
+              <span class="skill-tag advanced">REST APIs</span>
+              <span class="skill-tag intermediate">GraphQL</span>
+            </div>
+          </div>
+
+          <div class="skills-category">
+            <h3><i class="fas fa-database"></i> Database & Cloud</h3>
+            <div class="skill-tags">
+              <span class="skill-tag advanced">MongoDB</span>
+              <span class="skill-tag advanced">PostgreSQL</span>
+              <span class="skill-tag intermediate">Redis</span>
+              <span class="skill-tag advanced">AWS</span>
+              <span class="skill-tag intermediate">Docker</span>
+              <span class="skill-tag expert">Firebase</span>
+            </div>
+          </div>
+
+          <div class="skills-category">
+            <h3><i class="fas fa-code"></i> Tools & Others</h3>
+            <div class="skill-tags">
+              <span class="skill-tag expert">Git</span>
+              <span class="skill-tag advanced">Figma</span>
+              <span class="skill-tag intermediate">Photoshop</span>
+              <span class="skill-tag advanced">Webpack</span>
+              <span class="skill-tag expert">VS Code</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="window"
+        id="contact"
+        style="top: 150px; left: 350px; width: 500px; height: 400px"
+      >
+        <div class="window-header">
+          <div class="window-controls">
+            <div
+              class="window-control close"
+              onclick="closeWindow('contact')"
+            ></div>
+            <div class="window-control minimize"></div>
+            <div class="window-control maximize"></div>
+          </div>
+          <div class="window-title">
+            <i class="fas fa-envelope"></i> Contact Me
+          </div>
+          <div></div>
+        </div>
+        <div class="window-content">
+          <h2>Let's Connect!</h2>
+          <p>
+            I'm always excited to discuss new opportunities, collaborate on
+            interesting projects, or just chat about technology and innovation.
+          </p>
+
+          <div class="contact-methods">
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <strong>Email</strong>
+                <p>alex.johnson@email.com</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <i class="fab fa-linkedin"></i>
+              <div>
+                <strong>LinkedIn</strong>
+                <p><a href="#">linkedin.com/in/alexjohnson</a></p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <i class="fab fa-github"></i>
+              <div>
+                <strong>GitHub</strong>
+                <p><a href="#">github.com/alexjohnson</a></p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <i class="fab fa-twitter"></i>
+              <div>
+                <strong>Twitter</strong>
+                <p><a href="#">@alexjohnsondev</a></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="availability">
+            <p>
+              <strong>Current Status:</strong>
+              <span class="status-available"
+                >Available for new opportunities</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="window"
+        id="personal"
+        style="top: 100px; left: 400px; width: 650px; height: 500px"
+      >
+        <div class="window-header">
+          <div class="window-controls">
+            <div
+              class="window-control close"
+              onclick="closeWindow('personal')"
+            ></div>
+            <div class="window-control minimize"></div>
+            <div class="window-control maximize"></div>
+          </div>
+          <div class="window-title">
+            <i class="fas fa-folder-heart"></i> Personal Collection
+          </div>
+          <div></div>
+        </div>
+        <div class="window-content">
+          <h2>Beyond the Code</h2>
+
+          <div class="personal-grid">
+            <div class="personal-item">
+              <div class="personal-icon">
+                <i class="fas fa-camera"></i>
+              </div>
+              <h3>Photography</h3>
+              <p>
+                Capturing moments in nature and urban landscapes. Check out my
+                latest shots from Yosemite and downtown SF.
+              </p>
+              <a href="#" class="personal-link">View Gallery</a>
+            </div>
+
+            <div class="personal-item">
+              <div class="personal-icon">
+                <i class="fas fa-mountain"></i>
+              </div>
+              <h3>Adventures</h3>
+              <p>
+                Rock climbing and hiking expeditions. Recently conquered El
+                Capitan and planning a trip to the Dolomites.
+              </p>
+              <a href="#" class="personal-link">Adventure Log</a>
+            </div>
+
+            <div class="personal-item">
+              <div class="personal-icon">
+                <i class="fas fa-coffee"></i>
+              </div>
+              <h3>Coffee Journey</h3>
+              <p>
+                Exploring different brewing methods and coffee origins. Current
+                favorite: Ethiopian Yirgacheffe with V60 pour-over.
+              </p>
+              <a href="#" class="personal-link">Coffee Notes</a>
+            </div>
+
+            <div class="personal-item">
+              <div class="personal-icon">
+                <i class="fas fa-book"></i>
+              </div>
+              <h3>Reading List</h3>
+              <p>
+                Currently reading "Atomic Habits" and "The Pragmatic
+                Programmer". Always looking for book recommendations!
+              </p>
+              <a href="#" class="personal-link">Book Reviews</a>
+            </div>
+
+            <div class="personal-item">
+              <div class="personal-icon">
+                <i class="fas fa-gamepad"></i>
+              </div>
+              <h3>Gaming</h3>
+              <p>
+                Indie games and puzzle games enthusiast. Recently completed
+                "Hades" and working on "The Witness".
+              </p>
+              <a href="#" class="personal-link">Game Library</a>
+            </div>
+
+            <div class="personal-item">
+              <div class="personal-icon">
+                <i class="fas fa-music"></i>
+              </div>
+              <h3>Playlist</h3>
+              <p>
+                Curated playlists for coding, working out, and relaxing. Genres
+                range from lo-fi hip hop to progressive rock.
+              </p>
+              <a href="#" class="personal-link">Listen Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="window"
+        id="resume"
+        style="top: 120px; left: 450px; width: 550px; height: 600px"
+      >
+        <div class="window-header">
+          <div class="window-controls">
+            <div
+              class="window-control close"
+              onclick="closeWindow('resume')"
+            ></div>
+            <div class="window-control minimize"></div>
+            <div class="window-control maximize"></div>
+          </div>
+          <div class="window-title"><i class="fas fa-file-alt"></i> Resume</div>
+          <div></div>
+        </div>
+        <div class="window-content">
+          <div class="resume-header">
+            <h2>Alex Johnson</h2>
+            <p>Full-Stack Developer</p>
+            <a href="#" class="download-resume"
+              ><i class="fas fa-download"></i> Download PDF</a
+            >
+          </div>
+
+          <div class="resume-section">
+            <h3><i class="fas fa-briefcase"></i> Experience</h3>
+
+            <div class="experience-item">
+              <div class="experience-header">
+                <strong>Senior Full-Stack Developer</strong>
+                <span class="date">2022 - Present</span>
+              </div>
+              <div class="company">TechCorp Inc.</div>
+              <ul>
+                <li>
+                  Led development of customer-facing web applications serving
+                  100k+ users
+                </li>
+                <li>
+                  Implemented microservices architecture reducing load times by
+                  40%
+                </li>
+              </ul>
+            </div>
+
+            <div class="experience-item">
+              <div class="experience-header">
+                <strong>Full-Stack Developer</strong>
+                <span class="date">2020 - 2022</span>
+              </div>
+              <div class="company">StartupXYZ</div>
+              <ul>
+                <li>Built MVP from scratch using React and Node.js</li>
+                <li>
+                  Collaborated with design team to implement responsive UI/UX
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="resume-section">
+            <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+            <div class="education-item">
+              <strong>B.S. Computer Science</strong><br />
+              Stanford University, 2020<br />
+              <em>Magna Cum Laude</em>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+      <button class="start-button" onclick="showStartMenu()">
+        <i class="fas fa-home"></i> Start
+      </button>
+      <div class="taskbar-center">
+        <div class="open-windows" id="openWindows"></div>
+      </div>
+      <div class="taskbar-time" id="clock"></div>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
