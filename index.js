@@ -1,3 +1,22 @@
+// Suppress browser extension errors that don't affect the portfolio functionality
+window.addEventListener("error", (e) => {
+  if (e.filename && e.filename.includes("contentscript.bundle.js")) {
+    e.preventDefault();
+    return false;
+  }
+});
+
+window.addEventListener("unhandledrejection", (e) => {
+  if (
+    e.reason &&
+    e.reason.message &&
+    e.reason.message.includes("message port closed")
+  ) {
+    e.preventDefault();
+    return false;
+  }
+});
+
 // Windows 11 Style Window Manager
 class Windows11Manager {
   constructor() {
@@ -15,6 +34,608 @@ class Windows11Manager {
     this.startClockUpdate();
     this.setupWindowSnapping();
     this.addWindows11Animations();
+  }
+
+  showPowerOptions() {
+    // Close any existing power menu first
+    const existingMenu = document.getElementById("powerMenu");
+    if (existingMenu) {
+      existingMenu.remove();
+    }
+
+    // Create power options menu
+    const powerMenu = document.createElement("div");
+    powerMenu.id = "powerMenu";
+    powerMenu.className = "power-menu";
+    powerMenu.style.cssText = `
+    position: fixed;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    background: rgba(32, 32, 32, 0.95);
+    backdrop-filter: blur(40px);
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 10002;
+    animation: powerMenuSlide 0.3s ease-out;
+    overflow: hidden;
+`;
+
+    powerMenu.innerHTML = `
+    <div style="padding: 20px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <i class="fas fa-power-off" style="color: #0078d4; font-size: 20px;"></i>
+                <h3 style="margin: 0; font-size: 16px;">Power Options</h3>
+            </div>
+            <button onclick="windowManager.closePowerMenu()" 
+                    style="background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; font-size: 18px; padding: 4px; border-radius: 4px; transition: color 0.2s;"
+                    onmouseover="this.style.color='white'"
+                    onmouseout="this.style.color='rgba(255,255,255,0.6)'">×</button>
+        </div>
+        
+        <div class="power-options-grid">
+            ${this.createPowerOption(
+              "sleep",
+              "fas fa-moon",
+              "Sleep Mode",
+              "Dim the lights and save your session",
+              "#4a90e2"
+            )}
+            ${this.createPowerOption(
+              "restart",
+              "fas fa-redo-alt",
+              "Restart",
+              "Refresh the experience with new animations",
+              "#FFB908"
+            )}
+            ${this.createPowerOption(
+              "shutdown",
+              "fas fa-power-off",
+              "Shut Down",
+              "Clean shutdown with farewell message",
+              "#FF5B08"
+            )}
+            ${this.createPowerOption(
+              "hibernate",
+              "fas fa-pause-circle",
+              "Hibernate",
+              "Freeze current state and minimize all",
+              "#938EDF"
+            )}
+            ${this.createPowerOption(
+              "maintenance",
+              "fas fa-tools",
+              "Maintenance",
+              "Clear cache and optimize performance",
+              "#95a5a6"
+            )}
+        </div>
+        
+        <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; opacity: 0.7; text-align: center;">
+            <i class="fas fa-info-circle"></i> Portfolio will remember your session
+        </div>
+    </div>
+`;
+
+    document.body.appendChild(powerMenu);
+
+    // Prevent immediate closing by stopping event propagation
+    powerMenu.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+
+    // Set up click-outside-to-close with a delay
+    setTimeout(() => {
+      const closeHandler = (e) => {
+        if (
+          !powerMenu.contains(e.target) &&
+          !e.target.closest(".start-button")
+        ) {
+          this.closePowerMenu();
+          document.removeEventListener("click", closeHandler);
+        }
+      };
+      document.addEventListener("click", closeHandler);
+    }, 100);
+
+    // Also close with Escape key
+    const escapeHandler = (e) => {
+      if (e.key === "Escape") {
+        this.closePowerMenu();
+        document.removeEventListener("keydown", escapeHandler);
+      }
+    };
+    document.addEventListener("keydown", escapeHandler);
+  }
+
+  // Update the createPowerOption method to prevent event bubbling
+  createPowerOption(action, icon, title, description, color) {
+    return `
+    <div class="power-option" data-action="${action}" 
+         style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; margin-bottom: 8px;"
+         onmouseover="this.style.background='rgba(255,255,255,0.05)'; this.style.transform='translateX(4px)'"
+         onmouseout="this.style.background='transparent'; this.style.transform='translateX(0px)'"
+         onclick="event.stopPropagation(); windowManager.executePowerAction('${action}');">
+        <div style="width: 40px; height: 40px; background: ${color}; border-radius: 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+            <i class="${icon}" style="color: white; font-size: 18px;"></i>
+        </div>
+        <div style="flex: 1;">
+            <div style="font-weight: 600; margin-bottom: 2px;">${title}</div>
+            <div style="font-size: 12px; opacity: 0.8; line-height: 1.3;">${description}</div>
+        </div>
+        <div style="opacity: 0.4; transition: opacity 0.2s;">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+    </div>
+`;
+  }
+
+  // Update the closePowerMenu method
+  closePowerMenu() {
+    const powerMenu = document.getElementById("powerMenu");
+    if (powerMenu) {
+      powerMenu.style.animation = "powerMenuSlide 0.2s ease-out reverse";
+      setTimeout(() => {
+        if (powerMenu.parentElement) {
+          powerMenu.remove();
+        }
+      }, 200);
+    }
+  }
+
+  // Update executePowerAction to ensure menu closes properly
+  executePowerAction(action) {
+    // Close menu immediately
+    const powerMenu = document.getElementById("powerMenu");
+    if (powerMenu) {
+      powerMenu.remove();
+    }
+
+    // Small delay before executing action to ensure menu is gone
+    setTimeout(() => {
+      switch (action) {
+        case "sleep":
+          this.sleepMode();
+          break;
+        case "restart":
+          this.restartSystem();
+          break;
+        case "shutdown":
+          this.shutdownSystem();
+          break;
+        case "hibernate":
+          this.hibernateSystem();
+          break;
+        case "demo":
+          this.demoMode();
+          break;
+        case "maintenance":
+          this.maintenanceMode();
+          break;
+      }
+    }, 100);
+  }
+
+  // Add this method to toggle power menu (for the start menu button)
+  togglePowerMenu() {
+    const existingMenu = document.getElementById("powerMenu");
+    if (existingMenu) {
+      this.closePowerMenu();
+    } else {
+      this.showPowerOptions();
+    }
+  }
+
+  // Create individual power option
+  createPowerOption(action, icon, title, description, color) {
+    return `
+    <div class="power-option" data-action="${action}" 
+         style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; margin-bottom: 8px;"
+         onmouseover="this.style.background='rgba(255,255,255,0.05)'"
+         onmouseout="this.style.background='transparent'"
+         onclick="windowManager.executePowerAction('${action}');">
+        <div style="width: 40px; height: 40px; background: ${color}; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+            <i class="${icon}" style="color: white; font-size: 18px;"></i>
+        </div>
+        <div style="flex: 1;">
+            <div style="font-weight: 600; margin-bottom: 2px;">${title}</div>
+            <div style="font-size: 12px; opacity: 0.8; line-height: 1.3;">${description}</div>
+        </div>
+    </div>
+`;
+  }
+
+  // Execute power actions
+  executePowerAction(action) {
+    this.closePowerMenu();
+
+    switch (action) {
+      case "sleep":
+        this.sleepMode();
+        break;
+      case "restart":
+        this.restartSystem();
+        break;
+      case "shutdown":
+        this.shutdownSystem();
+        break;
+      case "hibernate":
+        this.hibernateSystem();
+        break;
+      case "demo":
+        this.demoMode();
+        break;
+      case "maintenance":
+        this.maintenanceMode();
+        break;
+    }
+  }
+
+  // Sleep Mode - Dim everything and show screensaver
+  sleepMode() {
+    personalFeatures.showNotification(
+      "Entering Sleep Mode 🌙",
+      "Portfolio is going to sleep. Click anywhere to wake up.",
+      "fas fa-moon"
+    );
+
+    // Dim the entire screen
+    const sleepOverlay = document.createElement("div");
+    sleepOverlay.id = "sleepOverlay";
+    sleepOverlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 15000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    animation: fadeIn 2s ease;
+`;
+
+    sleepOverlay.innerHTML = `
+    <div style="text-align: center; color: white;">
+        <div style="font-size: 48px; margin-bottom: 16px; animation: pulse 2s infinite;">🌙</div>
+        <div style="font-size: 24px; margin-bottom: 8px;">Sleep Mode</div>
+        <div style="font-size: 14px; opacity: 0.7;">Click anywhere to wake up</div>
+        <div id="sleepTime" style="font-size: 32px; margin-top: 20px; font-family: monospace;"></div>
+    </div>
+`;
+
+    document.body.appendChild(sleepOverlay);
+
+    // Show current time
+    const updateSleepTime = () => {
+      const timeElement = document.getElementById("sleepTime");
+      if (timeElement) {
+        timeElement.textContent = new Date().toLocaleTimeString();
+      }
+    };
+
+    const sleepInterval = setInterval(updateSleepTime, 1000);
+    updateSleepTime();
+
+    // Wake up on click
+    sleepOverlay.addEventListener("click", () => {
+      clearInterval(sleepInterval);
+      sleepOverlay.remove();
+      personalFeatures.showNotification(
+        "Good morning! ☀️",
+        "Portfolio is now awake and ready.",
+        "fas fa-sun"
+      );
+    });
+  }
+
+  // Restart - Reload with animation
+  restartSystem() {
+    personalFeatures.showNotification(
+      "Restarting... 🔄",
+      "Portfolio will restart with fresh animations.",
+      "fas fa-redo-alt"
+    );
+
+    // Create restart animation
+    const restartOverlay = document.createElement("div");
+    restartOverlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #0078d4;
+    z-index: 20000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 1s ease;
+`;
+
+    restartOverlay.innerHTML = `
+    <div style="text-align: center; color: white;">
+        <div style="width: 60px; height: 60px; border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid white; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;"></div>
+        <div style="font-size: 24px; margin-bottom: 8px;">Restarting</div>
+        <div style="font-size: 14px; opacity: 0.8;">Please wait...</div>
+    </div>
+`;
+
+    document.body.appendChild(restartOverlay);
+
+    setTimeout(() => {
+      location.reload();
+    }, 3000);
+  }
+
+  // Shutdown - Farewell message and blank screen
+  shutdownSystem() {
+    personalFeatures.showNotification(
+      "Shutting Down... 👋",
+      "Thanks for visiting! See you next time.",
+      "fas fa-power-off"
+    );
+
+    const shutdownOverlay = document.createElement("div");
+    shutdownOverlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    z-index: 20000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 2s ease;
+`;
+
+    shutdownOverlay.innerHTML = `
+    <div style="text-align: center; color: white; animation: fadeInUp 1s ease 2s both;">
+        <div style="font-size: 48px; margin-bottom: 20px;">👋</div>
+        <div style="font-size: 32px; margin-bottom: 16px;">Thanks for visiting!</div>
+        <div style="font-size: 18px; opacity: 0.7; margin-bottom: 30px;">Hope you enjoyed exploring my portfolio</div>
+        <button onclick="location.reload()" 
+                style="background: #0078d4; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 16px;">
+            Power On Again
+        </button>
+    </div>
+`;
+
+    document.body.appendChild(shutdownOverlay);
+  }
+
+  // Hibernate - Minimize all windows and show desktop
+  hibernateSystem() {
+    personalFeatures.showNotification(
+      "Hibernating... ⏸️",
+      "All windows minimized. State saved for later.",
+      "fas fa-pause-circle"
+    );
+
+    // Store current window states
+    const windowStates = this.activeWindows.map((windowId) => {
+      const window = document.getElementById(windowId);
+      return {
+        id: windowId,
+        left: window.style.left,
+        top: window.style.top,
+        width: window.style.width,
+        height: window.style.height,
+        zIndex: window.style.zIndex,
+      };
+    });
+
+    localStorage.setItem("hibernatedWindows", JSON.stringify(windowStates));
+
+    // Minimize all windows with animation
+    document.querySelectorAll(".window.active").forEach((window, index) => {
+      setTimeout(() => {
+        window.style.animation = "windowMinimize 0.5s ease-out forwards";
+        setTimeout(() => {
+          window.classList.remove("active");
+          window.style.animation = "";
+        }, 500);
+      }, index * 100);
+    });
+
+    this.activeWindows = [];
+    this.updateTaskbar();
+
+    // Add restore button to desktop
+    setTimeout(() => {
+      const restoreButton = document.createElement("button");
+      restoreButton.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 120, 212, 0.9);
+        color: white;
+        border: none;
+        padding: 16px 32px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        animation: pulse 2s infinite;
+    `;
+      restoreButton.innerHTML = '<i class="fas fa-play"></i> Restore Session';
+      restoreButton.onclick = () =>
+        this.restoreHibernatedSession(restoreButton);
+
+      document.body.appendChild(restoreButton);
+    }, 1000);
+  }
+
+  // Demo Mode - Auto showcase features
+  demoMode() {
+    personalFeatures.showNotification(
+      "Demo Mode Activated! 🎬",
+      "Sit back and watch the automated showcase.",
+      "fas fa-play-circle"
+    );
+
+    const demoSequence = [
+      () => this.openWindow("about"),
+      () => this.openWindow("projects"),
+      () => this.openWindow("skills"),
+      () => this.openWindow("contact"),
+      () => this.openWindow("personal"),
+      () => this.openWindow("resume"),
+      () => this.showStartMenu(),
+      () => this.closeStartMenu(),
+      () => {
+        // Close all windows
+        [...this.activeWindows].forEach((windowId) => {
+          this.closeWindow(windowId);
+        });
+      },
+    ];
+
+    demoSequence.forEach((action, index) => {
+      setTimeout(action, (index + 1) * 2000);
+    });
+
+    // End demo
+    setTimeout(() => {
+      personalFeatures.showNotification(
+        "Demo Complete! ✨",
+        "Feel free to explore on your own now.",
+        "fas fa-check-circle"
+      );
+    }, demoSequence.length * 2000 + 2000);
+  }
+
+  // Maintenance Mode - Clear cache and optimize
+  maintenanceMode() {
+    personalFeatures.showNotification(
+      "Maintenance Mode 🔧",
+      "Optimizing performance and clearing cache...",
+      "fas fa-tools"
+    );
+
+    // Clear localStorage
+    const keysToKeep = ["hibernatedWindows"];
+    const allKeys = Object.keys(localStorage);
+    allKeys.forEach((key) => {
+      if (!keysToKeep.includes(key)) {
+        localStorage.removeItem(key);
+      }
+    });
+
+    // Close all windows
+    [...this.activeWindows].forEach((windowId) => {
+      this.closeWindow(windowId);
+    });
+
+    // Reset icon positions
+    document.querySelectorAll(".desktop-icon").forEach((icon) => {
+      icon.style.transform = "";
+      icon.classList.remove("selected");
+    });
+
+    // Show maintenance progress
+    const progressOverlay = document.createElement("div");
+    progressOverlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 15000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+    progressOverlay.innerHTML = `
+    <div style="text-align: center; color: white;">
+        <div style="font-size: 48px; margin-bottom: 20px;">🔧</div>
+        <div style="font-size: 24px; margin-bottom: 20px;">Maintenance in Progress</div>
+        <div style="width: 300px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; overflow: hidden;">
+            <div id="maintenanceProgress" style="width: 0%; height: 100%; background: #0078d4; border-radius: 2px; transition: width 0.3s ease;"></div>
+        </div>
+        <div id="maintenanceStatus" style="margin-top: 12px; font-size: 14px; opacity: 0.8;">Starting maintenance...</div>
+    </div>
+`;
+
+    document.body.appendChild(progressOverlay);
+
+    const steps = [
+      "Clearing temporary files...",
+      "Optimizing animations...",
+      "Refreshing components...",
+      "Updating cache...",
+      "Finalizing...",
+    ];
+
+    steps.forEach((step, index) => {
+      setTimeout(() => {
+        document.getElementById("maintenanceStatus").textContent = step;
+        document.getElementById("maintenanceProgress").style.width = `${
+          ((index + 1) / steps.length) * 100
+        }%`;
+      }, (index + 1) * 800);
+    });
+
+    setTimeout(() => {
+      progressOverlay.remove();
+      personalFeatures.showNotification(
+        "Maintenance Complete! ✅",
+        "Portfolio optimized and ready for peak performance.",
+        "fas fa-check-circle"
+      );
+    }, steps.length * 800 + 1000);
+  }
+
+  // Close power menu
+  closePowerMenu() {
+    const powerMenu = document.getElementById("powerMenu");
+    if (powerMenu) {
+      powerMenu.style.animation = "powerMenuSlide 0.3s ease-out reverse";
+      setTimeout(() => powerMenu.remove(), 300);
+    }
+  }
+
+  // Restore hibernated session
+  restoreHibernatedSession(button) {
+    const hibernatedWindows = JSON.parse(
+      localStorage.getItem("hibernatedWindows") || "[]"
+    );
+
+    button.remove();
+
+    hibernatedWindows.forEach((windowState, index) => {
+      setTimeout(() => {
+        this.openWindow(windowState.id);
+        const window = document.getElementById(windowState.id);
+        if (window) {
+          window.style.left = windowState.left;
+          window.style.top = windowState.top;
+          window.style.width = windowState.width;
+          window.style.height = windowState.height;
+          window.style.zIndex = windowState.zIndex;
+        }
+      }, index * 200);
+    });
+
+    personalFeatures.showNotification(
+      "Session Restored! 🎉",
+      "All your windows are back where you left them.",
+      "fas fa-window-restore"
+    );
+
+    localStorage.removeItem("hibernatedWindows");
   }
 
   setupEventListeners() {
@@ -92,6 +713,9 @@ class Windows11Manager {
     const window = document.getElementById(windowId);
     if (!window) return;
 
+    // Ensure window is in clean state before opening
+    this.resetWindowState(window);
+
     // Windows 11 opening animation
     window.classList.add("opening");
     setTimeout(() => window.classList.remove("opening"), 400);
@@ -110,6 +734,44 @@ class Windows11Manager {
     this.addFocusEffect(window);
   }
 
+  resetWindowState(window) {
+    // Remove all state classes
+    window.classList.remove("maximized", "focused");
+
+    // Clear minimized state
+    delete window.dataset.isMinimized;
+    delete window.dataset.wasActive;
+
+    // Reset to original dimensions and position
+    if (window.dataset.originalWidth) {
+      window.style.width = window.dataset.originalWidth;
+      window.style.height = window.dataset.originalHeight;
+      window.style.left = window.dataset.originalLeft;
+      window.style.top = window.dataset.originalTop;
+    }
+
+    // Clear stored original dimensions
+    delete window.dataset.originalWidth;
+    delete window.dataset.originalHeight;
+    delete window.dataset.originalLeft;
+    delete window.dataset.originalTop;
+
+    // Reset visual properties
+    window.style.transform = "";
+    window.style.opacity = "";
+    window.style.pointerEvents = "";
+    window.style.display = "";
+    window.style.borderRadius = "12px"; // Restore default border radius
+    window.style.boxShadow = "";
+
+    // Reset maximize button
+    const maximizeBtn = window.querySelector(".window-control.maximize");
+    if (maximizeBtn) {
+      maximizeBtn.innerHTML = "🗖"; // Default maximize symbol
+      maximizeBtn.title = "Maximize";
+    }
+  }
+
   closeWindow(windowId) {
     const window = document.getElementById(windowId);
     if (!window) return;
@@ -120,11 +782,14 @@ class Windows11Manager {
     setTimeout(() => {
       window.classList.remove("active");
       window.style.animation = "";
+
+      // RESET WINDOW STATE - Add these lines
+      this.resetWindowState(window);
+
       this.activeWindows = this.activeWindows.filter((id) => id !== windowId);
       this.updateTaskbar();
     }, 200);
   }
-
   centerWindowSmart(window) {
     const rect = window.getBoundingClientRect();
     const screenWidth = window.innerWidth;
@@ -284,14 +949,25 @@ class Windows11Manager {
     this.activeWindows.forEach((windowId) => {
       const window = document.getElementById(windowId);
       const title = window.querySelector(".window-title").textContent.trim();
+      const isMinimized = window.dataset.isMinimized === "true";
 
       const taskbarItem = document.createElement("div");
-      taskbarItem.className = "taskbar-window";
+      taskbarItem.className = `taskbar-window ${
+        isMinimized ? "minimized" : ""
+      }`;
       taskbarItem.innerHTML = `<i class="fas fa-window-maximize"></i> ${title}`;
-      taskbarItem.onclick = () => this.focusWindow(windowId);
 
-      // Add active state for currently focused window
-      if (window.style.zIndex == this.zIndexCounter) {
+      // Handle taskbar click - restore if minimized, focus if not
+      taskbarItem.onclick = () => {
+        if (isMinimized) {
+          this.restoreMinimizedWindow(windowId);
+        } else {
+          this.focusWindow(windowId);
+        }
+      };
+
+      // Add active state for currently focused window (not minimized)
+      if (!isMinimized && window.style.zIndex == this.zIndexCounter) {
         taskbarItem.classList.add("active");
       }
 
@@ -301,11 +977,17 @@ class Windows11Manager {
 
   focusWindow(windowId) {
     const window = document.getElementById(windowId);
-    window.style.zIndex = ++this.zIndexCounter;
-    this.addFocusEffect(window);
+    const isMinimized = window.dataset.isMinimized === "true";
 
-    // Update taskbar active state
-    this.updateTaskbar();
+    if (isMinimized) {
+      // If window is minimized, restore it
+      this.restoreMinimizedWindow(windowId);
+    } else {
+      // If window is not minimized, just bring to front
+      window.style.zIndex = ++this.zIndexCounter;
+      this.addFocusEffect(window);
+      this.updateTaskbar();
+    }
   }
 
   handleKeyboardShortcuts(e) {
@@ -388,6 +1070,17 @@ class Windows11Manager {
             }
         }
         
+        @keyframes windowRestore {
+            from {
+                opacity: 0;
+                transform: scale(0.1) translateY(100vh);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -458,6 +1151,16 @@ class Windows11Manager {
             transform: scaleX(1);
         }
         
+        .taskbar-window.minimized {
+            opacity: 0.6;
+            font-style: italic;
+        }
+        
+        .taskbar-window.minimized::before {
+            background: #1E9BE4;
+            transform: scaleX(1);
+        }
+        
         .start-menu {
             position: fixed;
             bottom: 64px;
@@ -504,7 +1207,6 @@ class Windows11Manager {
   }
 
   showStartMenu() {
-    // Create start menu if it doesn't exist
     let startMenu = document.getElementById("startMenu");
     if (!startMenu) {
       startMenu = this.createStartMenu();
@@ -529,11 +1231,11 @@ class Windows11Manager {
     startMenu.innerHTML = `
         <div style="padding: 24px; color: white;">
             <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face&auto=format" 
-                     style="width: 40px; height: 40px; border-radius: 50%;" alt="User">
+                <img src="./icons/avatar.png" 
+                     style="width: 48px; height: 54px; border-radius: 50%;" alt="User">
                 <div>
-                    <div style="font-weight: 600;">Alex Johnson</div>
-                    <div style="font-size: 12px; opacity: 0.7;">alex.johnson@email.com</div>
+                    <div style="font-weight: 600;">Katekani Nyamandi</div>
+                    <div style="font-size: 12px; opacity: 0.7;">knyamandi99@gmail.com</div>
                 </div>
             </div>
             
@@ -554,9 +1256,19 @@ class Windows11Manager {
             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1);">
               
 
-                <button onclick="alert('Power options coming soon!')" style="background: none; border: none; color: white; padding: 8px; border-radius: 4px; cursor: pointer;">
-                    <i class="fas fa-power-off"></i> Power
-                </button>
+                <button onclick="event.stopPropagation(); windowManager.togglePowerMenu()" 
+    style="background: none; border: none; color: white; padding: 8px; border-radius: 4px; cursor: pointer; transition: background 0.2s;"
+    onmouseover="this.style.background='rgba(255,255,255,0.1)'"
+    onmouseout="this.style.background='transparent'">
+<i class="fas fa-power-off"></i>  Power
+</button>
+
+<button onclick="event.stopPropagation(); windowManager.demoMode()"
+ style="background: none; border: none; color: white; padding: 8px; border-radius: 4px; cursor: pointer; transition: background 0.2s;"
+    onmouseover="this.style.background='rgba(255,255,255,0.1)'"
+    onmouseout="this.style.background='transparent'">
+<i class="fas fa-play-circle"></i>  Demo Portfolio
+</button>
             </div>
         </div>
     `;
@@ -573,13 +1285,17 @@ class Windows11Manager {
     return startMenu;
   }
 
-  createStartMenuItems() {
+  createStartMenuItems(f) {
     const items = [
       { icon: "home", label: "About", window: "about" },
       { icon: "terminal", label: "Projects", window: "projects" },
       { icon: "settings", label: "Skills", window: "skills" },
       { icon: "email", label: "Contact", window: "contact" },
-      { icon: "name-tag/icons8-name-tag-96", label: "Personal", window: "personal" },
+      {
+        icon: "name-tag/icons8-name-tag-96",
+        label: "Personal",
+        window: "personal",
+      },
       { icon: "folder", label: "Resume", window: "resume" },
     ];
 
@@ -587,11 +1303,11 @@ class Windows11Manager {
       .map(
         (item) => `
         <div onclick="windowManager.openWindow('${item.window}'); windowManager.closeStartMenu();" 
-             style="display: flex; flex-direction: column; align-items: center; padding: 12px; border-radius: 8px; cursor: pointer; transition: background 0.2s;"
-             onmouseover="this.style.background='rgba(255,255,255,0.1)'"
+             style="display: flex; flex-direction: column; align-items: center; padding: 12px; border-radius: 8px; cursor: pointer; background:rgba(255,255,255,0.1);  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); transition: background 0.2s;"
+             onmouseover="this.style.background='rgba(161, 140, 140, 0.1)'"
              onmouseout="this.style.background='transparent'">
-            <div style="width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
-                <img src="./icons/${item.icon}.png" alt="${item.label} icon" style="width: 1.2em; height: 1.2em; ">
+            <div style="width: 40px; height: 40px; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+                <img src="./icons/${item.icon}.png" alt="${item.label} icon" style="width: 1.5em; height: 1.4em; ">
             </div>
             <span style="font-size: 12px; text-align: center;">${item.label}</span>
         </div>
@@ -627,7 +1343,7 @@ class Windows11Manager {
     const timeString = now.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
-      hour12: true,
+      hour12: false,
     });
     const dateString = now.toLocaleDateString([], {
       weekday: "short",
@@ -639,6 +1355,115 @@ class Windows11Manager {
         <div style="font-size: 14px; font-weight: 600;">${timeString}</div>
         <div style="font-size: 12px; opacity: 0.8;">${dateString}</div>
     `;
+  }
+  minimizeWindow(windowId) {
+    const window = document.getElementById(windowId);
+    if (!window) return;
+
+    // Mark as minimized but keep in activeWindows
+    window.dataset.isMinimized = "true";
+
+    // Animate minimize
+    window.style.animation = "windowMinimize 0.3s ease-out forwards";
+
+    setTimeout(() => {
+      window.classList.remove("active");
+      window.style.animation = "";
+      window.style.transform = "scale(0.1)";
+      window.style.opacity = "0";
+      window.style.pointerEvents = "none";
+
+      // Keep window in activeWindows array but mark as minimized
+      // This way it stays in the taskbar for restoration
+      this.updateTaskbar();
+    }, 300);
+  }
+
+  maximizeWindow(windowId) {
+    const window = document.getElementById(windowId);
+    if (!window) return;
+
+    if (window.classList.contains("maximized")) {
+      // Restore window
+      this.restoreWindow(windowId);
+    } else {
+      // Maximize window
+      this.doMaximizeWindow(windowId);
+    }
+  }
+
+  doMaximizeWindow(windowId) {
+    const window = document.getElementById(windowId);
+    if (!window) return;
+
+    // Only store original dimensions if not already stored
+    if (!window.dataset.originalWidth) {
+      window.dataset.originalWidth = window.style.width || "600px";
+      window.dataset.originalHeight = window.style.height || "400px";
+      window.dataset.originalLeft = window.style.left || "100px";
+      window.dataset.originalTop = window.style.top || "100px";
+    }
+
+    // Maximize
+    window.classList.add("maximized");
+    window.style.width = "100vw";
+    window.style.height = "calc(100vh - 56px)";
+    window.style.left = "0px";
+    window.style.top = "0px";
+    window.style.borderRadius = "0px";
+
+    // Update maximize button symbol
+    const maximizeBtn = window.querySelector(".window-control.maximize");
+    if (maximizeBtn) {
+      maximizeBtn.innerHTML = "🗗";
+      maximizeBtn.title = "Restore";
+    }
+  }
+
+  restoreWindow(windowId) {
+    const window = document.getElementById(windowId);
+    if (!window) return;
+
+    // Restore original dimensions
+    window.classList.remove("maximized");
+    window.style.width = window.dataset.originalWidth || "600px";
+    window.style.height = window.dataset.originalHeight || "400px";
+    window.style.left = window.dataset.originalLeft || "100px";
+    window.style.top = window.dataset.originalTop || "100px";
+    window.style.borderRadius = "12px"; // Restore border radius
+
+    // Update maximize button symbol
+    const maximizeBtn = window.querySelector(".window-control.maximize");
+    if (maximizeBtn) {
+      maximizeBtn.innerHTML = "🗖"; // Maximize symbol
+      maximizeBtn.title = "Maximize";
+    }
+  }
+
+  restoreMinimizedWindow(windowId) {
+    const window = document.getElementById(windowId);
+    if (!window) return;
+
+    // Remove minimized state
+    delete window.dataset.isMinimized;
+
+    // Show the window with restore animation
+    window.style.display = "block";
+    window.classList.add("active");
+    window.style.animation = "windowRestore 0.3s ease-out";
+
+    // Reset styles after animation
+    setTimeout(() => {
+      window.style.animation = "";
+      window.style.transform = "";
+      window.style.opacity = "";
+      window.style.pointerEvents = "";
+    }, 300);
+
+    // Bring to front
+    window.style.zIndex = ++this.zIndexCounter;
+    this.addFocusEffect(window);
+    this.updateTaskbar();
   }
 
   startClockUpdate() {
@@ -686,18 +1511,16 @@ class Windows11PersonalFeatures {
     } else if (hour < 18) {
       greeting = "Good afternoon!";
       emoji = "☀️";
-    } else if (hour < 22) {
-      greeting = "Good evening!";
-      emoji = "🌆";
     } else {
-      greeting = "Burning the midnight oil?";
+      greeting = "Good evening!";
       emoji = "🌙";
     }
 
     setTimeout(() => {
       const aboutTitle = document.querySelector("#about h2");
+      aboutTitle.style.textAlign = "center";
       if (aboutTitle) {
-        aboutTitle.innerHTML = `${greeting} I'm Alex Johnson ${emoji}`;
+        aboutTitle.innerHTML = `${greeting} <br> I'm Katekani Nyamandi ${emoji}`;
       }
     }, 1000);
   }
@@ -708,7 +1531,18 @@ class Windows11PersonalFeatures {
 
     const text = tagline.textContent;
     tagline.textContent = "";
-    tagline.style.borderRight = "2px solid #0078d4";
+    tagline.style.borderRight = "2px solid rgb(212, 0, 124)";
+    tagline.style.whiteSpace = "nowrap";
+    tagline.style.setProperty(
+      "font-family",
+      "Segoe UI, sans-serif",
+      "important"
+    );
+    tagline.style.setProperty("color", "rgb(212, 0, 124)", "important");
+    tagline.style.overflow = "hidden";
+    tagline.style.display = "inline-block";
+    tagline.style.fontSize = "1.2em";
+    tagline.style.fontWeight = "bold";
 
     let i = 0;
     const typeWriter = () => {
@@ -717,7 +1551,6 @@ class Windows11PersonalFeatures {
         i++;
         setTimeout(typeWriter, 50);
       } else {
-        // Remove cursor after typing
         setTimeout(() => {
           tagline.style.borderRight = "none";
         }, 1000);
@@ -745,25 +1578,296 @@ class Windows11PersonalFeatures {
     );
   }
 
-  addWeatherWidget() {
-    // Mock weather widget in taskbar
+  async getUserLocation() {
+    return new Promise((resolve, reject) => {
+      if (!navigator.geolocation) {
+        reject("Geolocation not supported");
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          resolve(`${latitude},${longitude}`);
+        },
+        (error) => {
+          console.log("Location access denied, using default location");
+          resolve("Johannesburg"); //
+        },
+        { timeout: 5000 }
+      );
+    });
+  }
+  async addWeatherWidget() {
+    const location = await this.getUserLocation();
+    const weatherData = await this.fetchWeatherData(location);
     const weather = document.createElement("div");
+    weather.id = "weatherWidget";
     weather.style.cssText = `
-        position: absolute;
-        right: 200px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: white;
-        font-size: 12px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    `;
+    position: absolute;
+    left: 1em;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+`;
+
+    // Add loading state
     weather.innerHTML = `
-        <i class="fas fa-sun" style="color: #ffd700;"></i>
-        <span>72°F</span>
-    `;
+    <i class="fas fa-spinner fa-spin" style="color: #ffd700;"></i>
+    <span>Loading...</span>
+`;
+
     document.querySelector(".taskbar").appendChild(weather);
+
+    // Fetch weather data
+    try {
+      const weatherData = await this.fetchWeatherData();
+      this.updateWeatherWidget(weather, weatherData);
+
+      // Update weather every 10 minutes
+      setInterval(async () => {
+        try {
+          const updatedData = await this.fetchWeatherData();
+          this.updateWeatherWidget(weather, updatedData);
+        } catch (error) {
+          console.log("Weather update failed:", error);
+        }
+      }, 10 * 60 * 1000); // 10 minutes
+    } catch (error) {
+      console.error("Weather fetch failed:", error);
+      this.updateWeatherWidget(weather, null);
+    }
+
+    // Add click handler for detailed weather
+    weather.addEventListener("click", () => {
+      this.showDetailedWeather();
+    });
+  }
+  async fetchWeatherData(city = "Johannesburg") {
+    const API_KEY = "6d12123f7e334c2e887173005250107";
+    const API_URL = `http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}&aqi=no`;
+
+    try {
+      const response = await fetch(API_URL);
+
+      if (!response.ok) {
+        throw new Error(`Weather API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error fetching weather:", error);
+      throw error;
+    }
+  }
+
+  // Add this method to update the weather widget
+  updateWeatherWidget(weatherElement, data) {
+    if (!data) {
+      // Fallback if API fails
+      weatherElement.innerHTML = `
+        <i class="fas fa-cloud" style="color: #ccc;"></i>
+        <span>Weather unavailable</span>
+    `;
+      return;
+    }
+
+    const { current, location } = data;
+    const temp = Math.round(current.temp_c);
+    const condition = current.condition.text;
+    const icon = this.getWeatherIcon(current.condition.code, current.is_day);
+
+    weatherElement.innerHTML = `
+    <i class="${icon.class}" style="color: ${icon.color};"></i>
+    <span>${temp}°C</span>
+    <span style="opacity: 0.8; font-size: 1em;">${location.name}</span>
+`;
+
+    // Add tooltip
+    weatherElement.title = `${condition} in ${
+      location.name
+    }\nFeels like ${Math.round(current.feelslike_c)}°C\nHumidity: ${
+      current.humidity
+    }%`;
+  }
+
+  // Add this method to get appropriate weather icons
+  getWeatherIcon(conditionCode, isDay) {
+    const icons = {
+      // Sunny/Clear
+      1000: {
+        day: { class: "fas fa-sun", color: "#ffd700" },
+        night: { class: "fas fa-moon", color: "#f0f0f0" },
+      },
+      // Partly cloudy
+      1003: {
+        day: { class: "fas fa-cloud-sun", color: "#87ceeb" },
+        night: { class: "fas fa-cloud-moon", color: "#d3d3d3" },
+      },
+      // Cloudy
+      1006: { class: "fas fa-cloud", color: "#87ceeb" },
+      1009: { class: "fas fa-cloud", color: "#696969" },
+      // Rain
+      1063: { class: "fas fa-cloud-rain", color: "#4682b4" },
+      1180: { class: "fas fa-cloud-rain", color: "#4682b4" },
+      1183: { class: "fas fa-cloud-rain", color: "#4682b4" },
+      1186: { class: "fas fa-cloud-rain", color: "#4682b4" },
+      1189: { class: "fas fa-cloud-rain", color: "#4682b4" },
+      1192: { class: "fas fa-cloud-showers-heavy", color: "#191970" },
+      1195: { class: "fas fa-cloud-showers-heavy", color: "#191970" },
+      // Snow
+      1066: { class: "fas fa-snowflake", color: "#e0e0e0" },
+      1210: { class: "fas fa-snowflake", color: "#e0e0e0" },
+      1213: { class: "fas fa-snowflake", color: "#e0e0e0" },
+      1216: { class: "fas fa-snowflake", color: "#e0e0e0" },
+      1219: { class: "fas fa-snowflake", color: "#e0e0e0" },
+      1222: { class: "fas fa-snowflake", color: "#e0e0e0" },
+      1225: { class: "fas fa-snowflake", color: "#e0e0e0" },
+      // Thunderstorm
+      1087: { class: "fas fa-bolt", color: "#ffd700" },
+      1273: { class: "fas fa-bolt", color: "#ffd700" },
+      1276: { class: "fas fa-bolt", color: "#ffd700" },
+      // Fog/Mist
+      1135: { class: "fas fa-smog", color: "#d3d3d3" },
+      1147: { class: "fas fa-smog", color: "#d3d3d3" },
+    };
+
+    const iconData = icons[conditionCode];
+
+    if (iconData) {
+      // If day/night specific icons exist
+      if (iconData.day && iconData.night) {
+        return isDay ? iconData.day : iconData.night;
+      }
+      // Otherwise use the general icon
+      return iconData;
+    }
+
+    // Default icon
+    return { class: "fas fa-cloud", color: "#87ceeb" };
+  }
+
+  // Add this method for detailed weather popup
+  showDetailedWeather() {
+    // Create detailed weather popup
+    const popup = document.createElement("div");
+    popup.className = "weather-popup";
+    popup.style.cssText = `
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    width: 300px;
+    background: rgba(32, 32, 32, 0.95);
+    backdrop-filter: blur(40px);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 10001;
+    animation: slideInWeather 0.3s ease-out;
+`;
+
+    popup.innerHTML = `
+    <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 12px;">
+        <h3 style="margin: 0;">Weather Details</h3>
+        <button onclick="this.parentElement.parentElement.remove()" 
+                style="background: none; border: none; color: white; cursor: pointer; font-size: 18px;">×</button>
+    </div>
+    <div id="detailedWeatherContent">
+        <i class="fas fa-spinner fa-spin"></i> Loading detailed weather...
+    </div>
+`;
+
+    document.body.appendChild(popup);
+
+    // Fetch and display detailed weather
+    this.loadDetailedWeather();
+
+    // Auto-close after 10 seconds
+    setTimeout(() => {
+      if (popup.parentElement) {
+        popup.remove();
+      }
+    }, 10000);
+  }
+
+  // Add this method to load detailed weather
+  async loadDetailedWeather() {
+    try {
+      const data = await this.fetchWeatherData();
+      const content = document.getElementById("detailedWeatherContent");
+
+      if (content && data) {
+        const { current, location } = data;
+
+        content.innerHTML = `
+            <div style="text-align: center; margin-bottom: 16px;">
+                <div style="font-size: 24px; margin-bottom: 8px;">
+                    ${Math.round(current.temp_f)}°F (${Math.round(
+          current.temp_c
+        )}°C)
+                </div>
+                <div style="opacity: 0.8;">${current.condition.text}</div>
+                <div style="font-size: 12px; opacity: 0.6;">${location.name}, ${
+          location.country
+        }</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 12px;">
+                <div>
+                    <strong>Feels like:</strong><br>
+                    ${Math.round(current.feelslike_f)}°F
+                </div>
+                <div>
+                    <strong>Humidity:</strong><br>
+                    ${current.humidity}%
+                </div>
+                <div>
+                    <strong>Wind:</strong><br>
+                    ${current.wind_mph} mph ${current.wind_dir}
+                </div>
+                <div>
+                    <strong>Visibility:</strong><br>
+                    ${current.vis_miles} miles
+                </div>
+                <div>
+                    <strong>UV Index:</strong><br>
+                    ${current.uv}
+                </div>
+                <div>
+                    <strong>Pressure:</strong><br>
+                    ${current.pressure_in} in
+                </div>
+            </div>
+            
+            <div style="margin-top: 12px; font-size: 11px; opacity: 0.6; text-align: center;">
+                Last updated: ${new Date(
+                  current.last_updated
+                ).toLocaleTimeString()}
+            </div>
+        `;
+      }
+    } catch (error) {
+      const content = document.getElementById("detailedWeatherContent");
+      if (content) {
+        content.innerHTML = `
+            <div style="color: #ff6b6b; text-align: center;">
+                <i class="fas fa-exclamation-triangle"></i><br>
+                Unable to load weather data
+            </div>
+        `;
+      }
+    }
   }
 
   setupInteractiveElements() {
@@ -909,7 +2013,488 @@ class Windows11PersonalFeatures {
       setTimeout(() => notification.remove(), 300);
     }, 4000);
   }
+
+  minimizeWindow(windowId) {
+    const window = document.getElementById(windowId);
+    if (!window) return;
+
+    // Mark as minimized but keep in activeWindows for taskbar
+    window.dataset.isMinimized = "true";
+
+    // Animate minimize to taskbar
+    window.style.animation = "windowMinimize 0.3s ease-out forwards";
+
+    setTimeout(() => {
+      // Hide the window but keep it in DOM
+      window.style.display = "none";
+      window.style.animation = "";
+
+      // Don't remove from activeWindows - keep it for taskbar
+      // this.activeWindows = this.activeWindows.filter(id => id !== windowId); // Remove this line
+
+      // Update taskbar to show minimized state
+      this.updateTaskbar();
+    }, 300);
+  }
+
+  maximizeWindow(windowId) {
+    const window = document.getElementById(windowId);
+    if (!window) return;
+
+    // Check if already maximized
+    const isMaximized =
+      window.style.width === "100vw" || window.classList.contains("maximized");
+
+    if (isMaximized) {
+      // Restore to original size
+      window.style.left = "300px";
+      window.style.top = "120px";
+      window.style.width = "650px";
+      window.style.height = "500px";
+      window.classList.remove("maximized");
+    } else {
+      // Maximize
+      window.style.left = "0px";
+      window.style.top = "0px";
+      window.style.width = "100vw";
+      window.style.height = "calc(100vh - 56px)";
+      window.classList.add("maximized");
+    }
+
+    // Add Windows 11 animation effect
+    window.style.transition = "all 0.2s ease-out";
+    setTimeout(() => {
+      window.style.transition = "";
+    }, 200);
+  }
 }
+class KanbanManager {
+  constructor() {
+    /*
+    this.apiUrl =
+      window.location.hostname === "localhost"
+        ? "http://localhost:3001/api" // Development
+        : "https://your-render-backend-url.onrender.com/api"; // Production*/
+
+    this.apiUrl = "http://localhost:3001/api";
+
+    this.currentFilter = "all";
+    this.boardData = [];
+    this.init();
+  }
+
+  init() {
+    this.loadBoard();
+    this.setupEventListeners();
+  }
+
+  setupEventListeners() {
+    // Auto-refresh every 30 seconds
+    setInterval(() => {
+      this.loadBoard(false); // Silent reload
+    }, 30000);
+  }
+
+  async loadBoard(showLoading = true) {
+    try {
+      if (showLoading) {
+        this.setStatus("Loading board data...", "syncing");
+      }
+
+      const response = await fetch(`${this.apiUrl}/board`);
+      const result = await response.json();
+
+      if (result.success) {
+        this.boardData = result.data;
+        this.renderBoard();
+        this.setStatus("Board updated", "success");
+      } else {
+        throw new Error(result.error);
+      }
+    } catch (error) {
+      console.error("Error loading board:", error);
+      this.setStatus("Failed to load board", "error");
+      this.showOfflineBoard();
+    }
+  }
+
+  renderBoard() {
+    this.boardData.forEach((column) => {
+      const columnElement = document.getElementById(
+        `${column.name.toLowerCase().replace(" ", "")}-tasks`
+      );
+      const countElement = document.getElementById(
+        `${column.name.toLowerCase().replace(" ", "")}-count`
+      );
+
+      if (columnElement && countElement) {
+        // Filter tasks based on current filter
+        const filteredTasks =
+          this.currentFilter === "all"
+            ? column.tasks
+            : column.tasks.filter(
+                (task) => task.github_repo === this.currentFilter
+              );
+
+        columnElement.innerHTML = "";
+        countElement.textContent = filteredTasks.length;
+
+        if (filteredTasks.length === 0) {
+          columnElement.innerHTML = `
+                    <div class="empty-column">
+                        <i class="fas fa-inbox" style="font-size: 24px; opacity: 0.3; margin-bottom: 8px;"></i>
+                        <div style="font-size: 12px; opacity: 0.6;">No tasks</div>
+                    </div>
+                `;
+        } else {
+          filteredTasks.forEach((task) => {
+            const taskElement = this.createTaskElement(task);
+            columnElement.appendChild(taskElement);
+          });
+        }
+      }
+    });
+  }
+
+  createTaskElement(task) {
+    const taskDiv = document.createElement("div");
+    taskDiv.className = `task-card ${
+      task.created_by === "GitHub Sync" ? "github-task" : "visitor-task"
+    }`;
+
+    const createdDate = new Date(task.created_at).toLocaleDateString();
+    const isGitHubTask = task.github_issue_number !== null;
+
+    taskDiv.innerHTML = `
+        <div class="task-header">
+            <div class="task-title">${task.title}</div>
+            <div class="task-priority ${task.priority}">${task.priority}</div>
+        </div>
+        ${
+          task.description
+            ? `<div class="task-description">${task.description.substring(
+                0,
+                100
+              )}${task.description.length > 100 ? "..." : ""}</div>`
+            : ""
+        }
+        <div class="task-meta">
+            <div>
+                ${
+                  task.github_repo
+                    ? `<span class="task-repo">${task.github_repo}</span>`
+                    : ""
+                }
+                ${
+                  isGitHubTask
+                    ? `<a href="${task.github_url}" target="_blank" class="task-github-link" title="View on GitHub"><i class="fab fa-github"></i></a>`
+                    : ""
+                }
+            </div>
+            <div style="font-size: 10px;">
+                ${task.created_by} • ${createdDate}
+            </div>
+        </div>
+    `;
+
+    // Add click handler for task details
+    taskDiv.addEventListener("click", () => {
+      this.showTaskDetails(task);
+    });
+
+    return taskDiv;
+  }
+
+  async syncGitHub() {
+    try {
+      this.setStatus("Syncing with GitHub...", "syncing");
+
+      const response = await fetch(`${this.apiUrl}/github/sync`, {
+        method: "POST",
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        this.setStatus("GitHub sync completed", "success");
+        personalFeatures.showNotification(
+          "GitHub Sync Complete! 🔄",
+          result.message,
+          "fab fa-github"
+        );
+
+        // Reload board to show new tasks
+        setTimeout(() => this.loadBoard(), 1000);
+      } else {
+        throw new Error(result.error);
+      }
+    } catch (error) {
+      console.error("GitHub sync error:", error);
+      this.setStatus("GitHub sync failed", "error");
+      personalFeatures.showNotification(
+        "Sync Failed ❌",
+        "Unable to sync with GitHub. Please try again.",
+        "fas fa-exclamation-triangle"
+      );
+    }
+  }
+
+  showAddTaskModal() {
+    console.log("📝 Attempting to open Add Task modal...");
+    try {
+      const modal = document.getElementById("addTaskModal");
+      if (modal) {
+        modal.classList.add("active");
+        console.log("✅ Add Task modal opened successfully");
+      } else {
+        console.error("❌ Modal element not found");
+        alert("Modal not found. Please make sure the page is fully loaded.");
+      }
+    } catch (error) {
+      console.error("❌ Error opening modal:", error);
+      alert("Error opening task form: " + error.message);
+    }
+  }
+
+  closeAddTaskModal() {
+    document.getElementById("addTaskModal").classList.remove("active");
+    document.getElementById("addTaskForm").reset();
+  }
+
+  async submitTask(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const taskData = {
+      title: document.getElementById("taskTitle").value,
+      description: document.getElementById("taskDescription").value,
+      github_repo: document.getElementById("taskRepo").value || null,
+      priority: document.getElementById("taskPriority").value,
+      created_by:
+        document.getElementById("createdBy").value || "Anonymous Visitor",
+    };
+
+    try {
+      const response = await fetch(`${this.apiUrl}/tasks`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(taskData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        personalFeatures.showNotification(
+          "Task Added! ✅",
+          "Your task has been added to the backlog.",
+          "fas fa-check-circle"
+        );
+
+        this.closeAddTaskModal();
+        this.loadBoard();
+      } else {
+        throw new Error(result.error);
+      }
+    } catch (error) {
+      console.error("Error adding task:", error);
+      personalFeatures.showNotification(
+        "Error Adding Task ❌",
+        "Failed to add task. Please try again.",
+        "fas fa-exclamation-triangle"
+      );
+    }
+  }
+
+  filterByRepo(repo) {
+    this.currentFilter = repo;
+
+    // Update active tab
+    document.querySelectorAll(".filter-tab").forEach((tab) => {
+      tab.classList.remove("active");
+    });
+    document.querySelector(`[data-repo="${repo}"]`).classList.add("active");
+
+    // Re-render board with filter
+    this.renderBoard();
+  }
+
+  async showStats() {
+    try {
+      const response = await fetch(`${this.apiUrl}/board/stats`);
+      const result = await response.json();
+
+      if (result.success) {
+        this.displayStats(result.data);
+      }
+    } catch (error) {
+      console.error("Error loading stats:", error);
+    }
+  }
+
+  displayStats(stats) {
+    // Update stat numbers
+    document.getElementById("totalTasks").textContent = stats.totalTasks;
+    document.getElementById("completedTasks").textContent =
+      stats.columnStats.find((col) => col.column_name === "Done")?.task_count ||
+      0;
+    document.getElementById("activeTasks").textContent =
+      stats.columnStats.find((col) => col.column_name === "In Progress")
+        ?.task_count || 0;
+    document.getElementById("githubTasks").textContent = stats.repoStats.reduce(
+      (sum, repo) => sum + parseInt(repo.task_count),
+      0
+    );
+
+    // Update repo stats
+    const repoStatsList = document.getElementById("repoStatsList");
+    repoStatsList.innerHTML = "";
+
+    stats.repoStats.forEach((repo) => {
+      const repoDiv = document.createElement("div");
+      repoDiv.className = "repo-stat-item";
+      repoDiv.innerHTML = `
+        <div class="repo-name">${repo.github_repo}</div>
+        <div class="repo-counts">
+            <span class="count-item">${repo.task_count} total</span>
+            <span class="count-item">${repo.completed_count} done</span>
+        </div>
+    `;
+      repoStatsList.appendChild(repoDiv);
+    });
+
+    // Show stats modal
+    document.getElementById("statsModal").classList.add("active");
+  }
+
+  closeStatsModal() {
+    document.getElementById("statsModal").classList.remove("active");
+  }
+
+  showTaskDetails(task) {
+    const isGitHub = task.github_issue_number !== null;
+    const createdDate = new Date(task.created_at).toLocaleDateString();
+
+    personalFeatures.showNotification(
+      `Task: ${task.title}`,
+      `${task.description || "No description"}\n\n` +
+        `Repository: ${task.github_repo || "None"}\n` +
+        `Priority: ${task.priority}\n` +
+        `Created by: ${task.created_by}\n` +
+        `Date: ${createdDate}` +
+        `${isGitHub ? "\n\n🔗 Click to view on GitHub" : ""}`,
+      isGitHub ? "fab fa-github" : "fas fa-tasks"
+    );
+
+    // If it's a GitHub task, open GitHub link after notification
+    if (isGitHub && task.github_url) {
+      setTimeout(() => {
+        if (confirm("Open this task on GitHub?")) {
+          window.open(task.github_url, "_blank");
+        }
+      }, 2000);
+    }
+  }
+
+  setStatus(message, type = "info") {
+    const statusElement = document.getElementById("kanbanStatus");
+    const indicatorElement = document.getElementById("syncIndicator");
+
+    if (statusElement) {
+      statusElement.textContent = message;
+    }
+
+    if (indicatorElement) {
+      indicatorElement.className = "sync-indicator";
+
+      switch (type) {
+        case "syncing":
+          indicatorElement.classList.add("syncing");
+          break;
+        case "success":
+          indicatorElement.style.background = "#28a745";
+          break;
+        case "error":
+          indicatorElement.style.background = "#dc3545";
+          break;
+        default:
+          indicatorElement.style.background = "#6c757d";
+      }
+    }
+
+    // Clear status after 3 seconds
+    setTimeout(() => {
+      if (statusElement) {
+        statusElement.textContent = "Ready";
+      }
+      if (indicatorElement) {
+        indicatorElement.className = "sync-indicator";
+        indicatorElement.style.background = "#28a745";
+      }
+    }, 3000);
+  }
+
+  showOfflineBoard() {
+    // Show a basic offline version with sample data
+    const offlineData = [
+      {
+        name: "Backlog",
+        tasks: [
+          {
+            id: 1,
+            title: "Connect to real backend",
+            description: "Set up the Node.js backend with PostgreSQL",
+            priority: "high",
+            github_repo: "portfolio-2025",
+            created_by: "System",
+            created_at: new Date().toISOString(),
+          },
+        ],
+      },
+      { name: "In Progress", tasks: [] },
+      { name: "Review", tasks: [] },
+      { name: "Done", tasks: [] },
+    ];
+
+    this.boardData = offlineData;
+    this.renderBoard();
+  }
+}
+
+// Initialize Kanban Manager
+let kanbanManager;
+let windowManager;
+
+document.addEventListener("DOMContentLoaded", () => {
+  windowManager = new Windows11Manager();
+  window.windowManager = windowManager;
+  window.personalFeatures = new Windows11PersonalFeatures();
+  window.easterEggs = new Windows11EasterEggs();
+  kanbanManager = new KanbanManager();
+  window.kanbanManager = kanbanManager;
+
+  // Make functions globally accessible
+  window.closeWindow = (windowId) => windowManager.closeWindow(windowId);
+  window.minimizeWindow = (windowId) => windowManager.minimizeWindow(windowId);
+  window.maximizeWindow = (windowId) => windowManager.maximizeWindow(windowId);
+  window.showStartMenu = () => windowManager.toggleStartMenu();
+
+  // Welcome notification
+  setTimeout(() => {
+    personalFeatures.showNotification(
+      "Welcome to Windows 11 Portfolio! 👋",
+      "Double-click icons to open windows, drag to move them, and try the Project Board!",
+      "fab fa-windows"
+    );
+  }, 1000);
+
+  console.log("🎉 Windows 11 Desktop Portfolio loaded successfully!");
+  console.log(
+    "📋 Project Board ready - try adding tasks or syncing with GitHub!"
+  );
+  console.log("✅ KanbanManager initialized:", window.kanbanManager);
+});
 
 // Enhanced Easter Eggs for Windows 11
 class Windows11EasterEggs {
@@ -1038,28 +2623,3 @@ class Windows11EasterEggs {
     );
   }
 }
-
-// Initialize everything when DOM is loaded
-document.addEventListener("DOMContentLoaded", () => {
-  window.windowManager = new Windows11Manager();
-  window.personalFeatures = new Windows11PersonalFeatures();
-  window.easterEggs = new Windows11EasterEggs();
-
-  // Make functions globally accessible
-  window.closeWindow = (windowId) => windowManager.closeWindow(windowId);
-  window.showStartMenu = () => windowManager.toggleStartMenu();
-
-  // Welcome notification
-  setTimeout(() => {
-    personalFeatures.showNotification(
-      "Welcome to Windows 11 Portfolio! 👋",
-      "Double-click icons to open windows, drag to move them, and try the start menu!",
-      "fab fa-windows"
-    );
-  }, 1000);
-
-  console.log("🎉 Windows 11 Desktop Portfolio loaded successfully!");
-  console.log("💡 Try the Konami Code for a colorful surprise!");
-  console.log("🎯 Click the Start button 11 times for another easter egg!");
-  console.log("🔍 Triple-click the desktop for developer options!");
-});

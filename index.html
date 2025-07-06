@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Desktop Portfolio - Your Name</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Happy+Monkey&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -21,7 +27,7 @@
         data-window="about"
       >
         <div class="icon-image">
-          <img src="./icons/home.png" alt="home icon" />
+          <i class="fa-solid fa-house-user" style="color: #ffffff"></i>
         </div>
         <div class="icon-label">About Me</div>
       </div>
@@ -65,7 +71,10 @@
         data-window="personal"
       >
         <div class="icon-image">
-          <img src="./icons/name-tag/icons8-name-tag-96.png" alt="name-tag icon" />
+          <img
+            src="./icons/name-tag/icons8-name-tag-96.png"
+            alt="name-tag icon"
+          />
         </div>
         <div class="icon-label">Personal</div>
       </div>
@@ -76,12 +85,25 @@
         data-window="resume"
       >
         <div class="icon-image">
-         <img src="./icons/folder.png" alt="folder icon" />
+          <img src="./icons/folder.png" alt="folder icon" />
         </div>
         <div class="icon-label">Resume</div>
       </div>
+      <div
+        class="desktop-icon kanban-icon"
+        style="top: 440px; left: 60px"
+        data-window="kanban"
+      >
+        <div>
+          <img class="kanban" src="./icons/kanban.png" alt="kanban icon" />
+        </div>
+        <div style="overflow: visible" class="kanban-icon-label">
+          Project Board
+        </div>
+      </div>
 
       <!-- Windows with Windows 11 styling -->
+
       <div
         class="window"
         id="about"
@@ -89,14 +111,25 @@
       >
         <div class="window-header">
           <div class="window-controls">
-            <div class="window-control close" onclick="closeWindow('about')">
-              ×
-            </div>
-            <div class="window-control minimize">−</div>
-            <div class="window-control maximize">□</div>
+            <button
+              class="window-control minimize"
+              onclick="windowManager.minimizeWindow('about')"
+              title="Minimize"
+            ></button>
+            <button
+              class="window-control maximize"
+              onclick="windowManager.maximizeWindow('about')"
+              title="Maximize"
+            ></button>
+            <button
+              class="window-control close"
+              onclick="windowManager.closeWindow('about')"
+              title="Close"
+            ></button>
           </div>
           <div class="window-title">
-            <img src="./icons/home.png" alt="home icon" /> About Me
+            <i class="fa-solid fa-house-user" style="color: #404147"></i> About
+            Me
           </div>
           <div></div>
         </div>
@@ -110,7 +143,7 @@
               />
             </div>
             <div class="profile-info">
-              <h2>Hello! I'm Alex Johnson</h2>
+              <h2>Hello! I'm Katekani Nyamandi</h2>
               <p class="tagline">
                 Full-Stack Developer & Creative Problem Solver
               </p>
@@ -126,7 +159,7 @@
           <div class="about-details">
             <div class="detail-item">
               <i class="fas fa-map-marker-alt"></i>
-              <span><strong>Location:</strong> San Francisco, CA</span>
+              <span><strong>Location:</strong> Johannesburg, Gauteng</span>
             </div>
             <div class="detail-item">
               <i class="fas fa-graduation-cap"></i>
@@ -167,11 +200,21 @@
       >
         <div class="window-header">
           <div class="window-controls">
-            <div class="window-control close" onclick="closeWindow('projects')">
-              ×
-            </div>
-            <div class="window-control minimize">−</div>
-            <div class="window-control maximize">□</div>
+            <button
+              class="window-control minimize"
+              onclick="windowManager.minimizeWindow('projects')"
+              title="Minimize"
+            ></button>
+            <button
+              class="window-control maximize"
+              onclick="windowManager.maximizeWindow('projects')"
+              title="Maximize"
+            ></button>
+            <button
+              class="window-control close"
+              onclick="windowManager.closeWindow('projects')"
+              title="Close"
+            ></button>
           </div>
           <div class="window-title">
             <i class="fas fa-code"></i> My Projects
@@ -298,6 +341,283 @@
         </div>
       </div>
 
+      <!-- Kanban Board Window -->
+      <div
+        class="window"
+        id="kanban"
+        style="top: 80px; left: 200px; width: 1000px; height: 700px"
+      >
+        <div class="window-header">
+          <div class="window-controls">
+            <button
+              class="window-control minimize"
+              onclick="windowManager.minimizeWindow('kanban')"
+              title="Minimize"
+            ></button>
+            <button
+              class="window-control maximize"
+              onclick="windowManager.maximizeWindow('kanban')"
+              title="Maximize"
+            ></button>
+            <button
+              class="window-control close"
+              onclick="windowManager.closeWindow('kanban')"
+              title="Close"
+            ></button>
+          </div>
+          <div class="window-title">
+            <i class="fas fa-tasks"></i> Project Board - Live GitHub Integration
+          </div>
+          <div></div>
+        </div>
+        <div class="window-content" style="padding: 0; overflow: hidden">
+          <!-- Kanban Header -->
+          <div class="kanban-header">
+            <div class="kanban-controls">
+              <button
+                class="kanban-btn primary"
+                onclick="kanbanManager.syncGitHub()"
+              >
+                <i class="fas fa-sync"></i> Sync GitHub
+              </button>
+              <button
+                class="kanban-btn"
+                onclick="kanbanManager.showAddTaskModal()"
+              >
+                <i class="fas fa-plus"></i> Add Task
+              </button>
+              <button class="kanban-btn" onclick="kanbanManager.showStats()">
+                <i class="fas fa-chart-bar"></i> Stats
+              </button>
+            </div>
+            <div class="kanban-status">
+              <span id="kanbanStatus">Ready</span>
+              <div class="sync-indicator" id="syncIndicator"></div>
+            </div>
+          </div>
+
+          <!-- Repository Filter -->
+          <div class="repo-filter">
+            <div class="filter-tabs">
+              <button
+                class="filter-tab active"
+                data-repo="all"
+                onclick="kanbanManager.filterByRepo('all')"
+              >
+                All Projects
+              </button>
+              <button
+                class="filter-tab"
+                data-repo="plantly"
+                onclick="kanbanManager.filterByRepo('plantly')"
+              >
+                <i class="fas fa-leaf"></i> Plantly
+              </button>
+              <button
+                class="filter-tab"
+                data-repo="cadbury-frontend"
+                onclick="kanbanManager.filterByRepo('cadbury-frontend')"
+              >
+                <i class="fas fa-candy-cane"></i> Cadbury
+              </button>
+              <button
+                class="filter-tab"
+                data-repo="spotlight-app"
+                onclick="kanbanManager.filterByRepo('spotlight-app')"
+              >
+                <i class="fas fa-spotlight"></i> Spotlight
+              </button>
+              <button
+                class="filter-tab"
+                data-repo="consume-frontend"
+                onclick="kanbanManager.filterByRepo('consume-frontend')"
+              >
+                <i class="fas fa-utensils"></i> Consume
+              </button>
+            </div>
+          </div>
+
+          <!-- Kanban Board -->
+          <div class="kanban-board" id="kanbanBoard">
+            <div class="kanban-column" data-column="Backlog">
+              <div class="column-header" style="background: #6c757d">
+                <h3><i class="fas fa-inbox"></i> Backlog</h3>
+                <span class="task-count" id="backlog-count">0</span>
+              </div>
+              <div class="column-content" id="backlog-tasks">
+                <div class="loading-tasks">
+                  <i class="fas fa-spinner fa-spin"></i> Loading tasks...
+                </div>
+              </div>
+            </div>
+
+            <div class="kanban-column" data-column="In Progress">
+              <div class="column-header" style="background: #0078d4">
+                <h3><i class="fas fa-play-circle"></i> In Progress</h3>
+                <span class="task-count" id="progress-count">0</span>
+              </div>
+              <div class="column-content" id="progress-tasks">
+                <div class="loading-tasks">
+                  <i class="fas fa-spinner fa-spin"></i> Loading tasks...
+                </div>
+              </div>
+            </div>
+
+            <div class="kanban-column" data-column="Review">
+              <div class="column-header" style="background: #f39c12">
+                <h3><i class="fas fa-eye"></i> Review</h3>
+                <span class="task-count" id="review-count">0</span>
+              </div>
+              <div class="column-content" id="review-tasks">
+                <div class="loading-tasks">
+                  <i class="fas fa-spinner fa-spin"></i> Loading tasks...
+                </div>
+              </div>
+            </div>
+
+            <div class="kanban-column" data-column="Done">
+              <div class="column-header" style="background: #28a745">
+                <h3><i class="fas fa-check-circle"></i> Done</h3>
+                <span class="task-count" id="done-count">0</span>
+              </div>
+              <div class="column-content" id="done-tasks">
+                <div class="loading-tasks">
+                  <i class="fas fa-spinner fa-spin"></i> Loading tasks...
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Task Modal -->
+      <div class="modal" id="addTaskModal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3><i class="fas fa-plus"></i> Add New Task</h3>
+            <button
+              class="modal-close"
+              onclick="kanbanManager.closeAddTaskModal()"
+            >
+              ×
+            </button>
+          </div>
+          <form id="addTaskForm" onsubmit="kanbanManager.submitTask(event)">
+            <div class="form-group">
+              <label for="taskTitle">Task Title *</label>
+              <input
+                type="text"
+                id="taskTitle"
+                required
+                placeholder="Enter task title..."
+              />
+            </div>
+            <div class="form-group">
+              <label for="taskDescription">Description</label>
+              <textarea
+                id="taskDescription"
+                rows="3"
+                placeholder="Describe the task..."
+              ></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="taskRepo">Repository *</label>
+                <select id="taskRepo" required>
+                  <option value="">Select repository...</option>
+                  <option value="plantly">Plantly</option>
+                  <option value="cadbury-frontend">Cadbury Frontend</option>
+                  <option value="spotlight-app">Spotlight App</option>
+                  <option value="consume-frontend">Consume Frontend</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="taskPriority">Priority *</label>
+                <select id="taskPriority" required>
+                  <option value="low">Low</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="createdBy">Your Name *</label>
+              <input
+                type="text"
+                required
+                id="createdBy"
+                placeholder="Enter your name..."
+              />
+            </div>
+            <div class="modal-actions">
+              <button
+                type="button"
+                class="btn secondary"
+                onclick="kanbanManager.closeAddTaskModal()"
+              >
+                Cancel
+              </button>
+              <button type="submit" class="btn primary">
+                <i class="fas fa-plus"></i> Add Task
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Stats Modal -->
+      <div class="modal" id="statsModal">
+        <div class="modal-content large">
+          <div class="modal-header">
+            <h3><i class="fas fa-chart-bar"></i> Project Statistics</h3>
+            <button
+              class="modal-close"
+              onclick="kanbanManager.closeStatsModal()"
+            >
+              ×
+            </button>
+          </div>
+          <div class="stats-content">
+            <div class="stats-grid" id="statsGrid">
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-tasks"></i></div>
+                <div class="stat-info">
+                  <div class="stat-number" id="totalTasks">0</div>
+                  <div class="stat-label">Total Tasks</div>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="stat-info">
+                  <div class="stat-number" id="completedTasks">0</div>
+                  <div class="stat-label">Completed</div>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-play-circle"></i></div>
+                <div class="stat-info">
+                  <div class="stat-number" id="activeTasks">0</div>
+                  <div class="stat-label">In Progress</div>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-github"></i></div>
+                <div class="stat-info">
+                  <div class="stat-number" id="githubTasks">0</div>
+                  <div class="stat-label">From GitHub</div>
+                </div>
+              </div>
+            </div>
+            <div class="repo-stats" id="repoStats">
+              <h4>Repository Breakdown</h4>
+              <div class="repo-stats-list" id="repoStatsList">
+                <!-- Populated by JavaScript -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div
         class="window"
         id="skills"
@@ -305,11 +625,21 @@
       >
         <div class="window-header">
           <div class="window-controls">
-            <div class="window-control close" onclick="closeWindow('skills')">
-              ×
-            </div>
-            <div class="window-control minimize">−</div>
-            <div class="window-control maximize">□</div>
+            <button
+              class="window-control minimize"
+              onclick="windowManager.minimizeWindow('skills')"
+              title="Minimize"
+            ></button>
+            <button
+              class="window-control maximize"
+              onclick="windowManager.maximizeWindow('skills')"
+              title="Maximize"
+            ></button>
+            <button
+              class="window-control close"
+              onclick="windowManager.closeWindow('skills')"
+              title="Close"
+            ></button>
           </div>
           <div class="window-title">
             <i class="fas fa-tools"></i> Skills & Technologies
@@ -388,11 +718,21 @@
       >
         <div class="window-header">
           <div class="window-controls">
-            <div class="window-control close" onclick="closeWindow('contact')">
-              ×
-            </div>
-            <div class="window-control minimize">−</div>
-            <div class="window-control maximize">□</div>
+            <button
+              class="window-control minimize"
+              onclick="windowManager.minimizeWindow('contact')"
+              title="Minimize"
+            ></button>
+            <button
+              class="window-control maximize"
+              onclick="windowManager.maximizeWindow('contact')"
+              title="Maximize"
+            ></button>
+            <button
+              class="window-control close"
+              onclick="windowManager.closeWindow('contact')"
+              title="Close"
+            ></button>
           </div>
           <div class="window-title">
             <i class="fas fa-envelope"></i> Contact Me
@@ -474,11 +814,21 @@
       >
         <div class="window-header">
           <div class="window-controls">
-            <div class="window-control close" onclick="closeWindow('personal')">
-              ×
-            </div>
-            <div class="window-control minimize">−</div>
-            <div class="window-control maximize">□</div>
+            <button
+              class="window-control minimize"
+              onclick="windowManager.minimizeWindow('personal')"
+              title="Minimize"
+            ></button>
+            <button
+              class="window-control maximize"
+              onclick="windowManager.maximizeWindow('personal')"
+              title="Maximize"
+            ></button>
+            <button
+              class="window-control close"
+              onclick="windowManager.closeWindow('personal')"
+              title="Close"
+            ></button>
           </div>
           <div class="window-title">
             <i class="fas fa-heart"></i> Personal Life
@@ -595,11 +945,21 @@
       >
         <div class="window-header">
           <div class="window-controls">
-            <div class="window-control close" onclick="closeWindow('resume')">
-              ×
-            </div>
-            <div class="window-control minimize">−</div>
-            <div class="window-control maximize">□</div>
+            <button
+              class="window-control minimize"
+              onclick="windowManager.minimizeWindow('resume')"
+              title="Minimize"
+            ></button>
+            <button
+              class="window-control maximize"
+              onclick="windowManager.maximizeWindow('resume')"
+              title="Maximize"
+            ></button>
+            <button
+              class="window-control close"
+              onclick="windowManager.closeWindow('resume')"
+              title="Close"
+            ></button>
           </div>
           <div class="window-title">
             <i class="fas fa-file-user"></i> Resume
@@ -721,7 +1081,7 @@
     <div class="taskbar">
       <div class="taskbar-center">
         <button class="start-button" onclick="showStartMenu()">
-          <i class="fab fa-windows"></i>
+          <i class="fab fa-windows fa-2x" style="color: #1792e1"></i>
         </button>
         <div class="open-windows" id="openWindows"></div>
       </div>

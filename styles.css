@@ -12,9 +12,745 @@ body {
   user-select: none;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url("./icons/wallpaper.jpg");
+  background-image: url("./icons/wallpaper.png");
+}
+.kanban-icon-label {
+  color: white;
+  margin-bottom: 50px;
+  font-size: 12px;
+  text-align: center;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  line-height: 1;
+  font-weight: 400;
+  max-width: 80px;
+  text-overflow: ellipsis;
+}
+img.kanban {
+  height: 40px;
+  width: 40px;
+  width: 56px;
+  height: 56px;
+  background-color: transparent;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: pink;
+  font-size: 28px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: hidden;
+}
+/* Server Room Styles */
+.server-dashboard {
+  padding: 0;
 }
 
+.server-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin: 24px 0;
+}
+
+.server-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.server-card.active {
+  border-color: rgba(46, 204, 113, 0.5);
+  box-shadow: 0 0 20px rgba(46, 204, 113, 0.1);
+}
+
+.server-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.status-light {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.status-light.green {
+  background: #2ecc71;
+}
+.status-light.yellow {
+  background: #f39c12;
+}
+.status-light.red {
+  background: #e74c3c;
+}
+
+.server-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 12px;
+  opacity: 0.7;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0078d4;
+}
+
+.test-api-btn {
+  width: 100%;
+  background: #0078d4;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.test-api-btn:hover {
+  background: #106ebe;
+}
+
+/* Architecture Styles */
+.tech-architecture {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.arch-layer {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 16px;
+  border-radius: 8px;
+  border-left: 4px solid #0078d4;
+}
+
+.tech-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.tech-item {
+  background: rgba(0, 120, 212, 0.2);
+  color: #0078d4;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  border: 1px solid rgba(0, 120, 212, 0.3);
+}
+
+/* Terminal Styles */
+.terminal-container {
+  height: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-output {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+}
+
+/* Log Styles */
+.log-container {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  padding: 12px;
+  height: 200px;
+  overflow-y: auto;
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+}
+
+.log-entry {
+  margin-bottom: 4px;
+  padding: 2px 0;
+}
+
+.kanban-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.kanban-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.kanban-btn {
+  background: rgba(0, 120, 212, 0.1);
+  color: #0078d4;
+  border: 1px solid rgba(0, 120, 212, 0.3);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.kanban-btn:hover {
+  background: rgba(0, 120, 212, 0.2);
+  transform: translateY(-1px);
+}
+
+.kanban-btn.primary {
+  background: #0078d4;
+  color: white;
+}
+
+.kanban-btn.primary:hover {
+  background: #106ebe;
+}
+
+.kanban-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+.sync-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #28a745;
+  animation: pulse 2s infinite;
+}
+
+.sync-indicator.syncing {
+  background: #f39c12;
+  animation: spin 1s linear infinite;
+}
+
+/* Repository Filter */
+.repo-filter {
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-tab {
+  background: transparent;
+  color: #666;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 6px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.filter-tab:hover {
+  background: rgba(0, 120, 212, 0.1);
+  color: #0078d4;
+}
+
+.filter-tab.active {
+  background: #0078d4;
+  color: white;
+  border-color: #0078d4;
+}
+
+/* Kanban Board Layout */
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 20px;
+  height: calc(100% - 120px);
+  overflow-y: auto;
+}
+
+.kanban-column {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+}
+
+.column-header {
+  padding: 12px 16px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px 8px 0 0;
+}
+
+.column-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.task-count {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.column-content {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+}
+
+.loading-tasks {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+  font-size: 14px;
+}
+
+/* Task Cards */
+.task-card {
+  background: white;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #0078d4;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.task-card.github-task {
+  border-left-color: #333;
+}
+
+.task-card.visitor-task {
+  border-left-color: #28a745;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.task-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.3;
+  flex: 1;
+}
+
+.task-priority {
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.task-priority.high {
+  background: #fee;
+  color: #e74c3c;
+}
+
+.task-priority.medium {
+  background: #fff3cd;
+  color: #f39c12;
+}
+
+.task-priority.low {
+  background: #d1ecf1;
+  color: #17a2b8;
+}
+
+.task-description {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.task-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: #999;
+}
+
+.task-repo {
+  background: rgba(0, 120, 212, 0.1);
+  color: #0078d4;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.task-github-link {
+  color: #333;
+  text-decoration: none;
+}
+
+.task-github-link:hover {
+  color: #0078d4;
+}
+
+/* Modals */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.modal.active {
+  display: flex;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  animation: slideInModal 0.3s ease;
+}
+
+.modal-content.large {
+  max-width: 800px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+  padding: 4px;
+}
+
+.modal-close:hover {
+  color: #333;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin: 10px 12px;
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #0078d4;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid #eee;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn.primary {
+  background: #0078d4;
+  color: white;
+}
+
+.btn.primary:hover {
+  background: #106ebe;
+}
+
+.btn.secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn.secondary:hover {
+  background: #5a6268;
+}
+
+/* Stats Styles */
+.stats-content {
+  padding: 24px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  background: #0078d4;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #666;
+}
+
+.repo-stats h4 {
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.repo-stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.repo-stat-item:last-child {
+  border-bottom: none;
+}
+
+.repo-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.repo-counts {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+}
+
+.count-item {
+  background: #f8f9fa;
+  padding: 2px 8px;
+  border-radius: 10px;
+  color: #666;
+}
+
+/* Animations */
+@keyframes slideInModal {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .kanban-board {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .kanban-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .kanban-controls {
+    justify-content: center;
+  }
+
+  .filter-tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.empty-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: #999;
+}
+
+.log-entry.info {
+  color: #3498db;
+}
+.log-entry.success {
+  color: #2ecc71;
+}
+.log-entry.error {
+  color: #e74c3c;
+}
+.log-entry.warning {
+  color: #f39c12;
+}
+
+@keyframes slideInSchema {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
 /* Desktop Background - Windows 11 Style */
 .desktop {
   width: 100vw;
@@ -28,21 +764,7 @@ body {
     #2563eb 100%
   );
   position: relative;
-  background-image: radial-gradient(
-      circle at 20% 80%,
-      rgba(120, 113, 255, 0.3) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 80% 20%,
-      rgba(255, 113, 180, 0.3) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 40% 40%,
-      rgba(120, 255, 113, 0.2) 0%,
-      transparent 50%
-    );
+  background-image: url("./icons/wallpaper.png");
   background-size: 100% 100%;
   animation: backgroundShift 20s ease-in-out infinite alternate;
 }
@@ -184,9 +906,36 @@ body {
   min-width: 400px;
   min-height: 300px;
   display: none;
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
   overflow: hidden;
   resize: both;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(19, 11, 11, 0.2);
+}
+
+.window:not(.active) {
+display: none;
+}
+
+.window.opening {
+animation: windowOpen 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes windowOpen {
+from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+}
+to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+}
+
+.window.maximized {
+border-radius: 0 !important;
+box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) !important;
 }
 
 .window.active {
@@ -214,47 +963,71 @@ body {
 
 .window-controls {
   display: flex;
-  gap: 12px;
+  gap: 0; /* No gap for Windows 11 style */
   align-items: center;
 }
 
 .window-control {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
+  width: 46px; /* Windows 11 standard width */
+  height: 32px; /* Windows 11 standard height */
+  border: none;
+  background: transparent;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.15s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 10px;
-  color: white;
-  border: none;
+  color: #323130;
+  font-family: "Segoe UI", sans-serif;
+  font-weight: normal;
 }
 
+/* Windows 11 hover effects */
 .window-control:hover {
-  transform: scale(1.1);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
-.close {
-  background: #ff5f57;
-}
-.close:hover {
-  background: #ff3b30;
+.window-control.minimize:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
-.minimize {
-  background: #ffbd2e;
-}
-.minimize:hover {
-  background: #ff9500;
+.window-control.maximize:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
-.maximize {
-  background: #28ca42;
+.window-control.close:hover {
+  background-color: #c42b1c;
+  color: white;
 }
-.maximize:hover {
-  background: #30d158;
+
+/* Windows 11 active states */
+.window-control:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.window-control.close:active {
+  background-color: #a23327;
+  color: white;
+}
+
+/* Windows 11 symbols */
+.window-control.minimize::before {
+  content: "🗕";
+  font-size: 12px;
+  line-height: 1;
+}
+
+.window-control.maximize::before {
+  content: "🗖";
+  font-size: 10px;
+  line-height: 1;
+}
+
+.window-control.close::before {
+  content: "🗙";
+  font-size: 12px;
+  line-height: 1;
 }
 
 .window-title {
@@ -680,10 +1453,6 @@ body {
   align-items: center;
   gap: 8px;
   padding: 4px 8px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .start-button {
@@ -771,21 +1540,139 @@ body {
   background-clip: content-box;
 }
 
-/* Windows 11 Animations */
-@keyframes windowOpen {
+@keyframes powerMenuSlide {
   from {
     opacity: 0;
-    transform: scale(0.9) translateY(20px);
+    transform: translateX(-50%) translateY(20px) scale(0.95);
   }
   to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.power-option:hover {
+  transform: translateX(4px);
+}
+
+.power-option {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.power-option:hover .fas.fa-chevron-right {
+  opacity: 1 !important;
+  transform: translateX(2px);
+}
+
+.power-menu {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Add a subtle backdrop */
+.power-menu::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: -1;
+  pointer-events: none;
+}
+.taskbar-window.minimized {
+  opacity: 0.7;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.taskbar-window.minimized:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.taskbar-window.minimized::before {
+  background: #f39c12; /* Different color for minimized windows */
+}
+
+/* Update the minimize animation to go towards taskbar */
+@keyframes windowMinimize {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.1) translateY(calc(100vh - 100px));
+  }
+}
+
+/* Add restore animation */
+@keyframes windowRestore {
+  0% {
+    opacity: 0;
+    transform: scale(0.1) translateY(calc(100vh - 100px));
+  }
+  100% {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
 }
-
-.window.opening {
-  animation: windowOpen 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+@keyframes slideInWeather {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
+
+.weather-popup {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+#weatherWidget:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+
 
 @keyframes slideIn {
   from {
@@ -834,10 +1721,6 @@ body {
     width: 48px;
     height: 48px;
     font-size: 24px;
-  }
-
-  .icon-label {
-    font-size: 12px;
   }
 
   .window {
