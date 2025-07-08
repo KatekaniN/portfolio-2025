@@ -97,7 +97,7 @@ class Windows11Manager {
               "fas fa-power-off",
               "Shut Down",
               "Clean shutdown with farewell message",
-              "#FF5B08"
+              ""
             )}
             ${this.createPowerOption(
               "hibernate",
@@ -735,7 +735,6 @@ class Windows11Manager {
   }
 
   resetWindowState(window) {
-    // Remove all state classes
     window.classList.remove("maximized", "focused");
 
     // Clear minimized state
@@ -761,7 +760,7 @@ class Windows11Manager {
     window.style.opacity = "";
     window.style.pointerEvents = "";
     window.style.display = "";
-    window.style.borderRadius = "12px"; // Restore default border radius
+    window.style.borderRadius = "0px";
     window.style.boxShadow = "";
 
     // Reset maximize button
@@ -1430,7 +1429,7 @@ class Windows11Manager {
     window.style.height = window.dataset.originalHeight || "400px";
     window.style.left = window.dataset.originalLeft || "100px";
     window.style.top = window.dataset.originalTop || "100px";
-    window.style.borderRadius = "12px"; // Restore border radius
+    window.style.borderRadius = "0px";
 
     // Update maximize button symbol
     const maximizeBtn = window.querySelector(".window-control.maximize");
@@ -1503,16 +1502,16 @@ class Windows11PersonalFeatures {
     let emoji = "👋";
 
     if (hour < 6) {
-      greeting = "Working late?";
+      greeting = "Hey there, night owl!";
       emoji = "🌙";
     } else if (hour < 12) {
-      greeting = "Good morning!";
+      greeting = "Hey there, early bird!";
       emoji = "🌅";
     } else if (hour < 18) {
-      greeting = "Good afternoon!";
-      emoji = "☀️";
+      greeting = "Hey there,";
+      emoji = "🌸";
     } else {
-      greeting = "Good evening!";
+      greeting = "Evening!";
       emoji = "🌙";
     }
 
@@ -1574,7 +1573,7 @@ class Windows11PersonalFeatures {
     const randomFact = facts[Math.floor(Math.random() * facts.length)];
     console.log(
       `%c${randomFact}`,
-      "color: #0078d4; font-size: 14px; font-weight: bold;"
+      "color: #DE0077; font-size: 14px; font-weight: bold;"
     );
   }
 
@@ -2068,18 +2067,14 @@ class Windows11PersonalFeatures {
     }, 200);
   }
 }
+/*
 class KanbanManager {
   constructor() {
-    /*
-    this.apiUrl =
-      window.location.hostname === "localhost"
-        ? "http://localhost:3001/api" // Development
-        : "https://your-render-backend-url.onrender.com/api"; // Production*/
-
     this.apiUrl = "http://localhost:3001/api";
-
+    this.isInitialLoad = true; // Fixed: consistent naming
     this.currentFilter = "all";
     this.boardData = [];
+    this.isAddingBoilerplate = false; // Prevent concurrent additions
     this.init();
   }
 
@@ -2089,9 +2084,9 @@ class KanbanManager {
   }
 
   setupEventListeners() {
-    // Auto-refresh every 30 seconds
+    // Auto-refresh every 30 seconds (silent refresh only)
     setInterval(() => {
-      this.loadBoard(false); // Silent reload
+      this.loadBoard(false); // Silent reload, no boilerplate check
     }, 30000);
   }
 
@@ -2108,6 +2103,18 @@ class KanbanManager {
         this.boardData = result.data;
         this.renderBoard();
         this.setStatus("Board updated", "success");
+
+        // Only check for boilerplate on initial load with user interaction
+        if (
+          this.isInitialLoad &&
+          showLoading &&
+          this.shouldAddBoilerplateTasks()
+        ) {
+          this.isInitialLoad = false;
+          await this.addBoilerplateTasks();
+        } else if (this.isInitialLoad) {
+          this.isInitialLoad = false; // Mark as loaded even if no boilerplate needed
+        }
       } else {
         throw new Error(result.error);
       }
@@ -2115,20 +2122,83 @@ class KanbanManager {
       console.error("Error loading board:", error);
       this.setStatus("Failed to load board", "error");
       this.showOfflineBoard();
+      this.isInitialLoad = false; // Prevent retry on error
     }
   }
+ 
+async clearAllTasks() {
+if (!confirm("⚠️ Delete ALL tasks? This cannot be undone!")) {
+  return;
+}
 
+try {
+  this.setStatus("Clearing all tasks...", "syncing");
+
+  const response = await fetch(`${this.apiUrl}/tasks/clear-all`, {
+    method: 'DELETE'
+  });
+
+  const result = await response.json();
+
+  if (result.success) {
+    personalFeatures.showNotification(
+      "All Tasks Cleared! 🗑️", 
+      `Deleted ${result.deletedCount} tasks.`,
+      "fas fa-trash"
+    );
+
+    localStorage.removeItem("kanban_boilerplate_added");
+    localStorage.removeItem("kanban_boilerplate_timestamp");
+    this.isInitialLoad = true;
+    
+    setTimeout(() => this.loadBoard(), 1000);
+  }
+} catch (error) {
+  console.error("Clear failed:", error);
+}
+}
+
+async clearBoilerplateTasks() {
+if (!confirm("Clear sample tasks only? User tasks will be kept.")) {
+  return;
+}
+
+try {
+  this.setStatus("Clearing sample tasks...", "syncing");
+
+  const response = await fetch(`${this.apiUrl}/tasks/clear-boilerplate`, {
+    method: 'DELETE'
+  });
+
+  const result = await response.json();
+
+  if (result.success) {
+    personalFeatures.showNotification(
+      "Sample Tasks Cleared! 🧹",
+      `Removed ${result.deletedCount} sample tasks.`,
+      "fas fa-broom"
+    );
+
+    localStorage.removeItem("kanban_boilerplate_added");
+    localStorage.removeItem("kanban_boilerplate_timestamp");
+    this.isInitialLoad = true;
+    
+    setTimeout(() => this.loadBoard(), 1000);
+  }
+} catch (error) {
+  console.error("Clear failed:", error);
+}
+}
   renderBoard() {
     this.boardData.forEach((column) => {
       const columnElement = document.getElementById(
-        `${column.name.toLowerCase().replace(" ", "")}-tasks`
+        `${column.name.toLowerCase().replace(/\s+/g, "")}-tasks` // Fixed: handle multiple spaces
       );
       const countElement = document.getElementById(
-        `${column.name.toLowerCase().replace(" ", "")}-count`
+        `${column.name.toLowerCase().replace(/\s+/g, "")}-count`
       );
 
       if (columnElement && countElement) {
-        // Filter tasks based on current filter
         const filteredTasks =
           this.currentFilter === "all"
             ? column.tasks
@@ -2141,11 +2211,11 @@ class KanbanManager {
 
         if (filteredTasks.length === 0) {
           columnElement.innerHTML = `
-                    <div class="empty-column">
-                        <i class="fas fa-inbox" style="font-size: 24px; opacity: 0.3; margin-bottom: 8px;"></i>
-                        <div style="font-size: 12px; opacity: 0.6;">No tasks</div>
-                    </div>
-                `;
+          <div class="empty-column">
+              <i class="fas fa-inbox" style="font-size: 24px; opacity: 0.3; margin-bottom: 8px;"></i>
+              <div style="font-size: 12px; opacity: 0.6;">No tasks</div>
+          </div>
+        `;
         } else {
           filteredTasks.forEach((task) => {
             const taskElement = this.createTaskElement(task);
@@ -2166,38 +2236,37 @@ class KanbanManager {
     const isGitHubTask = task.github_issue_number !== null;
 
     taskDiv.innerHTML = `
-        <div class="task-header">
-            <div class="task-title">${task.title}</div>
-            <div class="task-priority ${task.priority}">${task.priority}</div>
-        </div>
-        ${
-          task.description
-            ? `<div class="task-description">${task.description.substring(
-                0,
-                100
-              )}${task.description.length > 100 ? "..." : ""}</div>`
-            : ""
-        }
-        <div class="task-meta">
-            <div>
-                ${
-                  task.github_repo
-                    ? `<span class="task-repo">${task.github_repo}</span>`
-                    : ""
-                }
-                ${
-                  isGitHubTask
-                    ? `<a href="${task.github_url}" target="_blank" class="task-github-link" title="View on GitHub"><i class="fab fa-github"></i></a>`
-                    : ""
-                }
-            </div>
-            <div style="font-size: 10px;">
-                ${task.created_by} • ${createdDate}
-            </div>
-        </div>
-    `;
+      <div class="task-header">
+          <div class="task-title">${task.title}</div>
+          <div class="task-priority ${task.priority}">${task.priority}</div>
+      </div>
+      ${
+        task.description
+          ? `<div class="task-description">${task.description.substring(
+              0,
+              100
+            )}${task.description.length > 100 ? "..." : ""}</div>`
+          : ""
+      }
+      <div class="task-meta">
+          <div>
+              ${
+                task.github_repo
+                  ? `<span class="task-repo">${task.github_repo}</span>`
+                  : ""
+              }
+              ${
+                isGitHubTask
+                  ? `<a href="${task.github_url}" target="_blank" class="task-github-link" title="View on GitHub"><i class="fab fa-github"></i></a>`
+                  : ""
+              }
+          </div>
+          <div style="font-size: 10px;">
+              ${task.created_by} • ${createdDate}
+          </div>
+      </div>
+  `;
 
-    // Add click handler for task details
     taskDiv.addEventListener("click", () => {
       this.showTaskDetails(task);
     });
@@ -2223,8 +2292,7 @@ class KanbanManager {
           "fab fa-github"
         );
 
-        // Reload board to show new tasks
-        setTimeout(() => this.loadBoard(), 1000);
+        setTimeout(() => this.loadBoard(false), 1000); // Silent reload
       } else {
         throw new Error(result.error);
       }
@@ -2264,7 +2332,6 @@ class KanbanManager {
   async submitTask(event) {
     event.preventDefault();
 
-    const formData = new FormData(event.target);
     const taskData = {
       title: document.getElementById("taskTitle").value,
       description: document.getElementById("taskDescription").value,
@@ -2272,6 +2339,8 @@ class KanbanManager {
       priority: document.getElementById("taskPriority").value,
       created_by:
         document.getElementById("createdBy").value || "Anonymous Visitor",
+      // Add status/column field - adjust based on your backend API
+      status: "Done", // Default to Backlog for new tasks
     };
 
     try {
@@ -2293,7 +2362,7 @@ class KanbanManager {
         );
 
         this.closeAddTaskModal();
-        this.loadBoard();
+        this.loadBoard(false); // Silent reload
       } else {
         throw new Error(result.error);
       }
@@ -2310,13 +2379,15 @@ class KanbanManager {
   filterByRepo(repo) {
     this.currentFilter = repo;
 
-    // Update active tab
     document.querySelectorAll(".filter-tab").forEach((tab) => {
       tab.classList.remove("active");
     });
-    document.querySelector(`[data-repo="${repo}"]`).classList.add("active");
 
-    // Re-render board with filter
+    const activeTab = document.querySelector(`[data-repo="${repo}"]`);
+    if (activeTab) {
+      activeTab.classList.add("active");
+    }
+
     this.renderBoard();
   }
 
@@ -2334,7 +2405,6 @@ class KanbanManager {
   }
 
   displayStats(stats) {
-    // Update stat numbers
     document.getElementById("totalTasks").textContent = stats.totalTasks;
     document.getElementById("completedTasks").textContent =
       stats.columnStats.find((col) => col.column_name === "Done")?.task_count ||
@@ -2347,7 +2417,6 @@ class KanbanManager {
       0
     );
 
-    // Update repo stats
     const repoStatsList = document.getElementById("repoStatsList");
     repoStatsList.innerHTML = "";
 
@@ -2355,16 +2424,15 @@ class KanbanManager {
       const repoDiv = document.createElement("div");
       repoDiv.className = "repo-stat-item";
       repoDiv.innerHTML = `
-        <div class="repo-name">${repo.github_repo}</div>
-        <div class="repo-counts">
-            <span class="count-item">${repo.task_count} total</span>
-            <span class="count-item">${repo.completed_count} done</span>
-        </div>
+      <div class="repo-name">${repo.github_repo}</div>
+      <div class="repo-counts">
+          <span class="count-item">${repo.task_count} total</span>
+          <span class="count-item">${repo.completed_count} done</span>
+      </div>
     `;
       repoStatsList.appendChild(repoDiv);
     });
 
-    // Show stats modal
     document.getElementById("statsModal").classList.add("active");
   }
 
@@ -2387,7 +2455,6 @@ class KanbanManager {
       isGitHub ? "fab fa-github" : "fas fa-tasks"
     );
 
-    // If it's a GitHub task, open GitHub link after notification
     if (isGitHub && task.github_url) {
       setTimeout(() => {
         if (confirm("Open this task on GitHub?")) {
@@ -2423,7 +2490,6 @@ class KanbanManager {
       }
     }
 
-    // Clear status after 3 seconds
     setTimeout(() => {
       if (statusElement) {
         statusElement.textContent = "Ready";
@@ -2435,8 +2501,228 @@ class KanbanManager {
     }, 3000);
   }
 
+  shouldAddBoilerplateTasks() {
+    const totalTasks = this.boardData.reduce(
+      (sum, column) => sum + column.tasks.length,
+      0
+    );
+
+    const hasAddedBoilerplate = localStorage.getItem(
+      "kanban_boilerplate_added"
+    );
+    const boilerplateTimestamp = localStorage.getItem(
+      "kanban_boilerplate_timestamp"
+    );
+
+    // Reset if it's been more than 24 hours (for testing)
+    if (boilerplateTimestamp) {
+      const oneDayAgo = Date.now() - 24 * 60 * 60 * 1000;
+      if (parseInt(boilerplateTimestamp) < oneDayAgo) {
+        localStorage.removeItem("kanban_boilerplate_added");
+        localStorage.removeItem("kanban_boilerplate_timestamp");
+      }
+    }
+
+    console.log(
+      `Total tasks: ${totalTasks}, Has boilerplate: ${hasAddedBoilerplate}`
+    );
+
+    return totalTasks < 3 && !hasAddedBoilerplate && !this.isAddingBoilerplate;
+  }
+
+  async addBoilerplateTasks() {
+    if (this.isAddingBoilerplate) {
+      console.log("Already adding boilerplate tasks, skipping...");
+      return;
+    }
+
+    this.isAddingBoilerplate = true;
+
+    // Updated boilerplate tasks with correct field names
+    const boilerplateTasks = [
+      // Backlog tasks (3 tasks)
+      {
+        title: "Set up project structure",
+        description:
+          "Initialize the portfolio project with proper folder organization and basic configuration files",
+        priority: "high",
+        github_repo: "portfolio-2025",
+        created_by: "System Setup",
+        status: "Backlog", // Use 'status' instead of 'column_name'
+      },
+      {
+        title: "Add analytics tracking",
+        description:
+          "Implement Google Analytics or similar tracking to monitor site usage",
+        priority: "low",
+        github_repo: "cpnsume-frontend",
+        created_by: "Marketing Team",
+        status: "Backlog",
+      },
+      {
+        title: "Write unit tests",
+        description:
+          "Create comprehensive unit tests for all major components and functions",
+        priority: "medium",
+        github_repo: "plantly",
+        created_by: "QA Team",
+        status: "Backlog",
+      },
+
+      // In Progress tasks (2 tasks)
+      {
+        title: "Design responsive layout",
+        description:
+          "Create a mobile-first responsive design that works across all device sizes",
+        priority: "high",
+        github_repo: "cadbury-frontend",
+        created_by: "UI/UX Team",
+        status: "In Progress",
+      },
+      {
+        title: "Implement dark/light theme toggle",
+        description:
+          "Add a theme switcher that allows users to toggle between dark and light modes",
+        priority: "medium",
+        github_repo: "plantly",
+        created_by: "Frontend Team",
+        status: "In Progress",
+      },
+
+      // Review tasks (2 tasks)
+      {
+        title: "Add contact form validation",
+        description:
+          "Implement client-side and server-side validation for the contact form",
+        priority: "medium",
+        github_repo: "cadbury-frontend",
+        created_by: "Backend Team",
+        status: "Review",
+      },
+
+      // Done tasks (3 tasks)
+      {
+        title: "Optimize images for web",
+        description:
+          "Compress and optimize all images for better loading performance",
+        priority: "low",
+        github_repo: "portfolio-2025",
+        created_by: "Performance Team",
+        status: "Done",
+      },
+      {
+        title: "Deploy to production",
+        description:
+          "Set up CI/CD pipeline and deploy the portfolio to a production environment",
+        priority: "high",
+        github_repo: "portfolio-2025",
+        created_by: "DevOps Team",
+        status: "Done",
+      },
+      {
+        title: "Create project showcase animations",
+        description:
+          "Add smooth animations and transitions to enhance the project showcase section",
+        priority: "medium",
+        github_repo: "portfolio-2025",
+        created_by: "Animation Team",
+        status: "Done",
+      },
+    ];
+
+    try {
+      this.setStatus("Adding sample tasks...", "syncing");
+
+      let successCount = 0;
+      let errorCount = 0;
+
+      for (const taskData of boilerplateTasks) {
+        try {
+          console.log(`Adding task: ${taskData.title} to ${taskData.status}`);
+
+          const response = await fetch(`${this.apiUrl}/tasks`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(taskData),
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            successCount++;
+            console.log(`✅ Successfully added: ${taskData.title}`);
+          } else {
+            errorCount++;
+            console.warn(
+              `❌ Failed to add task: ${taskData.title}`,
+              result.error
+            );
+          }
+        } catch (error) {
+          errorCount++;
+          console.error(`❌ Error adding task: ${taskData.title}`, error);
+        }
+
+        // Delay to prevent overwhelming the server
+        await new Promise((resolve) => setTimeout(resolve, 200));
+      }
+
+      if (successCount > 0) {
+        // Mark boilerplate as added with timestamp
+        localStorage.setItem("kanban_boilerplate_added", "true");
+        localStorage.setItem(
+          "kanban_boilerplate_timestamp",
+          Date.now().toString()
+        );
+
+        personalFeatures.showNotification(
+          "Sample Board Created! 📋",
+          `Successfully added ${successCount} sample tasks across all columns.${
+            errorCount > 0 ? ` (${errorCount} failed)` : ""
+          }`,
+          "fas fa-check-circle"
+        );
+
+        this.setStatus("Sample tasks added successfully", "success");
+
+        // Reload board to show new tasks
+        setTimeout(() => this.loadBoard(false), 1500);
+      } else {
+        throw new Error("No tasks were added successfully");
+      }
+    } catch (error) {
+      console.error("Error adding boilerplate tasks:", error);
+      this.setStatus("Failed to add sample tasks", "error");
+      personalFeatures.showNotification(
+        "Error Adding Tasks ❌",
+        "Failed to add sample tasks. Make sure the server is running.",
+        "fas fa-exclamation-triangle"
+      );
+    } finally {
+      this.isAddingBoilerplate = false;
+    }
+  }
+
+  // Utility method to reset boilerplate (for testing)
+  resetBoilerplate() {
+    localStorage.removeItem("kanban_boilerplate_added");
+    localStorage.removeItem("kanban_boilerplate_timestamp");
+    this.isInitialLoad = true;
+    this.isAddingBoilerplate = false;
+    console.log(
+      "🔄 Boilerplate reset. Refresh the page to add sample tasks again."
+    );
+
+    personalFeatures.showNotification(
+      "Boilerplate Reset 🔄",
+      "Sample tasks cleared. Refresh the page to regenerate.",
+      "fas fa-refresh"
+    );
+  }
+
   showOfflineBoard() {
-    // Show a basic offline version with sample data
     const offlineData = [
       {
         name: "Backlog",
@@ -2449,6 +2735,8 @@ class KanbanManager {
             github_repo: "portfolio-2025",
             created_by: "System",
             created_at: new Date().toISOString(),
+            github_issue_number: null,
+            github_url: null,
           },
         ],
       },
@@ -2459,20 +2747,21 @@ class KanbanManager {
 
     this.boardData = offlineData;
     this.renderBoard();
+    this.isInitialLoad = false;
   }
-}
+} */
 
-// Initialize Kanban Manager
+/*Initialize Kanban Manager
 let kanbanManager;
 let windowManager;
-
+*/
 document.addEventListener("DOMContentLoaded", () => {
   windowManager = new Windows11Manager();
   window.windowManager = windowManager;
   window.personalFeatures = new Windows11PersonalFeatures();
   window.easterEggs = new Windows11EasterEggs();
-  kanbanManager = new KanbanManager();
-  window.kanbanManager = kanbanManager;
+ // kanbanManager = new KanbanManager();
+ // window.kanbanManager = kanbanManager;
 
   // Make functions globally accessible
   window.closeWindow = (windowId) => windowManager.closeWindow(windowId);
@@ -2488,12 +2777,11 @@ document.addEventListener("DOMContentLoaded", () => {
       "fab fa-windows"
     );
   }, 1000);
-
+  
   console.log("🎉 Windows 11 Desktop Portfolio loaded successfully!");
   console.log(
     "📋 Project Board ready - try adding tasks or syncing with GitHub!"
   );
-  console.log("✅ KanbanManager initialized:", window.kanbanManager);
 });
 
 // Enhanced Easter Eggs for Windows 11

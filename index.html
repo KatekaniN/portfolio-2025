@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Desktop Portfolio - Your Name</title>
+    <title>Katekani Nyamandi - Portfolio</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,8 +15,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
     <div class="desktop" id="desktop">
@@ -89,27 +87,30 @@
         </div>
         <div class="icon-label">Resume</div>
       </div>
+
+      <!-- AI Assistant Icon -->
       <div
-        class="desktop-icon kanban-icon"
+        class="desktop-icon ai-chat-icon"
         style="top: 440px; left: 60px"
-        data-window="kanban"
+        data-window="aiChat"
       >
-        <div>
-          <img class="kanban" src="./icons/kanban.png" alt="kanban icon" />
+        <div class="icon-image">
+          <img src="./icons/kate.png" alt="ai assistant" />
         </div>
-        <div style="overflow: visible" class="kanban-icon-label">
-          Project Board
-        </div>
+        <div class="icon-label">AI Assistant</div>
       </div>
 
       <!-- Windows with Windows 11 styling -->
-
       <div
         class="window"
         id="about"
         style="top: 120px; left: 300px; width: 650px; height: 500px"
       >
         <div class="window-header">
+          <div class="window-title">
+            <i class="fa-solid fa-house-user" style="color: #404147"></i> About
+            Me
+          </div>
           <div class="window-controls">
             <button
               class="window-control minimize"
@@ -127,31 +128,22 @@
               title="Close"
             ></button>
           </div>
-          <div class="window-title">
-            <i class="fa-solid fa-house-user" style="color: #404147"></i> About
-            Me
-          </div>
-          <div></div>
         </div>
         <div class="window-content">
           <div class="profile-section">
             <div class="profile-image">
               <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=face&auto=format"
+                src="./icons/avatar.png"
                 alt="Profile Picture"
                 class="profile-pic"
               />
             </div>
             <div class="profile-info">
               <h2>Hello! I'm Katekani Nyamandi</h2>
-              <p class="tagline">
-                Full-Stack Developer & Creative Problem Solver
-              </p>
-              <p>
-                I'm passionate about creating digital experiences that make a
-                difference. With 5+ years of experience in web development, I
-                specialize in turning complex ideas into elegant, user-friendly
-                solutions that scale.
+              <p class="tagline">Junior Full Stack Developer</p>
+              <p class="slogan">
+                I enjoy creating digital products that I can see myself and
+                others actually using.
               </p>
             </div>
           </div>
@@ -164,29 +156,29 @@
             <div class="detail-item">
               <i class="fas fa-graduation-cap"></i>
               <span
-                ><strong>Education:</strong> B.S. Computer Science, Stanford
-                University</span
+                ><strong>Education:</strong> BSc Mathematical Statistics (Final
+                Year), University of Pretoria</span
               >
             </div>
             <div class="detail-item">
               <i class="fas fa-briefcase"></i>
               <span
-                ><strong>Experience:</strong> 5+ years in full-stack
-                development</span
+                ><strong>Experience:</strong> Junior Developer at Ogilvy South
+                Africa</span
               >
             </div>
             <div class="detail-item">
               <i class="fas fa-heart"></i>
               <span
-                ><strong>Interests:</strong> Photography, Rock Climbing, Coffee
-                Brewing, Gaming</span
+                ><strong>Interests:</strong> AI Development, Mobile App
+                Development</span
               >
             </div>
             <div class="detail-item">
-              <i class="fas fa-language"></i>
+              <i class="fas fa-code"></i>
               <span
-                ><strong>Languages:</strong> English (Native), Spanish
-                (Conversational), Japanese (Learning)</span
+                ><strong>Favorite Languages:</strong> React, JavaScript,
+                SQL</span
               >
             </div>
           </div>
@@ -199,6 +191,9 @@
         style="top: 100px; left: 350px; width: 800px; height: 600px"
       >
         <div class="window-header">
+          <div class="window-title">
+            <i class="fas fa-code"></i> My Projects
+          </div>
           <div class="window-controls">
             <button
               class="window-control minimize"
@@ -216,10 +211,6 @@
               title="Close"
             ></button>
           </div>
-          <div class="window-title">
-            <i class="fas fa-code"></i> My Projects
-          </div>
-          <div></div>
         </div>
         <div class="window-content">
           <h2>Featured Projects</h2>
@@ -231,21 +222,21 @@
           <div class="projects-grid">
             <div class="project-card">
               <div class="project-header">
-                <i class="fas fa-shopping-cart project-icon"></i>
-                <h3>EcoShop Platform</h3>
+                <i class="fab fa-github project-icon"></i>
+                <h3>GitHub API Consumer</h3>
               </div>
               <p>
-                A sustainable e-commerce platform built with modern web
-                technologies. Features include eco-friendly product
-                recommendations, carbon footprint tracking, and a rewards system
-                for sustainable purchases.
+                Built a dynamic GitHub profile application consuming GitHub API
+                data with performance optimization requirements, implementing
+                Axios for HTTP requests with comprehensive error handling and
+                asynchronous programming patterns.
               </p>
               <div class="tech-stack">
-                <span class="tech-tag">React</span>
                 <span class="tech-tag">Node.js</span>
-                <span class="tech-tag">MongoDB</span>
-                <span class="tech-tag">Stripe API</span>
-                <span class="tech-tag">AWS</span>
+                <span class="tech-tag">Express</span>
+                <span class="tech-tag">Jasmine</span>
+                <span class="tech-tag">HTML/CSS</span>
+                <span class="tech-tag">Render</span>
               </div>
               <div class="project-links">
                 <a href="#" class="project-link primary"
@@ -259,78 +250,74 @@
 
             <div class="project-card">
               <div class="project-header">
-                <i class="fas fa-tasks project-icon"></i>
-                <h3>TeamFlow</h3>
+                <i class="fas fa-leaf project-icon"></i>
+                <h3>AI-Powered Plant Care Assistant</h3>
               </div>
               <p>
-                A collaborative project management tool designed for remote
-                teams. Features real-time updates, file sharing, integrated
-                video calls, and AI-powered task prioritization.
-              </p>
-              <div class="tech-stack">
-                <span class="tech-tag">Vue.js</span>
-                <span class="tech-tag">Firebase</span>
-                <span class="tech-tag">WebRTC</span>
-                <span class="tech-tag">Socket.io</span>
-                <span class="tech-tag">OpenAI API</span>
-              </div>
-              <div class="project-links">
-                <a href="#" class="project-link primary"
-                  ><i class="fas fa-external-link-alt"></i> Live Demo</a
-                >
-                <a href="#" class="project-link"
-                  ><i class="fab fa-github"></i> GitHub</a
-                >
-              </div>
-            </div>
-
-            <div class="project-card">
-              <div class="project-header">
-                <i class="fas fa-chart-line project-icon"></i>
-                <h3>DataViz Dashboard</h3>
-              </div>
-              <p>
-                An interactive data visualization dashboard for analyzing
-                business metrics. Features customizable charts, real-time data
-                updates, and machine learning insights.
-              </p>
-              <div class="tech-stack">
-                <span class="tech-tag">D3.js</span>
-                <span class="tech-tag">Python</span>
-                <span class="tech-tag">PostgreSQL</span>
-                <span class="tech-tag">FastAPI</span>
-                <span class="tech-tag">Docker</span>
-              </div>
-              <div class="project-links">
-                <a href="#" class="project-link primary"
-                  ><i class="fas fa-external-link-alt"></i> Live Demo</a
-                >
-                <a href="#" class="project-link"
-                  ><i class="fab fa-github"></i> GitHub</a
-                >
-              </div>
-            </div>
-
-            <div class="project-card">
-              <div class="project-header">
-                <i class="fas fa-mobile-alt project-icon"></i>
-                <h3>FitTracker Mobile App</h3>
-              </div>
-              <p>
-                A cross-platform mobile fitness tracking app with social
-                features, workout planning, and nutrition tracking. Built with
-                React Native and AI-powered recommendations.
+                Self-taught React Native development to build a mobile plant
+                care application, integrating AI API for intelligent plant care
+                advice and Gemini Vision API for camera-based plant
+                identification.
               </p>
               <div class="tech-stack">
                 <span class="tech-tag">React Native</span>
-                <span class="tech-tag">Expo</span>
-                <span class="tech-tag">Supabase</span>
-                <span class="tech-tag">TensorFlow</span>
-                <span class="tech-tag">Stripe</span>
+                <span class="tech-tag">ChatGPT API</span>
+                <span class="tech-tag">Gemini Vision API</span>
               </div>
               <div class="project-links">
                 <a href="#" class="project-link primary"
-                  ><i class="fas fa-external-link-alt"></i> App Store</a
+                  ><i class="fas fa-external-link-alt"></i> Demo</a
+                >
+                <a href="#" class="project-link"
+                  ><i class="fab fa-github"></i> GitHub</a
+                >
+              </div>
+            </div>
+
+            <div class="project-card">
+              <div class="project-header">
+                <i class="fas fa-money-bill-wave project-icon"></i>
+                <h3>BizBacker (FNB Hackathon)</h3>
+              </div>
+              <p>
+                Led full-stack fintech solution addressing financial inclusion
+                in township economies. Developed innovative royalty-based
+                micro-investment model connecting investors with small
+                businesses.
+              </p>
+              <div class="tech-stack">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">Firebase</span>
+                <span class="tech-tag">Python</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link primary"
+                  ><i class="fas fa-award"></i> FNB App of the Year</a
+                >
+                <a href="#" class="project-link"
+                  ><i class="fab fa-github"></i> GitHub</a
+                >
+              </div>
+            </div>
+
+            <div class="project-card">
+              <div class="project-header">
+                <i class="fas fa-shield-alt project-icon"></i>
+                <h3>Safe Spaces (Hackathon)</h3>
+              </div>
+              <p>
+                Led frontend development of real-time safety network, creating
+                community-driven safety platform for vulnerable populations
+                using JavaScript and Mapbox integration.
+              </p>
+              <div class="tech-stack">
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">Mapbox</span>
+                <span class="tech-tag">HTML/CSS</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link primary"
+                  ><i class="fas fa-external-link-alt"></i> Project Info</a
                 >
                 <a href="#" class="project-link"
                   ><i class="fab fa-github"></i> GitHub</a
@@ -341,13 +328,590 @@
         </div>
       </div>
 
-      <!-- Kanban Board Window -->
+      <div
+        class="window"
+        id="skills"
+        style="top: 80px; left: 400px; width: 600px; height: 550px"
+      >
+        <div class="window-header">
+          <div class="window-title">
+            <i class="fas fa-tools"></i> Skills & Technologies
+          </div>
+          <div class="window-controls">
+            <button
+              class="window-control minimize"
+              onclick="windowManager.minimizeWindow('skills')"
+              title="Minimize"
+            ></button>
+            <button
+              class="window-control maximize"
+              onclick="windowManager.maximizeWindow('skills')"
+              title="Maximize"
+            ></button>
+            <button
+              class="window-control close"
+              onclick="windowManager.closeWindow('skills')"
+              title="Close"
+            ></button>
+          </div>
+        </div>
+        <div class="window-content">
+          <h2>Technical Expertise</h2>
+          <p>
+            Here's an overview of my technical skills and proficiency levels
+            across different technologies.
+          </p>
+
+          <div class="skills-category">
+            <h3><i class="fab fa-js-square"></i> Frontend Development</h3>
+            <div class="skill-tags">
+              <span class="skill-tag expert">JavaScript</span>
+              <span class="skill-tag expert">React</span>
+              <span class="skill-tag advanced">React Native</span>
+              <span class="skill-tag expert">HTML5/CSS3</span>
+              <span class="skill-tag advanced">Tailwind CSS</span>
+              <span class="skill-tag advanced">Bootstrap</span>
+            </div>
+          </div>
+
+          <div class="skills-category">
+            <h3><i class="fas fa-server"></i> Backend Development</h3>
+            <div class="skill-tags">
+              <span class="skill-tag expert">Node.js</span>
+              <span class="skill-tag expert">Express.js</span>
+              <span class="skill-tag advanced">REST APIs</span>
+              <span class="skill-tag intermediate">Java</span>
+            </div>
+          </div>
+
+          <div class="skills-category">
+            <h3><i class="fas fa-database"></i> Database & Cloud</h3>
+            <div class="skill-tags">
+              <span class="skill-tag advanced">PostgreSQL</span>
+              <span class="skill-tag intermediate">MongoDB</span>
+              <span class="skill-tag advanced">Database Design Patterns</span>
+              <span class="skill-tag intermediate">Connection Pooling</span>
+            </div>
+          </div>
+
+          <div class="skills-category">
+            <h3><i class="fas fa-tools"></i> Tools & Others</h3>
+            <div class="skill-tags">
+              <span class="skill-tag expert">Git</span>
+              <span class="skill-tag advanced"
+                >Deployment (Render, Vercel)</span
+              >
+              <span class="skill-tag intermediate"
+                >Authentication (Supabase, Firebase)</span
+              >
+              <span class="skill-tag advanced">WordPress</span>
+              <span class="skill-tag intermediate"
+                >Adobe Experience Manager</span
+              >
+              <span class="skill-tag advanced">Jasmine</span>
+              <span class="skill-tag intermediate">TDD Practices</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="window"
+        id="contact"
+        style="
+          top: 140px;
+          left: 450px;
+          width: 520px;
+          height: 450px;
+          border-radius: 0px !important;
+        "
+      >
+        <div class="window-header">
+          <div class="window-title">
+            <i class="fas fa-envelope"></i> Contact Me
+          </div>
+          <div class="window-controls">
+            <button
+              class="window-control minimize"
+              onclick="windowManager.minimizeWindow('contact')"
+              title="Minimize"
+            ></button>
+            <button
+              class="window-control maximize"
+              onclick="windowManager.maximizeWindow('contact')"
+              title="Maximize"
+            ></button>
+            <button
+              class="window-control close"
+              onclick="windowManager.closeWindow('contact')"
+              title="Close"
+            ></button>
+          </div>
+        </div>
+        <div class="window-content">
+          <h2>Let's Connect!</h2>
+          <p>
+            I'm always excited to discuss new opportunities, collaborate on
+            interesting projects, or just chat about technology and innovation.
+            Feel free to reach out through any of these channels!
+          </p>
+
+          <div class="contact-methods">
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <strong>Email</strong>
+                <p>
+                  <a href="mailto:knyamandi99@gmail.com"
+                    >knyamandi99@gmail.com</a
+                  >
+                </p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <div>
+                <strong>Phone</strong>
+                <p>
+                  <a href="tel:+27676878729">067 687 8729</a>
+                </p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <i class="fab fa-linkedin"></i>
+              <div>
+                <strong>LinkedIn</strong>
+                <p>
+                  <a href="https://linkedin.com/in/katekanin" target="_blank"
+                    >linkedin.com/in/katekanin</a
+                  >
+                </p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <i class="fab fa-github"></i>
+              <div>
+                <strong>GitHub</strong>
+                <p>
+                  <a href="https://github.com/katekanin" target="_blank"
+                    >github.com/katekanin</a
+                  >
+                </p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <strong>Location</strong>
+                <p>Johannesburg, Gauteng, South Africa</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="availability">
+            <p>
+              <strong>Current Status:</strong>
+              <span class="status-available"
+                >🟢 Available for new opportunities</span
+              >
+            </p>
+            <p><em>Response time: Usually within 24 hours</em></p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="window"
+        id="personal"
+        style="top: 90px; left: 500px; width: 700px; height: 580px"
+      >
+        <div class="window-header">
+          <div class="window-title">
+            <i class="fas fa-heart"></i> Personal Life
+          </div>
+          <div class="window-controls">
+            <button
+              class="window-control minimize"
+              onclick="windowManager.minimizeWindow('personal')"
+              title="Minimize"
+            ></button>
+            <button
+              class="window-control maximize"
+              onclick="windowManager.maximizeWindow('personal')"
+              title="Maximize"
+            ></button>
+            <button
+              class="window-control close"
+              onclick="windowManager.closeWindow('personal')"
+              title="Close"
+            ></button>
+          </div>
+        </div>
+        <div class="window-content">
+          <h2>Beyond the Code</h2>
+          <p>
+            When I'm not coding, I'm exploring the world, capturing moments, and
+            pursuing various hobbies that keep me inspired and creative.
+          </p>
+
+          <div class="personal-grid">
+            <div class="personal-item">
+              <div class="personal-icon">
+                <i class="fas fa-mobile-alt" style="color: #5059c9"></i>
+              </div>
+              <h3>AI Development</h3>
+              <p>
+                Passionate about integrating AI into practical applications, as
+                demonstrated by my Plant Care Assistant project that uses
+                ChatGPT and Gemini Vision APIs to provide intelligent plant care
+                recommendations.
+              </p>
+            </div>
+
+            <div class="personal-item">
+              <div class="personal-icon">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+              <h3>Mobile Development</h3>
+              <p>
+                Self-taught React Native developer, building cross-platform
+                mobile applications during my free time to expand my technical
+                skillset beyond web development.
+              </p>
+            </div>
+
+            <div class="personal-item">
+              <div class="personal-icon">
+                <i class="fas fa-leaf"></i>
+              </div>
+              <h3>Plant Care</h3>
+              <p>
+                Enthusiast for indoor plants and gardening, which inspired my
+                AI-powered Plant Care Assistant app that helps users maintain
+                healthy plants through personalized care recommendations.
+              </p>
+            </div>
+
+            <div class="personal-item">
+              <div class="personal-icon">
+                <i class="fas fa-graduation-cap"></i>
+              </div>
+              <h3>Continuous Learning</h3>
+              <p>
+                Dedicated to ongoing professional development, constantly
+                exploring new technologies and frameworks to enhance my skills
+                as a developer.
+              </p>
+            </div>
+
+            <div class="personal-item">
+              <div class="personal-icon">
+                <i class="fas fa-laptop-code"></i>
+              </div>
+              <h3>Hackathons</h3>
+              <p>
+                Active participant in hackathons, having contributed to
+                award-winning projects like BizBacker (FNB App of the Year) and
+                Safe Spaces (Geekulcha Annual Hackathon).
+              </p>
+            </div>
+
+            <div class="personal-item">
+              <div class="personal-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <h3>Mentoring</h3>
+              <p>
+                Enjoy mentoring junior developers and sharing knowledge, having
+                provided technical guidance and code review support for the 2025
+                AI Software Development cohort.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="window"
+        id="aiChat"
+        style="top: 150px; left: 250px; width: 450px; height: 550px"
+      >
+        <div class="window-header">
+          <div class="window-title">AI Portfolio Assistant</div>
+          <div class="window-controls">
+            <button
+              class="window-control minimize"
+              onclick="windowManager.minimizeWindow('aiChat')"
+              title="Minimize"
+            ></button>
+            <button
+              class="window-control maximize"
+              onclick="windowManager.maximizeWindow('aiChat')"
+              title="Maximize"
+            ></button>
+            <button
+              class="window-control close"
+              onclick="windowManager.closeWindow('aiChat')"
+              title="Close"
+            ></button>
+          </div>
+        </div>
+        <div class="window-content ai-chat-content">
+          <!-- Chat Container -->
+          <div class="ai-chat-container">
+            <div class="ai-chat-messages" id="chatMessages">
+              <!-- Welcome Message -->
+              <div class="ai-message bot-message">
+                <div class="ai-message-avatar">
+                  <div class="bot-avatar">
+                    <img
+                      class="ai-avatar"
+                      src="./icons/kate.png"
+                      alt="ai icon"
+                    />
+                  </div>
+                </div>
+                <div class="ai-message-content">
+                  <div class="ai-message-header">
+                    <span class="ai-message-author">AI Assistant</span>
+                    <span class="ai-message-timestamp">Just now</span>
+                  </div>
+                  <div class="ai-message-text">
+                    Hello! I'm Katekani's AI portfolio assistant. I can help you
+                    learn about her experience as a Junior Full Stack Developer
+                    at Ogilvy South Africa, her projects, and technical skills.
+                    <br /><br />
+                    Try asking me:
+                    <ul>
+                      <li>"Tell me about Katekani's experience"</li>
+                      <li>"What projects has she worked on?"</li>
+                      <li>"What are her technical skills?"</li>
+                      <li>"How can I contact her?"</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Typing Indicator -->
+            <div
+              class="ai-typing-indicator"
+              id="typingIndicator"
+              style="display: none"
+            >
+              <div class="ai-message bot-message">
+                <div class="ai-message-avatar">
+                  <div class="ai-avatar bot-avatar">
+                    <img src="./icons/kate.png" alt="ai icon" />
+                  </div>
+                </div>
+                <div class="ai-message-content">
+                  <div class="ai-typing-animation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Status Bar -->
+          <div class="ai-status-bar">
+            <div class="ai-status-item">
+              <span class="ai-status-indicator online"></span>
+              <span>AI Assistant: Online</span>
+            </div>
+            <div class="ai-status-item">
+              <span id="messageCount">Messages: 1</span>
+            </div>
+          </div>
+
+          <!-- Input Area -->
+          <div class="ai-input-area">
+            <div class="ai-input-container">
+              <input
+                type="text"
+                id="messageInput"
+                placeholder="Ask me about Katekani's skills, projects, or experience..."
+                maxlength="500"
+                autocomplete="off"
+              />
+              <button class="ai-send-button" id="sendButton">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+            <div class="ai-input-info">
+              <span id="charCount">0/500</span>
+              <span class="ai-input-hint">Press Enter to send</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="window"
+        id="resume"
+        style="top: 110px; left: 550px; width: 580px; height: 650px"
+      >
+        <div class="window-header">
+          <div class="window-title"><i class="fas fa-file-alt"></i> Resume</div>
+          <div class="window-controls">
+            <button
+              class="window-control minimize"
+              onclick="windowManager.minimizeWindow('resume')"
+              title="Minimize"
+            ></button>
+            <button
+              class="window-control maximize"
+              onclick="windowManager.maximizeWindow('resume')"
+              title="Maximize"
+            ></button>
+            <button
+              class="window-control close"
+              onclick="windowManager.closeWindow('resume')"
+              title="Close"
+            ></button>
+          </div>
+        </div>
+        <div class="window-content">
+          <div class="resume-header">
+            <h2>Katekani Nyamandi</h2>
+            <p>Junior Full Stack Developer</p>
+            <p style="color: #6b7280; margin-bottom: 16px">
+              Johannesburg, Gauteng • knyamandi99@gmail.com • 067 687 8729
+            </p>
+            <a href="#" class="download-resume"
+              ><i class="fas fa-download"></i> Download PDF Resume</a
+            >
+          </div>
+
+          <div class="resume-section">
+            <h3><i class="fas fa-briefcase"></i> Professional Experience</h3>
+
+            <div class="experience-item">
+              <div class="experience-header">
+                <strong>Junior Developer</strong>
+                <span class="date">Mar 2025 - Present</span>
+              </div>
+              <div class="company">Ogilvy South Africa • Johannesburg</div>
+              <ul>
+                <li>
+                  Spearheaded frontend development for a charity foundation
+                  website rebuild by translating complex Figma mock-ups into
+                  pixel-perfect, accessible web interfaces using React.js
+                </li>
+                <li>
+                  Mentored 2025 AI Software Development cohort by providing
+                  technical guidance and code review support for MVP application
+                  development
+                </li>
+                <li>
+                  Enhanced data retrieval performance and user experience by
+                  architecting and optimizing RESTful API integrations with
+                  Node.js and Express.js
+                </li>
+                <li>
+                  Orchestrated content management operations for City of Cape
+                  Town website and Audi SA CMS platforms by leveraging WordPress
+                  and Adobe Experience Manager
+                </li>
+              </ul>
+            </div>
+
+            <div class="experience-item">
+              <div class="experience-header">
+                <strong>Full stack Web Development Learner</strong>
+                <span class="date">Mar 2024 - Mar 2025</span>
+              </div>
+              <div class="company">
+                Ogilvy South Africa & Umuzi.org • Johannesburg
+              </div>
+              <ul>
+                <li>
+                  Architected and developed backend services using Node.js,
+                  Express.js, and PostgreSQL with connection pooling for visitor
+                  management systems
+                </li>
+                <li>
+                  Implemented comprehensive testing strategies including unit
+                  tests with Jasmine/Jest, integration testing for database
+                  operations, and TDD practices
+                </li>
+                <li>
+                  Built full stack JavaScript applications with file I/O
+                  operations, JSON data manipulation, and asynchronous
+                  programming patterns
+                </li>
+                <li>
+                  Configured CI/CD pipelines using Webpack for module bundling,
+                  Docker for containerization, and deployment through Render
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="resume-section">
+            <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+            <div class="education-item">
+              <strong>Higher Certificate: Systems Development</strong><br />
+              Umuzi.org • March 2025<br />
+            </div>
+            <div class="education-item" style="margin-top: 12px">
+              <strong>BSc in Mathematical Statistics (Final Year)</strong><br />
+              University of Pretoria<br />
+              <em>3 modules outstanding, paused studies due to finances</em
+              ><br />
+              <em
+                >Pivoted to pursue gaining industry experience and practical
+                learning</em
+              >
+            </div>
+          </div>
+
+          <div class="resume-section">
+            <h3><i class="fas fa-trophy"></i> Achievements</h3>
+            <div class="education-item">
+              <strong>FNB App of the Year Hackathon</strong> • BizBacker
+              Project<br />
+              <strong>Geekulcha Annual Hackathon</strong> • Safe Spaces
+              Project<br />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Windows 11 Style Taskbar -->
+    <div class="taskbar">
+      <div class="taskbar-center">
+        <button class="start-button" onclick="showStartMenu()">
+          <i class="fab fa-windows fa-2x" style="color: #1792e1"></i>
+        </button>
+        <div class="open-windows" id="openWindows"></div>
+      </div>
+      <div class="taskbar-time" id="clock"></div>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="ai-chat.js"></script>
+  </body>
+</html>
+
+<!-- Kanban Board Window 
       <div
         class="window"
         id="kanban"
         style="top: 80px; left: 200px; width: 1000px; height: 700px"
       >
         <div class="window-header">
+          <div class="window-title">
+            <i class="fas fa-tasks"></i> Project Board - Live GitHub Integration
+          </div>
           <div class="window-controls">
             <button
               class="window-control minimize"
@@ -365,13 +929,9 @@
               title="Close"
             ></button>
           </div>
-          <div class="window-title">
-            <i class="fas fa-tasks"></i> Project Board - Live GitHub Integration
-          </div>
-          <div></div>
         </div>
         <div class="window-content" style="padding: 0; overflow: hidden">
-          <!-- Kanban Header -->
+      
           <div class="kanban-header">
             <div class="kanban-controls">
               <button
@@ -396,7 +956,7 @@
             </div>
           </div>
 
-          <!-- Repository Filter -->
+        
           <div class="repo-filter">
             <div class="filter-tabs">
               <button
@@ -435,9 +995,9 @@
                 <i class="fas fa-utensils"></i> Consume
               </button>
             </div>
-          </div>
+          </div> -->
 
-          <!-- Kanban Board -->
+<!-- Kanban Board 
           <div class="kanban-board" id="kanbanBoard">
             <div class="kanban-column" data-column="Backlog">
               <div class="column-header" style="background: #6c757d">
@@ -490,7 +1050,6 @@
         </div>
       </div>
 
-      <!-- Add Task Modal -->
       <div class="modal" id="addTaskModal">
         <div class="modal-content">
           <div class="modal-header">
@@ -565,7 +1124,7 @@
         </div>
       </div>
 
-      <!-- Stats Modal -->
+ 
       <div class="modal" id="statsModal">
         <div class="modal-content large">
           <div class="modal-header">
@@ -611,483 +1170,9 @@
             <div class="repo-stats" id="repoStats">
               <h4>Repository Breakdown</h4>
               <div class="repo-stats-list" id="repoStatsList">
-                <!-- Populated by JavaScript -->
+
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div
-        class="window"
-        id="skills"
-        style="top: 80px; left: 400px; width: 600px; height: 550px"
-      >
-        <div class="window-header">
-          <div class="window-controls">
-            <button
-              class="window-control minimize"
-              onclick="windowManager.minimizeWindow('skills')"
-              title="Minimize"
-            ></button>
-            <button
-              class="window-control maximize"
-              onclick="windowManager.maximizeWindow('skills')"
-              title="Maximize"
-            ></button>
-            <button
-              class="window-control close"
-              onclick="windowManager.closeWindow('skills')"
-              title="Close"
-            ></button>
-          </div>
-          <div class="window-title">
-            <i class="fas fa-tools"></i> Skills & Technologies
-          </div>
-          <div></div>
-        </div>
-        <div class="window-content">
-          <h2>Technical Expertise</h2>
-          <p>
-            Here's an overview of my technical skills and proficiency levels
-            across different technologies.
-          </p>
-
-          <div class="skills-category">
-            <h3><i class="fab fa-js-square"></i> Frontend Development</h3>
-            <div class="skill-tags">
-              <span class="skill-tag expert">JavaScript ES6+</span>
-              <span class="skill-tag expert">React</span>
-              <span class="skill-tag advanced">Vue.js</span>
-              <span class="skill-tag expert">HTML5/CSS3</span>
-              <span class="skill-tag advanced">TypeScript</span>
-              <span class="skill-tag intermediate">Angular</span>
-              <span class="skill-tag advanced">Tailwind CSS</span>
-              <span class="skill-tag expert">Responsive Design</span>
-            </div>
-          </div>
-
-          <div class="skills-category">
-            <h3><i class="fas fa-server"></i> Backend Development</h3>
-            <div class="skill-tags">
-              <span class="skill-tag expert">Node.js</span>
-              <span class="skill-tag advanced">Python</span>
-              <span class="skill-tag expert">Express.js</span>
-              <span class="skill-tag intermediate">Django</span>
-              <span class="skill-tag advanced">REST APIs</span>
-              <span class="skill-tag intermediate">GraphQL</span>
-              <span class="skill-tag advanced">FastAPI</span>
-              <span class="skill-tag intermediate">Microservices</span>
-            </div>
-          </div>
-
-          <div class="skills-category">
-            <h3><i class="fas fa-database"></i> Database & Cloud</h3>
-            <div class="skill-tags">
-              <span class="skill-tag advanced">MongoDB</span>
-              <span class="skill-tag advanced">PostgreSQL</span>
-              <span class="skill-tag intermediate">Redis</span>
-              <span class="skill-tag advanced">AWS</span>
-              <span class="skill-tag intermediate">Docker</span>
-              <span class="skill-tag expert">Firebase</span>
-              <span class="skill-tag intermediate">Kubernetes</span>
-              <span class="skill-tag advanced">Supabase</span>
-            </div>
-          </div>
-
-          <div class="skills-category">
-            <h3><i class="fas fa-tools"></i> Tools & Others</h3>
-            <div class="skill-tags">
-              <span class="skill-tag expert">Git</span>
-              <span class="skill-tag advanced">Figma</span>
-              <span class="skill-tag intermediate">Photoshop</span>
-              <span class="skill-tag advanced">Webpack</span>
-              <span class="skill-tag expert">VS Code</span>
-              <span class="skill-tag advanced">Jest</span>
-              <span class="skill-tag intermediate">Cypress</span>
-              <span class="skill-tag advanced">CI/CD</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="window"
-        id="contact"
-        style="top: 140px; left: 450px; width: 520px; height: 450px"
-      >
-        <div class="window-header">
-          <div class="window-controls">
-            <button
-              class="window-control minimize"
-              onclick="windowManager.minimizeWindow('contact')"
-              title="Minimize"
-            ></button>
-            <button
-              class="window-control maximize"
-              onclick="windowManager.maximizeWindow('contact')"
-              title="Maximize"
-            ></button>
-            <button
-              class="window-control close"
-              onclick="windowManager.closeWindow('contact')"
-              title="Close"
-            ></button>
-          </div>
-          <div class="window-title">
-            <i class="fas fa-envelope"></i> Contact Me
-          </div>
-          <div></div>
-        </div>
-        <div class="window-content">
-          <h2>Let's Connect!</h2>
-          <p>
-            I'm always excited to discuss new opportunities, collaborate on
-            interesting projects, or just chat about technology and innovation.
-            Feel free to reach out through any of these channels!
-          </p>
-
-          <div class="contact-methods">
-            <div class="contact-item">
-              <i class="fas fa-envelope"></i>
-              <div>
-                <strong>Email</strong>
-                <p>
-                  <a href="mailto:alex.johnson@email.com"
-                    >alex.johnson@email.com</a
-                  >
-                </p>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <i class="fab fa-linkedin"></i>
-              <div>
-                <strong>LinkedIn</strong>
-                <p>
-                  <a href="#" target="_blank">linkedin.com/in/alexjohnsondev</a>
-                </p>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <i class="fab fa-github"></i>
-              <div>
-                <strong>GitHub</strong>
-                <p><a href="#" target="_blank">github.com/alexjohnsondev</a></p>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <i class="fab fa-twitter"></i>
-              <div>
-                <strong>Twitter</strong>
-                <p><a href="#" target="_blank">@alexjohnsondev</a></p>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <i class="fab fa-discord"></i>
-              <div>
-                <strong>Discord</strong>
-                <p>AlexDev#1234</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="availability">
-            <p>
-              <strong>Current Status:</strong>
-              <span class="status-available"
-                >🟢 Available for new opportunities</span
-              >
-            </p>
-            <p><em>Response time: Usually within 24 hours</em></p>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="window"
-        id="personal"
-        style="top: 90px; left: 500px; width: 700px; height: 580px"
-      >
-        <div class="window-header">
-          <div class="window-controls">
-            <button
-              class="window-control minimize"
-              onclick="windowManager.minimizeWindow('personal')"
-              title="Minimize"
-            ></button>
-            <button
-              class="window-control maximize"
-              onclick="windowManager.maximizeWindow('personal')"
-              title="Maximize"
-            ></button>
-            <button
-              class="window-control close"
-              onclick="windowManager.closeWindow('personal')"
-              title="Close"
-            ></button>
-          </div>
-          <div class="window-title">
-            <i class="fas fa-heart"></i> Personal Life
-          </div>
-          <div></div>
-        </div>
-        <div class="window-content">
-          <h2>Beyond the Code</h2>
-          <p>
-            When I'm not coding, I'm exploring the world, capturing moments, and
-            pursuing various hobbies that keep me inspired and creative.
-          </p>
-
-          <div class="personal-grid">
-            <div class="personal-item">
-              <div class="personal-icon">
-                <i class="fas fa-camera"></i>
-              </div>
-              <h3>Photography</h3>
-              <p>
-                Capturing the beauty of nature and urban landscapes. My recent
-                expedition to Yosemite resulted in some stunning shots of El
-                Capitan at sunrise. Currently working on a street photography
-                series in downtown SF.
-              </p>
-              <a href="#" class="personal-link"
-                ><i class="fas fa-images"></i> View Gallery</a
-              >
-            </div>
-
-            <div class="personal-item">
-              <div class="personal-icon">
-                <i class="fas fa-mountain"></i>
-              </div>
-              <h3>Rock Climbing</h3>
-              <p>
-                Conquered El Capitan last summer and currently training for a
-                trip to the Dolomites. There's something about problem-solving
-                on the wall that parallels debugging code - both require
-                patience and creativity.
-              </p>
-              <a href="#" class="personal-link"
-                ><i class="fas fa-route"></i> Adventure Log</a
-              >
-            </div>
-
-            <div class="personal-item">
-              <div class="personal-icon">
-                <i class="fas fa-coffee"></i>
-              </div>
-              <h3>Coffee Enthusiast</h3>
-              <p>
-                Exploring different brewing methods and coffee origins. Current
-                favorite: Ethiopian Yirgacheffe with V60 pour-over. I've been
-                documenting my coffee journey and reviewing local roasters.
-              </p>
-              <a href="#" class="personal-link"
-                ><i class="fas fa-mug-hot"></i> Coffee Notes</a
-              >
-            </div>
-
-            <div class="personal-item">
-              <div class="personal-icon">
-                <i class="fas fa-book"></i>
-              </div>
-              <h3>Reading Corner</h3>
-              <p>
-                Currently reading "Atomic Habits" and "The Pragmatic Programmer
-                2nd Edition". Always looking for book recommendations,
-                especially in sci-fi, technology, and personal development.
-              </p>
-              <a href="#" class="personal-link"
-                ><i class="fas fa-bookmark"></i> Reading List</a
-              >
-            </div>
-
-            <div class="personal-item">
-              <div class="personal-icon">
-                <i class="fas fa-gamepad"></i>
-              </div>
-              <h3>Gaming</h3>
-              <p>
-                Indie games and puzzle games enthusiast. Recently completed
-                "Hades" (amazing storytelling!) and currently working through
-                "The Witness". Also enjoy cooperative games with friends.
-              </p>
-              <a href="#" class="personal-link"
-                ><i class="fas fa-trophy"></i> Game Library</a
-              >
-            </div>
-
-            <div class="personal-item">
-              <div class="personal-icon">
-                <i class="fas fa-music"></i>
-              </div>
-              <h3>Music & Playlists</h3>
-              <p>
-                Curated playlists for different moods: coding sessions (lo-fi
-                hip hop), workouts (electronic), and relaxation
-                (ambient/post-rock). Music is essential to my creative process.
-              </p>
-              <a href="#" class="personal-link"
-                ><i class="fas fa-headphones"></i> Listen Now</a
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="window"
-        id="resume"
-        style="top: 110px; left: 550px; width: 580px; height: 650px"
-      >
-        <div class="window-header">
-          <div class="window-controls">
-            <button
-              class="window-control minimize"
-              onclick="windowManager.minimizeWindow('resume')"
-              title="Minimize"
-            ></button>
-            <button
-              class="window-control maximize"
-              onclick="windowManager.maximizeWindow('resume')"
-              title="Maximize"
-            ></button>
-            <button
-              class="window-control close"
-              onclick="windowManager.closeWindow('resume')"
-              title="Close"
-            ></button>
-          </div>
-          <div class="window-title">
-            <i class="fas fa-file-user"></i> Resume
-          </div>
-          <div></div>
-        </div>
-        <div class="window-content">
-          <div class="resume-header">
-            <h2>Alex Johnson</h2>
-            <p>Senior Full-Stack Developer</p>
-            <p style="color: #6b7280; margin-bottom: 16px">
-              San Francisco, CA • alex.johnson@email.com
-            </p>
-            <a href="#" class="download-resume"
-              ><i class="fas fa-download"></i> Download PDF Resume</a
-            >
-          </div>
-
-          <div class="resume-section">
-            <h3><i class="fas fa-briefcase"></i> Professional Experience</h3>
-
-            <div class="experience-item">
-              <div class="experience-header">
-                <strong>Senior Full-Stack Developer</strong>
-                <span class="date">Jan 2022 - Present</span>
-              </div>
-              <div class="company">TechCorp Inc. • San Francisco, CA</div>
-              <ul>
-                <li>
-                  Led development of customer-facing web applications serving
-                  100k+ daily active users
-                </li>
-                <li>
-                  Implemented microservices architecture reducing API response
-                  times by 40%
-                </li>
-                <li>
-                  Mentored 3 junior developers and established code review best
-                  practices
-                </li>
-                <li>
-                  Collaborated with product and design teams to deliver 15+
-                  major features
-                </li>
-              </ul>
-            </div>
-
-            <div class="experience-item">
-              <div class="experience-header">
-                <strong>Full-Stack Developer</strong>
-                <span class="date">Jun 2020 - Dec 2021</span>
-              </div>
-              <div class="company">StartupXYZ • Palo Alto, CA</div>
-              <ul>
-                <li>
-                  Built MVP from scratch using React, Node.js, and PostgreSQL
-                </li>
-                <li>
-                  Implemented real-time features using WebSocket technology
-                </li>
-                <li>
-                  Collaborated with design team to create responsive, accessible
-                  UI components
-                </li>
-                <li>
-                  Achieved 99.9% uptime through robust error handling and
-                  monitoring
-                </li>
-              </ul>
-            </div>
-
-            <div class="experience-item">
-              <div class="experience-header">
-                <strong>Frontend Developer</strong>
-                <span class="date">Aug 2019 - May 2020</span>
-              </div>
-              <div class="company">DigitalAgency • San Francisco, CA</div>
-              <ul>
-                <li>
-                  Developed responsive websites for 20+ clients using modern web
-                  technologies
-                </li>
-                <li>
-                  Optimized website performance achieving 95+ Lighthouse scores
-                </li>
-                <li>
-                  Integrated third-party APIs and payment processing systems
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="resume-section">
-            <h3><i class="fas fa-graduation-cap"></i> Education</h3>
-            <div class="education-item">
-              <strong>Bachelor of Science in Computer Science</strong><br />
-              Stanford University • Stanford, CA • 2019<br />
-              <em>Magna Cum Laude • GPA: 3.8/4.0</em><br />
-              <em
-                >Relevant Coursework: Data Structures, Algorithms, Database
-                Systems, Web Development</em
-              >
-            </div>
-          </div>
-
-          <div class="resume-section">
-            <h3><i class="fas fa-certificate"></i> Certifications</h3>
-            <div class="education-item">
-              <strong>AWS Certified Solutions Architect</strong> • 2023<br />
-              <strong>Google Cloud Professional Developer</strong> • 2022<br />
-              <strong>MongoDB Certified Developer</strong> • 2021
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Windows 11 Style Taskbar -->
-    <div class="taskbar">
-      <div class="taskbar-center">
-        <button class="start-button" onclick="showStartMenu()">
-          <i class="fab fa-windows fa-2x" style="color: #1792e1"></i>
-        </button>
-        <div class="open-windows" id="openWindows"></div>
-      </div>
-      <div class="taskbar-time" id="clock"></div>
-    </div>
-
-    <script src="index.js"></script>
-  </body>
-</html>
+      </div-->
