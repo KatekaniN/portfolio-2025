@@ -1493,7 +1493,7 @@ class Windows11PersonalFeatures {
     this.addTechFacts();
 
     // Add weather widget (mock)
-    this.addWeatherWidget();
+    //this.addWeatherWidget();
   }
 
   updateGreeting() {
@@ -1502,7 +1502,7 @@ class Windows11PersonalFeatures {
     let emoji = "👋";
 
     if (hour < 6) {
-      greeting = "Hey there, night owl!";
+      greeting = "Hey there,";
       emoji = "🌙";
     } else if (hour < 12) {
       greeting = "Hey there, early bird!";
@@ -1511,7 +1511,7 @@ class Windows11PersonalFeatures {
       greeting = "Hey there,";
       emoji = "🌸";
     } else {
-      greeting = "Evening!";
+      greeting = "Hey,";
       emoji = "🌙";
     }
 
@@ -1530,14 +1530,12 @@ class Windows11PersonalFeatures {
 
     const text = tagline.textContent;
     tagline.textContent = "";
-    tagline.style.borderRight = "2px solid rgb(212, 0, 124)";
     tagline.style.whiteSpace = "nowrap";
     tagline.style.setProperty(
       "font-family",
       "Segoe UI, sans-serif",
       "important"
     );
-    tagline.style.setProperty("color", "rgb(212, 0, 124)", "important");
     tagline.style.overflow = "hidden";
     tagline.style.display = "inline-block";
     tagline.style.fontSize = "1.2em";
@@ -1597,9 +1595,9 @@ class Windows11PersonalFeatures {
       );
     });
   }
+
+  /*
   async addWeatherWidget() {
-    const location = await this.getUserLocation();
-    const weatherData = await this.fetchWeatherData(location);
     const weather = document.createElement("div");
     weather.id = "weatherWidget";
     weather.style.cssText = `
@@ -1619,14 +1617,11 @@ class Windows11PersonalFeatures {
 `;
 
     // Add loading state
-    weather.innerHTML = `
-    <i class="fas fa-spinner fa-spin" style="color: #ffd700;"></i>
-    <span>Loading...</span>
-`;
+    weather.innerHTML = `<i class="fas fa-spinner fa-spin" style="color: #ffd700;"></i> <span>Loading...</span>`;
 
     document.querySelector(".taskbar").appendChild(weather);
 
-    // Fetch weather data
+    // Fetch weather data only once
     try {
       const weatherData = await this.fetchWeatherData();
       this.updateWeatherWidget(weather, weatherData);
@@ -1650,6 +1645,7 @@ class Windows11PersonalFeatures {
       this.showDetailedWeather();
     });
   }
+
   async fetchWeatherData(city = "Johannesburg") {
     const API_KEY = "6d12123f7e334c2e887173005250107";
     const API_URL = `http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}&aqi=no`;
@@ -1673,10 +1669,7 @@ class Windows11PersonalFeatures {
   updateWeatherWidget(weatherElement, data) {
     if (!data) {
       // Fallback if API fails
-      weatherElement.innerHTML = `
-        <i class="fas fa-cloud" style="color: #ccc;"></i>
-        <span>Weather unavailable</span>
-    `;
+      weatherElement.innerHTML = `<i class="fas fa-cloud" style="color: #ccc;"></i> <span>Weather unavailable</span>`;
       return;
     }
 
@@ -1755,8 +1748,13 @@ class Windows11PersonalFeatures {
     return { class: "fas fa-cloud", color: "#87ceeb" };
   }
 
-  // Add this method for detailed weather popup
   showDetailedWeather() {
+    // Remove any existing weather popup first
+    const existingPopup = document.querySelector(".weather-popup");
+    if (existingPopup) {
+      existingPopup.remove();
+    }
+
     // Create detailed weather popup
     const popup = document.createElement("div");
     popup.className = "weather-popup";
@@ -1777,20 +1775,20 @@ class Windows11PersonalFeatures {
 `;
 
     popup.innerHTML = `
-    <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 12px;">
-        <h3 style="margin: 0;">Weather Details</h3>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="margin: 0; font-size: 16px;">Weather Details</h3>
         <button onclick="this.parentElement.parentElement.remove()" 
-                style="background: none; border: none; color: white; cursor: pointer; font-size: 18px;">×</button>
+                style="background: none; border: none; color: white; font-size: 18px; cursor: pointer; padding: 0; width: 24px; height: 24px;">×</button>
     </div>
-    <div id="detailedWeatherContent">
-        <i class="fas fa-spinner fa-spin"></i> Loading detailed weather...
+    <div class="detailed-weather-content">
+        <i class="fas fa-spinner fa-spin" style="color: #ffd700;"></i> Loading detailed weather...
     </div>
 `;
 
     document.body.appendChild(popup);
 
-    // Fetch and display detailed weather
-    this.loadDetailedWeather();
+    // Fetch and display detailed weather - pass the popup reference
+    this.loadDetailedWeather(popup);
 
     // Auto-close after 10 seconds
     setTimeout(() => {
@@ -1800,11 +1798,11 @@ class Windows11PersonalFeatures {
     }, 10000);
   }
 
-  // Add this method to load detailed weather
-  async loadDetailedWeather() {
+  // Modify this method to accept popup reference
+  async loadDetailedWeather(popup) {
     try {
       const data = await this.fetchWeatherData();
-      const content = document.getElementById("detailedWeatherContent");
+      const content = popup.querySelector(".detailed-weather-content");
 
       if (content && data) {
         const { current, location } = data;
@@ -1812,9 +1810,7 @@ class Windows11PersonalFeatures {
         content.innerHTML = `
             <div style="text-align: center; margin-bottom: 16px;">
                 <div style="font-size: 24px; margin-bottom: 8px;">
-                    ${Math.round(current.temp_f)}°F (${Math.round(
-          current.temp_c
-        )}°C)
+                   ${Math.round(current.temp_c)}°C
                 </div>
                 <div style="opacity: 0.8;">${current.condition.text}</div>
                 <div style="font-size: 12px; opacity: 0.6;">${location.name}, ${
@@ -1825,7 +1821,7 @@ class Windows11PersonalFeatures {
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 12px;">
                 <div>
                     <strong>Feels like:</strong><br>
-                    ${Math.round(current.feelslike_f)}°F
+                    ${Math.round(current.feelslike_c)}°C
                 </div>
                 <div>
                     <strong>Humidity:</strong><br>
@@ -1833,11 +1829,11 @@ class Windows11PersonalFeatures {
                 </div>
                 <div>
                     <strong>Wind:</strong><br>
-                    ${current.wind_mph} mph ${current.wind_dir}
+                    ${current.wind_mph} km/h ${current.wind_dir}
                 </div>
                 <div>
                     <strong>Visibility:</strong><br>
-                    ${current.vis_miles} miles
+                    ${current.vis_km} km
                 </div>
                 <div>
                     <strong>UV Index:</strong><br>
@@ -1857,7 +1853,7 @@ class Windows11PersonalFeatures {
         `;
       }
     } catch (error) {
-      const content = document.getElementById("detailedWeatherContent");
+      const content = popup.querySelector(".detailed-weather-content");
       if (content) {
         content.innerHTML = `
             <div style="color: #ff6b6b; text-align: center;">
@@ -1867,7 +1863,7 @@ class Windows11PersonalFeatures {
         `;
       }
     }
-  }
+  }*/
 
   setupInteractiveElements() {
     // Enhanced hover effects for project cards
@@ -2067,701 +2063,14 @@ class Windows11PersonalFeatures {
     }, 200);
   }
 }
-/*
-class KanbanManager {
-  constructor() {
-    this.apiUrl = "http://localhost:3001/api";
-    this.isInitialLoad = true; // Fixed: consistent naming
-    this.currentFilter = "all";
-    this.boardData = [];
-    this.isAddingBoilerplate = false; // Prevent concurrent additions
-    this.init();
-  }
 
-  init() {
-    this.loadBoard();
-    this.setupEventListeners();
-  }
-
-  setupEventListeners() {
-    // Auto-refresh every 30 seconds (silent refresh only)
-    setInterval(() => {
-      this.loadBoard(false); // Silent reload, no boilerplate check
-    }, 30000);
-  }
-
-  async loadBoard(showLoading = true) {
-    try {
-      if (showLoading) {
-        this.setStatus("Loading board data...", "syncing");
-      }
-
-      const response = await fetch(`${this.apiUrl}/board`);
-      const result = await response.json();
-
-      if (result.success) {
-        this.boardData = result.data;
-        this.renderBoard();
-        this.setStatus("Board updated", "success");
-
-        // Only check for boilerplate on initial load with user interaction
-        if (
-          this.isInitialLoad &&
-          showLoading &&
-          this.shouldAddBoilerplateTasks()
-        ) {
-          this.isInitialLoad = false;
-          await this.addBoilerplateTasks();
-        } else if (this.isInitialLoad) {
-          this.isInitialLoad = false; // Mark as loaded even if no boilerplate needed
-        }
-      } else {
-        throw new Error(result.error);
-      }
-    } catch (error) {
-      console.error("Error loading board:", error);
-      this.setStatus("Failed to load board", "error");
-      this.showOfflineBoard();
-      this.isInitialLoad = false; // Prevent retry on error
-    }
-  }
- 
-async clearAllTasks() {
-if (!confirm("⚠️ Delete ALL tasks? This cannot be undone!")) {
-  return;
-}
-
-try {
-  this.setStatus("Clearing all tasks...", "syncing");
-
-  const response = await fetch(`${this.apiUrl}/tasks/clear-all`, {
-    method: 'DELETE'
-  });
-
-  const result = await response.json();
-
-  if (result.success) {
-    personalFeatures.showNotification(
-      "All Tasks Cleared! 🗑️", 
-      `Deleted ${result.deletedCount} tasks.`,
-      "fas fa-trash"
-    );
-
-    localStorage.removeItem("kanban_boilerplate_added");
-    localStorage.removeItem("kanban_boilerplate_timestamp");
-    this.isInitialLoad = true;
-    
-    setTimeout(() => this.loadBoard(), 1000);
-  }
-} catch (error) {
-  console.error("Clear failed:", error);
-}
-}
-
-async clearBoilerplateTasks() {
-if (!confirm("Clear sample tasks only? User tasks will be kept.")) {
-  return;
-}
-
-try {
-  this.setStatus("Clearing sample tasks...", "syncing");
-
-  const response = await fetch(`${this.apiUrl}/tasks/clear-boilerplate`, {
-    method: 'DELETE'
-  });
-
-  const result = await response.json();
-
-  if (result.success) {
-    personalFeatures.showNotification(
-      "Sample Tasks Cleared! 🧹",
-      `Removed ${result.deletedCount} sample tasks.`,
-      "fas fa-broom"
-    );
-
-    localStorage.removeItem("kanban_boilerplate_added");
-    localStorage.removeItem("kanban_boilerplate_timestamp");
-    this.isInitialLoad = true;
-    
-    setTimeout(() => this.loadBoard(), 1000);
-  }
-} catch (error) {
-  console.error("Clear failed:", error);
-}
-}
-  renderBoard() {
-    this.boardData.forEach((column) => {
-      const columnElement = document.getElementById(
-        `${column.name.toLowerCase().replace(/\s+/g, "")}-tasks` // Fixed: handle multiple spaces
-      );
-      const countElement = document.getElementById(
-        `${column.name.toLowerCase().replace(/\s+/g, "")}-count`
-      );
-
-      if (columnElement && countElement) {
-        const filteredTasks =
-          this.currentFilter === "all"
-            ? column.tasks
-            : column.tasks.filter(
-                (task) => task.github_repo === this.currentFilter
-              );
-
-        columnElement.innerHTML = "";
-        countElement.textContent = filteredTasks.length;
-
-        if (filteredTasks.length === 0) {
-          columnElement.innerHTML = `
-          <div class="empty-column">
-              <i class="fas fa-inbox" style="font-size: 24px; opacity: 0.3; margin-bottom: 8px;"></i>
-              <div style="font-size: 12px; opacity: 0.6;">No tasks</div>
-          </div>
-        `;
-        } else {
-          filteredTasks.forEach((task) => {
-            const taskElement = this.createTaskElement(task);
-            columnElement.appendChild(taskElement);
-          });
-        }
-      }
-    });
-  }
-
-  createTaskElement(task) {
-    const taskDiv = document.createElement("div");
-    taskDiv.className = `task-card ${
-      task.created_by === "GitHub Sync" ? "github-task" : "visitor-task"
-    }`;
-
-    const createdDate = new Date(task.created_at).toLocaleDateString();
-    const isGitHubTask = task.github_issue_number !== null;
-
-    taskDiv.innerHTML = `
-      <div class="task-header">
-          <div class="task-title">${task.title}</div>
-          <div class="task-priority ${task.priority}">${task.priority}</div>
-      </div>
-      ${
-        task.description
-          ? `<div class="task-description">${task.description.substring(
-              0,
-              100
-            )}${task.description.length > 100 ? "..." : ""}</div>`
-          : ""
-      }
-      <div class="task-meta">
-          <div>
-              ${
-                task.github_repo
-                  ? `<span class="task-repo">${task.github_repo}</span>`
-                  : ""
-              }
-              ${
-                isGitHubTask
-                  ? `<a href="${task.github_url}" target="_blank" class="task-github-link" title="View on GitHub"><i class="fab fa-github"></i></a>`
-                  : ""
-              }
-          </div>
-          <div style="font-size: 10px;">
-              ${task.created_by} • ${createdDate}
-          </div>
-      </div>
-  `;
-
-    taskDiv.addEventListener("click", () => {
-      this.showTaskDetails(task);
-    });
-
-    return taskDiv;
-  }
-
-  async syncGitHub() {
-    try {
-      this.setStatus("Syncing with GitHub...", "syncing");
-
-      const response = await fetch(`${this.apiUrl}/github/sync`, {
-        method: "POST",
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        this.setStatus("GitHub sync completed", "success");
-        personalFeatures.showNotification(
-          "GitHub Sync Complete! 🔄",
-          result.message,
-          "fab fa-github"
-        );
-
-        setTimeout(() => this.loadBoard(false), 1000); // Silent reload
-      } else {
-        throw new Error(result.error);
-      }
-    } catch (error) {
-      console.error("GitHub sync error:", error);
-      this.setStatus("GitHub sync failed", "error");
-      personalFeatures.showNotification(
-        "Sync Failed ❌",
-        "Unable to sync with GitHub. Please try again.",
-        "fas fa-exclamation-triangle"
-      );
-    }
-  }
-
-  showAddTaskModal() {
-    console.log("📝 Attempting to open Add Task modal...");
-    try {
-      const modal = document.getElementById("addTaskModal");
-      if (modal) {
-        modal.classList.add("active");
-        console.log("✅ Add Task modal opened successfully");
-      } else {
-        console.error("❌ Modal element not found");
-        alert("Modal not found. Please make sure the page is fully loaded.");
-      }
-    } catch (error) {
-      console.error("❌ Error opening modal:", error);
-      alert("Error opening task form: " + error.message);
-    }
-  }
-
-  closeAddTaskModal() {
-    document.getElementById("addTaskModal").classList.remove("active");
-    document.getElementById("addTaskForm").reset();
-  }
-
-  async submitTask(event) {
-    event.preventDefault();
-
-    const taskData = {
-      title: document.getElementById("taskTitle").value,
-      description: document.getElementById("taskDescription").value,
-      github_repo: document.getElementById("taskRepo").value || null,
-      priority: document.getElementById("taskPriority").value,
-      created_by:
-        document.getElementById("createdBy").value || "Anonymous Visitor",
-      // Add status/column field - adjust based on your backend API
-      status: "Done", // Default to Backlog for new tasks
-    };
-
-    try {
-      const response = await fetch(`${this.apiUrl}/tasks`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(taskData),
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        personalFeatures.showNotification(
-          "Task Added! ✅",
-          "Your task has been added to the backlog.",
-          "fas fa-check-circle"
-        );
-
-        this.closeAddTaskModal();
-        this.loadBoard(false); // Silent reload
-      } else {
-        throw new Error(result.error);
-      }
-    } catch (error) {
-      console.error("Error adding task:", error);
-      personalFeatures.showNotification(
-        "Error Adding Task ❌",
-        "Failed to add task. Please try again.",
-        "fas fa-exclamation-triangle"
-      );
-    }
-  }
-
-  filterByRepo(repo) {
-    this.currentFilter = repo;
-
-    document.querySelectorAll(".filter-tab").forEach((tab) => {
-      tab.classList.remove("active");
-    });
-
-    const activeTab = document.querySelector(`[data-repo="${repo}"]`);
-    if (activeTab) {
-      activeTab.classList.add("active");
-    }
-
-    this.renderBoard();
-  }
-
-  async showStats() {
-    try {
-      const response = await fetch(`${this.apiUrl}/board/stats`);
-      const result = await response.json();
-
-      if (result.success) {
-        this.displayStats(result.data);
-      }
-    } catch (error) {
-      console.error("Error loading stats:", error);
-    }
-  }
-
-  displayStats(stats) {
-    document.getElementById("totalTasks").textContent = stats.totalTasks;
-    document.getElementById("completedTasks").textContent =
-      stats.columnStats.find((col) => col.column_name === "Done")?.task_count ||
-      0;
-    document.getElementById("activeTasks").textContent =
-      stats.columnStats.find((col) => col.column_name === "In Progress")
-        ?.task_count || 0;
-    document.getElementById("githubTasks").textContent = stats.repoStats.reduce(
-      (sum, repo) => sum + parseInt(repo.task_count),
-      0
-    );
-
-    const repoStatsList = document.getElementById("repoStatsList");
-    repoStatsList.innerHTML = "";
-
-    stats.repoStats.forEach((repo) => {
-      const repoDiv = document.createElement("div");
-      repoDiv.className = "repo-stat-item";
-      repoDiv.innerHTML = `
-      <div class="repo-name">${repo.github_repo}</div>
-      <div class="repo-counts">
-          <span class="count-item">${repo.task_count} total</span>
-          <span class="count-item">${repo.completed_count} done</span>
-      </div>
-    `;
-      repoStatsList.appendChild(repoDiv);
-    });
-
-    document.getElementById("statsModal").classList.add("active");
-  }
-
-  closeStatsModal() {
-    document.getElementById("statsModal").classList.remove("active");
-  }
-
-  showTaskDetails(task) {
-    const isGitHub = task.github_issue_number !== null;
-    const createdDate = new Date(task.created_at).toLocaleDateString();
-
-    personalFeatures.showNotification(
-      `Task: ${task.title}`,
-      `${task.description || "No description"}\n\n` +
-        `Repository: ${task.github_repo || "None"}\n` +
-        `Priority: ${task.priority}\n` +
-        `Created by: ${task.created_by}\n` +
-        `Date: ${createdDate}` +
-        `${isGitHub ? "\n\n🔗 Click to view on GitHub" : ""}`,
-      isGitHub ? "fab fa-github" : "fas fa-tasks"
-    );
-
-    if (isGitHub && task.github_url) {
-      setTimeout(() => {
-        if (confirm("Open this task on GitHub?")) {
-          window.open(task.github_url, "_blank");
-        }
-      }, 2000);
-    }
-  }
-
-  setStatus(message, type = "info") {
-    const statusElement = document.getElementById("kanbanStatus");
-    const indicatorElement = document.getElementById("syncIndicator");
-
-    if (statusElement) {
-      statusElement.textContent = message;
-    }
-
-    if (indicatorElement) {
-      indicatorElement.className = "sync-indicator";
-
-      switch (type) {
-        case "syncing":
-          indicatorElement.classList.add("syncing");
-          break;
-        case "success":
-          indicatorElement.style.background = "#28a745";
-          break;
-        case "error":
-          indicatorElement.style.background = "#dc3545";
-          break;
-        default:
-          indicatorElement.style.background = "#6c757d";
-      }
-    }
-
-    setTimeout(() => {
-      if (statusElement) {
-        statusElement.textContent = "Ready";
-      }
-      if (indicatorElement) {
-        indicatorElement.className = "sync-indicator";
-        indicatorElement.style.background = "#28a745";
-      }
-    }, 3000);
-  }
-
-  shouldAddBoilerplateTasks() {
-    const totalTasks = this.boardData.reduce(
-      (sum, column) => sum + column.tasks.length,
-      0
-    );
-
-    const hasAddedBoilerplate = localStorage.getItem(
-      "kanban_boilerplate_added"
-    );
-    const boilerplateTimestamp = localStorage.getItem(
-      "kanban_boilerplate_timestamp"
-    );
-
-    // Reset if it's been more than 24 hours (for testing)
-    if (boilerplateTimestamp) {
-      const oneDayAgo = Date.now() - 24 * 60 * 60 * 1000;
-      if (parseInt(boilerplateTimestamp) < oneDayAgo) {
-        localStorage.removeItem("kanban_boilerplate_added");
-        localStorage.removeItem("kanban_boilerplate_timestamp");
-      }
-    }
-
-    console.log(
-      `Total tasks: ${totalTasks}, Has boilerplate: ${hasAddedBoilerplate}`
-    );
-
-    return totalTasks < 3 && !hasAddedBoilerplate && !this.isAddingBoilerplate;
-  }
-
-  async addBoilerplateTasks() {
-    if (this.isAddingBoilerplate) {
-      console.log("Already adding boilerplate tasks, skipping...");
-      return;
-    }
-
-    this.isAddingBoilerplate = true;
-
-    // Updated boilerplate tasks with correct field names
-    const boilerplateTasks = [
-      // Backlog tasks (3 tasks)
-      {
-        title: "Set up project structure",
-        description:
-          "Initialize the portfolio project with proper folder organization and basic configuration files",
-        priority: "high",
-        github_repo: "portfolio-2025",
-        created_by: "System Setup",
-        status: "Backlog", // Use 'status' instead of 'column_name'
-      },
-      {
-        title: "Add analytics tracking",
-        description:
-          "Implement Google Analytics or similar tracking to monitor site usage",
-        priority: "low",
-        github_repo: "cpnsume-frontend",
-        created_by: "Marketing Team",
-        status: "Backlog",
-      },
-      {
-        title: "Write unit tests",
-        description:
-          "Create comprehensive unit tests for all major components and functions",
-        priority: "medium",
-        github_repo: "plantly",
-        created_by: "QA Team",
-        status: "Backlog",
-      },
-
-      // In Progress tasks (2 tasks)
-      {
-        title: "Design responsive layout",
-        description:
-          "Create a mobile-first responsive design that works across all device sizes",
-        priority: "high",
-        github_repo: "cadbury-frontend",
-        created_by: "UI/UX Team",
-        status: "In Progress",
-      },
-      {
-        title: "Implement dark/light theme toggle",
-        description:
-          "Add a theme switcher that allows users to toggle between dark and light modes",
-        priority: "medium",
-        github_repo: "plantly",
-        created_by: "Frontend Team",
-        status: "In Progress",
-      },
-
-      // Review tasks (2 tasks)
-      {
-        title: "Add contact form validation",
-        description:
-          "Implement client-side and server-side validation for the contact form",
-        priority: "medium",
-        github_repo: "cadbury-frontend",
-        created_by: "Backend Team",
-        status: "Review",
-      },
-
-      // Done tasks (3 tasks)
-      {
-        title: "Optimize images for web",
-        description:
-          "Compress and optimize all images for better loading performance",
-        priority: "low",
-        github_repo: "portfolio-2025",
-        created_by: "Performance Team",
-        status: "Done",
-      },
-      {
-        title: "Deploy to production",
-        description:
-          "Set up CI/CD pipeline and deploy the portfolio to a production environment",
-        priority: "high",
-        github_repo: "portfolio-2025",
-        created_by: "DevOps Team",
-        status: "Done",
-      },
-      {
-        title: "Create project showcase animations",
-        description:
-          "Add smooth animations and transitions to enhance the project showcase section",
-        priority: "medium",
-        github_repo: "portfolio-2025",
-        created_by: "Animation Team",
-        status: "Done",
-      },
-    ];
-
-    try {
-      this.setStatus("Adding sample tasks...", "syncing");
-
-      let successCount = 0;
-      let errorCount = 0;
-
-      for (const taskData of boilerplateTasks) {
-        try {
-          console.log(`Adding task: ${taskData.title} to ${taskData.status}`);
-
-          const response = await fetch(`${this.apiUrl}/tasks`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(taskData),
-          });
-
-          const result = await response.json();
-
-          if (result.success) {
-            successCount++;
-            console.log(`✅ Successfully added: ${taskData.title}`);
-          } else {
-            errorCount++;
-            console.warn(
-              `❌ Failed to add task: ${taskData.title}`,
-              result.error
-            );
-          }
-        } catch (error) {
-          errorCount++;
-          console.error(`❌ Error adding task: ${taskData.title}`, error);
-        }
-
-        // Delay to prevent overwhelming the server
-        await new Promise((resolve) => setTimeout(resolve, 200));
-      }
-
-      if (successCount > 0) {
-        // Mark boilerplate as added with timestamp
-        localStorage.setItem("kanban_boilerplate_added", "true");
-        localStorage.setItem(
-          "kanban_boilerplate_timestamp",
-          Date.now().toString()
-        );
-
-        personalFeatures.showNotification(
-          "Sample Board Created! 📋",
-          `Successfully added ${successCount} sample tasks across all columns.${
-            errorCount > 0 ? ` (${errorCount} failed)` : ""
-          }`,
-          "fas fa-check-circle"
-        );
-
-        this.setStatus("Sample tasks added successfully", "success");
-
-        // Reload board to show new tasks
-        setTimeout(() => this.loadBoard(false), 1500);
-      } else {
-        throw new Error("No tasks were added successfully");
-      }
-    } catch (error) {
-      console.error("Error adding boilerplate tasks:", error);
-      this.setStatus("Failed to add sample tasks", "error");
-      personalFeatures.showNotification(
-        "Error Adding Tasks ❌",
-        "Failed to add sample tasks. Make sure the server is running.",
-        "fas fa-exclamation-triangle"
-      );
-    } finally {
-      this.isAddingBoilerplate = false;
-    }
-  }
-
-  // Utility method to reset boilerplate (for testing)
-  resetBoilerplate() {
-    localStorage.removeItem("kanban_boilerplate_added");
-    localStorage.removeItem("kanban_boilerplate_timestamp");
-    this.isInitialLoad = true;
-    this.isAddingBoilerplate = false;
-    console.log(
-      "🔄 Boilerplate reset. Refresh the page to add sample tasks again."
-    );
-
-    personalFeatures.showNotification(
-      "Boilerplate Reset 🔄",
-      "Sample tasks cleared. Refresh the page to regenerate.",
-      "fas fa-refresh"
-    );
-  }
-
-  showOfflineBoard() {
-    const offlineData = [
-      {
-        name: "Backlog",
-        tasks: [
-          {
-            id: 1,
-            title: "Connect to real backend",
-            description: "Set up the Node.js backend with PostgreSQL",
-            priority: "high",
-            github_repo: "portfolio-2025",
-            created_by: "System",
-            created_at: new Date().toISOString(),
-            github_issue_number: null,
-            github_url: null,
-          },
-        ],
-      },
-      { name: "In Progress", tasks: [] },
-      { name: "Review", tasks: [] },
-      { name: "Done", tasks: [] },
-    ];
-
-    this.boardData = offlineData;
-    this.renderBoard();
-    this.isInitialLoad = false;
-  }
-} */
-
-/*Initialize Kanban Manager
-let kanbanManager;
-let windowManager;
-*/
 document.addEventListener("DOMContentLoaded", () => {
   windowManager = new Windows11Manager();
   window.windowManager = windowManager;
   window.personalFeatures = new Windows11PersonalFeatures();
   window.easterEggs = new Windows11EasterEggs();
- // kanbanManager = new KanbanManager();
- // window.kanbanManager = kanbanManager;
+  // kanbanManager = new KanbanManager();
+  // window.kanbanManager = kanbanManager;
 
   // Make functions globally accessible
   window.closeWindow = (windowId) => windowManager.closeWindow(windowId);
@@ -2777,11 +2086,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "fab fa-windows"
     );
   }, 1000);
-  
-  console.log("🎉 Windows 11 Desktop Portfolio loaded successfully!");
-  console.log(
-    "📋 Project Board ready - try adding tasks or syncing with GitHub!"
-  );
 });
 
 // Enhanced Easter Eggs for Windows 11

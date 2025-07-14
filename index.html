@@ -100,11 +100,10 @@
         <div class="icon-label">AI Assistant</div>
       </div>
 
-      <!-- Windows with Windows 11 styling -->
       <div
         class="window"
         id="about"
-        style="top: 120px; left: 300px; width: 650px; height: 500px"
+        style="top: 120px; left: 300px; width: 800px; height: 500px"
       >
         <div class="window-header">
           <div class="window-title">
@@ -421,8 +420,8 @@
         style="
           top: 140px;
           left: 450px;
-          width: 520px;
-          height: 450px;
+          width: 720px;
+          height: 500px;
           border-radius: 0px !important;
         "
       >
@@ -505,9 +504,88 @@
 
             <div class="contact-item">
               <i class="fas fa-map-marker-alt"></i>
-              <div>
-                <strong>Location</strong>
-                <p>Johannesburg, Gauteng, South Africa</p>
+              <div class="contact-container">
+                <div class="contact-header">
+                  <h1>Get In Touch</h1>
+                  <p>I'd love to hear from you. Send me a message!</p>
+                </div>
+
+                <div class="success-message" id="successMessage">
+                  <i class="fas fa-check-circle"></i>
+                  Thank you! Your message has been sent successfully.
+                </div>
+
+                <div class="error-message" id="errorMessage">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  <span id="errorText"
+                    >Something went wrong. Please try again.</span
+                  >
+                </div>
+
+                <form id="contactForm">
+                  <div class="form-group">
+                    <label class="form-label" for="name">Full Name *</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      class="form-input"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="email"
+                      >Email Address *</label
+                    >
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      class="form-input"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="subject">Subject *</label>
+                    <input
+                      type="text"
+                      id="subject"
+                      name="subject"
+                      class="form-input"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="message">Message *</label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      class="form-textarea"
+                      required
+                      placeholder="Tell me about your project or just say hello..."
+                    ></textarea>
+                  </div>
+
+                  <button type="submit" class="form-button" id="submitButton">
+                    <span id="buttonText">Send Message</span>
+                    <i class="fas fa-paper-plane" id="buttonIcon"></i>
+                    <div
+                      class="loading-spinner"
+                      id="loadingSpinner"
+                      style="display: none"
+                    ></div>
+                  </button>
+                </form>
+
+                <div class="back-link">
+                  <a href="index.html">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Portfolio
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -898,6 +976,8 @@
     </div>
 
     <script src="index.js"></script>
+    <script src="weather-news.js"></script>
+    <script src="contact.js"></script>
     <script src="ai-chat.js"></script>
   </body>
 </html>
