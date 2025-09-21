@@ -187,7 +187,7 @@ class WeatherNewsWidget {
 
     console.log("Fetching fresh weather data from API");
     try {
-      const response = await fetch(`http://localhost:3000/api/weather/${city}`);
+      const response = await fetch(API_CONFIG.getURL('weather', `/${city}`));
       if (!response.ok) {
         throw new Error(`Weather API error: ${response.status}`);
       }
@@ -220,7 +220,7 @@ class WeatherNewsWidget {
     console.log("Fetching fresh news data from API");
     try {
       const response = await fetch(
-        "http://localhost:3000/api/news?country=za&pageSize=5"
+        API_CONFIG.getURL('news', '?country=za&pageSize=5')
       );
       console.log("News API response status:", response.status);
 

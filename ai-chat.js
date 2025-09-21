@@ -176,7 +176,7 @@ class AIPortfolioChat {
    */
   async callBackendAPI(message) {
     try {
-      const response = await fetch("http://localhost:3000/api/chat", {
+      const response = await fetch(API_CONFIG.getURL('chat'), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
