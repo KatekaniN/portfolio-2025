@@ -1,11 +1,16 @@
 {
-  "name": "portfolio-kanban-backend",
+  "name": "katekani-portfolio",
   "version": "1.0.0",
   "main": "server.js",
-  "description": "Real Kanban board for portfolio with GitHub integration",
+  "description": "Katekani Nyamandi's Portfolio - Windows 11 style interface with AI chat, weather, and contact features",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "railway:build": "npm install",
+    "railway:start": "npm start"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
