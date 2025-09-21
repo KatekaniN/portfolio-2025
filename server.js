@@ -14,7 +14,26 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    const allowedOrigins = process.env.CORS_ORIGINS
+      ? process.env.CORS_ORIGINS.split(",")
+      : ["http://localhost:8080", "http://127.0.0.1:5500"];
+
+    // Allow Railway domains
+    if (origin.includes(".railway.app") || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static(".")); // Serve static files from current directory
 
@@ -96,8 +115,17 @@ app.get("/test-brevo", async (req, res) => {
 });*/
 
 // Start server
-app.listen(PORT, () => {
-  // Server started successfully
-  // Health check available at /health
-  // APIs configured and ready
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`🚀 Portfolio server running on port ${PORT}`);
+  console.log(`📍 Environment: ${process.env.NODE_ENV || "development"}`);
+  console.log(`🔗 Health check: http://localhost:${PORT}/health`);
+  console.log(
+    `🤖 Gemini API: ${process.env.GEMINI_API_KEY ? "✅ Configured" : "❌ Missing"}`
+  );
+  console.log(
+    `🌤️ Weather API: ${process.env.WEATHER_API_KEY ? "✅ Configured" : "❌ Missing"}`
+  );
+  console.log(
+    `📧 Email API: ${process.env.BREVO_API_KEY ? "✅ Configured" : "❌ Missing"}`
+  );
 });
