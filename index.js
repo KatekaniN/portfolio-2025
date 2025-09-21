@@ -785,19 +785,44 @@ class Windows11Manager {
   }
 
   openWindow(windowId) {
+    console.log(`Opening window: ${windowId}`);
     const window = document.getElementById(windowId);
-    if (!window) return;
+    if (!window) {
+      console.error(`Window not found: ${windowId}`);
+      return;
+    }
+
+    // If window is already active, just bring it to front
+    if (this.activeWindows.includes(windowId) && window.classList.contains('active')) {
+      window.style.zIndex = ++this.zIndexCounter;
+      this.addFocusEffect(window);
+      console.log(`Window ${windowId} brought to front`);
+      return;
+    }
+
+    // Remove active class from all other windows to unfocus them
+    this.activeWindows.forEach(activeId => {
+      const activeWindow = document.getElementById(activeId);
+      if (activeWindow && activeId !== windowId) {
+        activeWindow.classList.remove('focused');
+      }
+    });
 
     // Ensure window is in clean state before opening
     this.resetWindowState(window);
+
+    // Force proper positioning and display
+    window.style.position = 'absolute';
 
     // Windows 11 opening animation
     window.classList.add("opening");
     setTimeout(() => window.classList.remove("opening"), 400);
 
+    // Activate the window
     window.classList.add("active");
     window.style.zIndex = ++this.zIndexCounter;
 
+    // Update active windows list
     if (!this.activeWindows.includes(windowId)) {
       this.activeWindows.push(windowId);
     }
@@ -807,6 +832,8 @@ class Windows11Manager {
 
     // Add focus ring effect
     this.addFocusEffect(window);
+    
+    console.log(`Window ${windowId} opened successfully`);
   }
 
   resetWindowState(window) {
@@ -816,7 +843,7 @@ class Windows11Manager {
     delete window.dataset.isMinimized;
     delete window.dataset.wasActive;
 
-    // Reset to original dimensions and position
+    // Reset to original dimensions and position if they exist
     if (window.dataset.originalWidth) {
       window.style.width = window.dataset.originalWidth;
       window.style.height = window.dataset.originalHeight;
@@ -832,11 +859,11 @@ class Windows11Manager {
 
     // Reset visual properties
     window.style.transform = "";
-    window.style.opacity = "";
-    window.style.pointerEvents = "";
-    window.style.display = "";
     window.style.borderRadius = "0px";
     window.style.boxShadow = "";
+    
+    // Ensure proper positioning
+    window.style.position = "absolute";
 
     // Reset maximize button
     const maximizeBtn = window.querySelector(".window-control.maximize");

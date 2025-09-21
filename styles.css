@@ -738,17 +738,20 @@ img.ai-avatar {
     0 0 0 1px rgba(255, 255, 255, 0.1);
   min-width: 400px;
   min-height: 300px;
-  display: none;
-  opacity: 1;
-  pointer-events: auto;
-  transform: none;
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
   overflow: hidden;
   resize: both;
   border: 1px solid rgba(19, 11, 11, 0.2);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.window:not(.active) {
-  display: none;
+.window.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
 }
 
 .window.opening {
@@ -769,11 +772,6 @@ img.ai-avatar {
 .window.maximized {
   border-radius: 0 !important;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) !important;
-}
-
-.window.active {
-  display: block;
-  z-index: 1000;
 }
 
 .window.active.focused {
