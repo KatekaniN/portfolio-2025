@@ -1,0 +1,385 @@
+/* Development Journey Timeline - Dark Mode Styling */
+.journey-timeline {
+  background: rgba(30, 30, 34, 0.95);
+  backdrop-filter: blur(20px) saturate(125%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 0;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 4px 16px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.journey-timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #2563eb, #147BF6);
+  border-radius: 2px 2px 0 0;
+}
+
+.journey-header {
+  padding: 24px 32px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.journey-header h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.01em;
+}
+
+.journey-header p {
+  color: #d1d5db;
+  font-size: 16px;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.journey-content {
+  padding: 24px 32px;
+  height: calc(100% - 120px);
+  overflow-y: auto;
+}
+
+/* Timeline Container */
+.timeline-container {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Timeline Line */
+.timeline-container::before {
+  content: "";
+  position: absolute;
+  left: 30px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, #2563eb, #147BF6);
+  border-radius: 2px;
+}
+
+/* Timeline Item */
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+  padding-left: 80px;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: fadeInLeft 0.6s ease forwards;
+}
+
+.timeline-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.timeline-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.timeline-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.timeline-item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.timeline-item:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+/* Timeline Dot */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -50px;
+  top: 12px;
+  width: 20px;
+  height: 20px;
+  background: #60a5fa;
+  border: 4px solid rgba(30, 30, 34, 0.95);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.3);
+}
+
+/* Timeline Card */
+.timeline-card {
+  background: rgba(45, 45, 50, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #147BF6, #2563eb);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.timeline-card:hover {
+  background: rgba(55, 55, 60, 0.9);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(96, 165, 250, 0.15);
+  border-color: rgba(96, 165, 250, 0.3);
+}
+
+.timeline-card:hover::before {
+  opacity: 1;
+}
+
+/* Timeline Period */
+.timeline-period {
+  font-size: 14px;
+  font-weight: 600;
+  color: #60a5fa;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timeline-period i {
+  font-size: 16px;
+}
+
+/* Timeline Title */
+.timeline-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+/* Timeline Description */
+.timeline-description {
+  color: #d1d5db;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+/* Timeline Highlights */
+.timeline-highlights {
+  margin-top: 16px;
+}
+
+.timeline-highlights h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #60a5fa;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.timeline-highlights ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.timeline-highlights li {
+  color: #e5e7eb;
+  font-size: 14px;
+  margin-bottom: 6px;
+  padding-left: 16px;
+  position: relative;
+}
+
+.timeline-highlights li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #60a5fa;
+  font-weight: bold;
+}
+
+/* Reflection Box */
+.timeline-reflection {
+  background: rgba(96, 165, 250, 0.1);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 16px;
+  position: relative;
+}
+
+.timeline-reflection::before {
+  content: "💭";
+  position: absolute;
+  top: -8px;
+  left: 16px;
+  background: rgba(45, 45, 50, 0.9);
+  padding: 0 8px;
+  font-size: 16px;
+}
+
+.timeline-reflection h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #93c5fd;
+  margin: 0 0 8px 0;
+}
+
+.timeline-reflection p {
+  color: #cbd5e1;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Emotions & Growth Tags */
+.timeline-emotions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.emotion-tag {
+  background: rgba(96, 165, 250, 0.15);
+  color: #93c5fd;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid rgba(96, 165, 250, 0.3);
+}
+
+/* Special styling for different life phases */
+.timeline-item.phase-education .timeline-card::before {
+  background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.timeline-item.phase-business .timeline-card::before {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.timeline-item.phase-transition .timeline-card::before {
+  background: linear-gradient(90deg, #8b5cf6, #7c3aed);
+}
+
+.timeline-item.phase-learning .timeline-card::before {
+  background: linear-gradient(90deg, #06b6d4, #0891b2);
+}
+
+.timeline-item.phase-professional .timeline-card::before {
+  background: linear-gradient(90deg, #2563eb, #147BF6);
+}
+
+/* Animations */
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .journey-header {
+    padding: 20px 24px;
+  }
+
+  .journey-header h2 {
+    font-size: 24px;
+  }
+
+  .journey-content {
+    padding: 20px 24px;
+  }
+
+  .timeline-container::before {
+    left: 20px;
+  }
+
+  .timeline-item {
+    padding-left: 60px;
+  }
+
+  .timeline-item::before {
+    left: -40px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .timeline-card {
+    padding: 20px;
+  }
+
+  .timeline-title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .journey-header {
+    padding: 16px 20px;
+  }
+
+  .journey-content {
+    padding: 16px 20px;
+  }
+
+  .timeline-container::before {
+    left: 15px;
+  }
+
+  .timeline-item {
+    padding-left: 50px;
+  }
+
+  .timeline-item::before {
+    left: -35px;
+    width: 14px;
+    height: 14px;
+  }
+
+  .timeline-card {
+    padding: 16px;
+  }
+}
+
+/* Custom Scrollbar */
+.journey-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.journey-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.journey-content::-webkit-scrollbar-thumb {
+  background: rgba(96, 165, 250, 0.3);
+  border-radius: 4px;
+}
+
+.journey-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(96, 165, 250, 0.5);
+}

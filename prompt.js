@@ -28,15 +28,15 @@ const portfolioData = {
       technologies: ["React Native", "ChatGPT API", "Gemini Vision API"],
     },
     {
-      name: "BizBacker (FNB App of the Year Hackathon)",
+      name: "BizBacker (FNB App of the Year Hackathon 2024 Entry)",
       description:
-        "Led full-stack fintech solution addressing financial inclusion in township economies. Developed innovative royalty-based micro-investment model connecting investors with small businesses.",
+        "Collaborated to build a full-stack fintech solution addressing financial inclusion in township economies. Developed innovative royalty-based micro-investment model connecting investors with small businesses.",
       technologies: ["React", "Firebase", "Python"],
     },
     {
-      name: "Safe Spaces (Geekulcha Annual Hackathon)",
+      name: "Safe Spaces (Geekulcha Annual Hackathon 2024 Entry)",
       description:
-        "Led frontend development of real-time safety network, creating community-driven safety platform for vulnerable populations.",
+        "Collaborated to build fullstack development of real-time safety network, creating community-driven safety platform for vulnerable populations.",
       technologies: ["JavaScript", "Mapbox", "HTML/CSS"],
     },
   ],
@@ -71,7 +71,8 @@ const portfolioData = {
     phone: "067 687 8729",
     linkedin: "linkedin.com/in/katekanin",
     github: "github.com/katekanin",
-    location: "Johannesburg, Gauteng",
+    location:
+      "Johannesburg, Gauteng (willing to relocate for the right opportunity)",
   },
   experience: [
     {
@@ -132,7 +133,7 @@ const portfolioData = {
  */
 exports.getSystemPrompt = () => {
   return `
-You are an AI assistant for Katekani Nyamandi's portfolio website. Your purpose is to help visitors learn about Katekani, his projects, skills, and experience in a friendly, helpful, and engaging way.
+You are an AI assistant for Katekani Nyamandi's portfolio website. Your purpose is to help visitors learn about Katekani, her projects, skills, and experience in a friendly, helpful, and engaging way.
 
 ## YOUR PERSONALITY:
 - Professional but warm and approachable
@@ -160,7 +161,7 @@ ${JSON.stringify(portfolioData, null, 2)}
 - Keep paragraphs short and scannable
 - Include relevant emoji occasionally to add personality (but don't overdo it)
 
-Remember, your goal is to represent Katekani professionally while making visitors feel welcome and informed about his work and skills.
+Remember, your goal is to represent Katekani professionally while making visitors feel welcome and informed about her work and skills.
 `;
 };
 
@@ -171,17 +172,17 @@ Remember, your goal is to represent Katekani professionally while making visitor
  */
 exports.getSpecificPrompt = (type) => {
   const prompts = {
-    projects: `Focus on describing Katekani's projects in detail, including technologies used, challenges overcome, and outcomes achieved. Highlight his role and contributions, especially in the GitHub API Consumer, AI-Powered Plant Care Assistant, and hackathon projects.`,
+    projects: `Focus on describing Katekani's projects in detail, including technologies used, challenges overcome, and outcomes achieved. Highlight her role and contributions, especially in the GitHub API Consumer, AI-Powered Plant Care Assistant, and hackathon projects.`,
 
-    skills: `Provide a comprehensive overview of Katekani's technical skills, categorized by area (frontend, backend, etc.). Mention his proficiency in JavaScript, React, Node.js, and database technologies, as well as his experience with content management systems like WordPress and Adobe Experience Manager.`,
+    skills: `Provide a comprehensive overview of Katekani's technical skills, categorized by area (frontend, backend, etc.). Mention her proficiency in JavaScript, React, Node.js, and database technologies, as well as her experience with content management systems like WordPress and Adobe Experience Manager.`,
 
-    experience: `Discuss Katekani's professional experience at Ogilvy South Africa, focusing on his achievements in frontend development, API optimization, and content management. Highlight his mentoring experience and technical contributions to client projects.`,
+    experience: `Discuss Katekani's professional experience at Ogilvy South Africa, focusing on her achievements in frontend development, API optimization, and content management. Highlight her mentoring experience and technical contributions to client projects.`,
 
-    education: `Share information about Katekani's educational background, including his BSc in Mathematical Statistics at University of Pretoria (though currently paused) and his Higher Certificate in Systems Development from Umuzi.org. Mention his commitment to continuous learning and practical skill development.`,
+    education: `Share information about Katekani's educational background, including her BSc in Mathematical Statistics at University of Pretoria (though currently paused) and her Higher Certificate in Systems Development from Umuzi.org. Mention her commitment to continuous learning and practical skill development.`,
 
-    personal: `Share insights about Katekani's personal interests in AI development, mobile app development, and plant care. Explain how these interests inform his creative process and problem-solving approach, particularly in his self-initiated projects.`,
+    personal: `Share insights about Katekani's personal interests in AI development, mobile app development, and plant care. Explain how these interests inform her creative process and problem-solving approach, particularly in her self-initiated projects.`,
 
-    contact: `Provide clear contact information for Katekani, including his email (knyamandi99@gmail.com), phone (067 687 8729), LinkedIn (linkedin.com/in/katekanin), and GitHub (github.com/katekanin). Mention that he's based in Johannesburg, Gauteng.`,
+    contact: `Provide clear contact information for Katekani, including her email (knyamandi99@gmail.com), phone (067 687 8729), LinkedIn (linkedin.com/in/katekanin), and GitHub (github.com/katekanin). Mention that she's based in Johannesburg, Gauteng.`,
   };
 
   return prompts[type] || "";

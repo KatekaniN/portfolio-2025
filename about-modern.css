@@ -1,0 +1,554 @@
+/* Dark Mode PDF Reader Style About Me */
+
+/* RESET ALL ABOUT WINDOW STYLES FROM styles.css */
+#about .window-content,
+#about .profile-section,
+#about .profile-image,
+#about .profile-pic,
+#about .profile-info,
+#about .profile-info h2,
+#about .tagline,
+#about .slogan,
+#about .about-details,
+#about .detail-item,
+#about .about-hero,
+#about .about-avatar,
+#about .about-title,
+#about .role-badge,
+#about .about-sub,
+#about .about-actions,
+#about .btn,
+#about .about-stats,
+#about .stat,
+#about .about-columns,
+#about .card,
+#about .about-list,
+#about .about-links,
+#about .chip,
+#about .stack-tags,
+#about .tag,
+#about .bullet {
+  all: unset !important;
+  display: revert !important;
+  box-sizing: border-box !important;
+}
+
+.about-content {
+  padding: 0 !important;
+  background: #1e1e1e !important;
+  height: 100% !important;
+  font-family:
+    "Segoe UI Variable",
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif !important;
+  color: #e5e5e5 !important;
+  overflow-y: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Ensure the about window content is scrollable */
+#about .about-content {
+  max-height: 100% !important;
+  overflow-y: auto !important;
+}
+
+/* Document Header - Simplified Dark Grey Style - FORCED OVERRIDE */
+#about .about-content .document-header {
+  background: #3e3e42 !important;
+  border-bottom: 1px solid #515156 !important;
+  padding: 20px 24px !important;
+  flex-shrink: 0 !important;
+  display: block !important;
+}
+
+#about .about-content .doc-meta {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+}
+
+#about .about-content .doc-title {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  margin: 0 !important;
+}
+
+#about .about-content .doc-subtitle {
+  font-size: 14px !important;
+  color: #a1a1a1 !important;
+  margin: 0 !important;
+}
+
+/* Document Body - Scrollable Content */
+.document-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px;
+  background: #1e1e1e;
+  min-height: 0; /* Allow flex child to shrink */
+}
+
+/* Additional scrolling support for the about window */
+#about .document-body {
+  max-height: 100% !important;
+  overflow-y: auto !important;
+}
+
+.document-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.document-body::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.document-body::-webkit-scrollbar-thumb {
+  background: rgba(96, 165, 250, 0.3);
+  border-radius: 4px;
+}
+
+.document-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(96, 165, 250, 0.5);
+}
+
+/* Document Sections */
+.doc-section {
+  background: #252526;
+  border: 1px solid #3e3e42;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.section-title {
+  background: #2d2d30;
+  border-bottom: 1px solid #3e3e42;
+  margin: 0;
+  padding: 16px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title i {
+  color: #0078d4;
+  font-size: 14px;
+}
+
+.section-content {
+  padding: 24px;
+}
+
+/* Profile Section */
+.profile-section {
+  margin-bottom: 32px;
+}
+
+.profile-content {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.profile-avatar {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.profile-avatar img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid #0078d4;
+  object-fit: cover;
+}
+
+.online-status {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 16px;
+  height: 16px;
+  background: #4ec9b0;
+  border: 3px solid #252526;
+  border-radius: 50%;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-name {
+  margin: 0 0 16px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.profile-role,
+.profile-company,
+.profile-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #d4d4d4;
+}
+
+.profile-role i,
+.profile-company i,
+.profile-location i {
+  color: #0078d4;
+  width: 16px;
+  font-size: 12px;
+}
+
+/* Overview Section */
+.overview-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #d4d4d4;
+  margin: 0;
+}
+
+.overview-text strong {
+  color: #0078d4;
+  font-weight: 600;
+}
+
+/* Competencies Grid */
+.competencies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.competency-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background: #1e1e1e;
+  border: 1px solid #3e3e42;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.competency-item:hover {
+  border-color: #0078d4;
+  background: #282829;
+}
+
+.competency-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #0078d4, #106ebe);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.competency-content h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.competency-content p {
+  margin: 0;
+  font-size: 14px;
+  color: #a1a1a1;
+  line-height: 1.4;
+}
+
+/* Philosophy Grid */
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.philosophy-card {
+  background: #1e1e1e;
+  border: 1px solid #3e3e42;
+  border-radius: 6px;
+  padding: 20px;
+  transition: all 0.2s ease;
+}
+
+.philosophy-card:hover {
+  border-color: #0078d4;
+  background: #282829;
+}
+
+.philosophy-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.philosophy-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.philosophy-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.philosophy-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #a1a1a1;
+  line-height: 1.5;
+}
+
+/* Quick Links Grid */
+.quick-links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.quick-link-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #1e1e1e;
+  border: 1px solid #3e3e42;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  text-align: left;
+  width: 100%;
+}
+
+.quick-link-card:hover {
+  border-color: #0078d4;
+  background: #282829;
+  transform: translateY(-1px);
+}
+
+.link-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #0078d4, #106ebe);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.link-content {
+  flex: 1;
+}
+
+.link-content h3 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.link-content p {
+  margin: 0;
+  font-size: 13px;
+  color: #a1a1a1;
+}
+
+.link-arrow {
+  color: #0078d4;
+  font-size: 14px;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.quick-link-card:hover .link-arrow {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+/* Document Footer */
+.document-footer {
+  background: #2d2d30;
+  border-top: 1px solid #3e3e42;
+  padding: 16px 24px;
+  margin-top: 32px;
+  flex-shrink: 0; /* Prevent shrinking */
+  margin-bottom: 16px; /* Add bottom margin for spacing */
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #a1a1a1;
+}
+
+.footer-item i {
+  color: #0078d4;
+  font-size: 11px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .document-body {
+    padding: 20px;
+  }
+
+  .profile-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .competencies-grid,
+  .philosophy-grid,
+  .quick-links-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .doc-controls {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .document-header {
+    padding: 12px 16px;
+  }
+
+  .document-body {
+    padding: 16px;
+  }
+
+  .section-content {
+    padding: 16px;
+  }
+
+  .profile-name {
+    font-size: 20px;
+  }
+
+  .competency-item,
+  .philosophy-card,
+  .quick-link-card {
+    padding: 12px;
+  }
+}
+
+/* Animation for smooth loading */
+.doc-section {
+  animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Focus states for accessibility */
+.doc-btn:focus,
+.quick-link-card:focus {
+  outline: 2px solid #0078d4;
+  outline-offset: 2px;
+}
+
+/* Selection styling */
+::selection {
+  background: #0078d4;
+  color: #ffffff;
+}
+
+/* FINAL NUCLEAR OVERRIDE - FORCE HEADER STYLES */
+#about .document-header,
+#about .about-content .document-header,
+.about-content .document-header {
+  background: #3e3e42 !important;
+  border-bottom: 1px solid #515156 !important;
+  padding: 20px 24px !important;
+  flex-shrink: 0 !important;
+  display: block !important;
+  position: relative !important;
+  z-index: 999 !important;
+}
+
+#about .doc-meta,
+#about .about-content .doc-meta,
+.about-content .doc-meta {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+}
+
+#about .doc-title,
+#about .about-content .doc-title,
+.about-content .doc-title {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  margin: 0 !important;
+}
+
+#about .doc-subtitle,
+#about .about-content .doc-subtitle,
+.about-content .doc-subtitle {
+  font-size: 14px !important;
+  color: #a1a1a1 !important;
+  margin: 0 !important;
+}
+
+/* Ensure About Window is Properly Scrollable */
+#about.window {
+  overflow: hidden !important;
+}
+
+#about .window-content {
+  height: calc(100% - 48px) !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}

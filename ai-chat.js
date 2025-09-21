@@ -201,6 +201,22 @@ class AIPortfolioChat {
   }
 }
 
+// Global function to fill message input with suggestion text
+function fillMessageInput(suggestionText) {
+  const messageInput = document.getElementById("messageInput");
+  if (messageInput) {
+    messageInput.value = suggestionText;
+    messageInput.focus();
+    // Update character count
+    const charCount = document.getElementById("charCount");
+    if (charCount) {
+      const length = suggestionText.length;
+      charCount.textContent = `${length}/500`;
+      charCount.style.color = length > 450 ? "#dc3545" : "#666";
+    }
+  }
+}
+
 // Initialize the AI Chat when the document is loaded
 document.addEventListener("DOMContentLoaded", function () {
   // Initialize the AI Chat

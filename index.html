@@ -1,10 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Katekani Nyamandi - Portfolio</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="contact-unified.css" />
+    <link rel="stylesheet" href="about-modern.css" />
+    <link rel="stylesheet" href="journey-timeline.css" />
+    <link rel="stylesheet" href="skills-resume-dark.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -69,12 +73,9 @@
         data-window="personal"
       >
         <div class="icon-image">
-          <img
-            src="./icons/name-tag/icons8-name-tag-96.png"
-            alt="name-tag icon"
-          />
+          <i class="fas fa-route" style="color: #2C7EBD"></i>
         </div>
-        <div class="icon-label">Personal</div>
+        <div class="icon-label">My Journey</div>
       </div>
 
       <div
@@ -100,85 +101,242 @@
         <div class="icon-label">AI Assistant</div>
       </div>
 
+      <!-- Games Desktop Icon -->
+      <div
+        class="desktop-icon games-icon"
+        style="top: 440px; left: 180px"
+        data-window="games"
+      >
+        <div class="icon-image">
+          <i class="fa-solid fa-gamepad" style="color: #2C7EBD"></i>
+        </div>
+        <div class="icon-label">Games</div>
+      </div>
+
       <div
         class="window"
         id="about"
-        style="top: 120px; left: 300px; width: 800px; height: 500px"
+        style="top: 120px; left: 300px; width: 860px; height: 560px"
       >
         <div class="window-header">
           <div class="window-title">
-            <i class="fa-solid fa-house-user" style="color: #404147"></i> About
-            Me
+            <i class="fa-solid fa-house-user" style="color: #404147"></i> About Me - Katekani Nyamandi
           </div>
           <div class="window-controls">
-            <button
-              class="window-control minimize"
-              onclick="windowManager.minimizeWindow('about')"
-              title="Minimize"
-            ></button>
-            <button
-              class="window-control maximize"
-              onclick="windowManager.maximizeWindow('about')"
-              title="Maximize"
-            ></button>
-            <button
-              class="window-control close"
-              onclick="windowManager.closeWindow('about')"
-              title="Close"
-            ></button>
+            <button class="window-control minimize" onclick="windowManager.minimizeWindow('about')" title="Minimize"></button>
+            <button class="window-control maximize" onclick="windowManager.maximizeWindow('about')" title="Maximize"></button>
+            <button class="window-control close" onclick="windowManager.closeWindow('about')" title="Close"></button>
           </div>
         </div>
-        <div class="window-content">
-          <div class="profile-section">
-            <div class="profile-image">
-              <img
-                src="./icons/avatar.png"
-                alt="Profile Picture"
-                class="profile-pic"
-              />
+        <div class="window-content about-content">
+          <!-- Document Header -->
+          <!--div class="document-header">
+            <div class="doc-meta">
+              <div class="doc-title">About Katekani Nyamandi</div>
+              <div class="doc-subtitle">Junior Full Stack Developer Portfolio</div>
             </div>
-            <div class="profile-info">
-              <h2>Hello! I'm Katekani Nyamandi</h2>
-              <p class="tagline">Junior Full Stack Developer</p>
-              <p class="slogan">
-                I enjoy creating digital products that I can see myself and
-                others actually using.
-              </p>
-            </div>
-          </div>
+          </div-->
 
-          <div class="about-details">
-            <div class="detail-item">
-              <i class="fas fa-map-marker-alt"></i>
-              <span><strong>Location:</strong> Johannesburg, Gauteng</span>
+          <!-- Document Content -->
+          <div class="document-body">
+            <!-- Profile Section -->
+            <div class="doc-section profile-section">
+              <div class="profile-content">
+                <div class="profile-avatar">
+                  <img src="./icons/avatar.jpg" alt="Katekani Nyamandi" />
+                  <!--<div class="online-status"></div>-->
+                </div>
+                <div class="profile-info">
+                  <h1 class="profile-name">Katekani Nyamandi</h1>
+                  <div class="profile-role">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Junior Developer</span>
+                  </div>
+                  <!--div class="profile-company">
+                    <i class="fas fa-building"></i>
+                    <span>Ogilvy South Africa</span>
+                  </div-->
+                  <div class="profile-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Johannesburg, South Africa</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="detail-item">
-              <i class="fas fa-graduation-cap"></i>
-              <span
-                ><strong>Education:</strong> BSc Mathematical Statistics (Final
-                Year), University of Pretoria</span
-              >
+
+            <!-- Overview Section -->
+            <div class="doc-section overview-section">
+              <h2 class="section-title">
+                <i class="fas fa-user"></i>
+                Professional Overview
+              </h2>
+              <div class="section-content">
+                <p class="overview-text">
+                  Passionate Junior Full Stack Developer with expertise in building 
+                  <strong>interactive web experiences</strong> using modern technologies. 
+                  Specializing in React, Node.js, and PostgreSQL development with a focus on 
+                  accessible design and user-centered solutions. Currently contributing to 
+                  enterprise-level projects while mentoring emerging developers.
+                </p>
+              </div>
             </div>
-            <div class="detail-item">
-              <i class="fas fa-briefcase"></i>
-              <span
-                ><strong>Experience:</strong> Junior Developer at Ogilvy South
-                Africa</span
-              >
+
+            <!-- Core Competencies Section -->
+            <div class="doc-section competencies-section">
+              <h2 class="section-title">
+                <i class="fas fa-cogs"></i>
+                Core Competencies
+              </h2>
+              <div class="section-content">
+                <div class="competencies-grid">
+                  <div class="competency-item">
+                    <div class="competency-icon">
+                      <i class="fas fa-code"></i>
+                    </div>
+                    <div class="competency-content">
+                      <h3>Full Stack Development</h3>
+                      <p>End-to-end web application development with React, Node.js, and PostgreSQL</p>
+                    </div>
+                  </div>
+                  <div class="competency-item">
+                    <div class="competency-icon">
+                      <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="competency-content">
+                      <h3>Mobile Development</h3>
+                      <p>Cross-platform mobile applications using React Native and modern APIs</p>
+                    </div>
+                  </div>
+                  <div class="competency-item">
+                    <div class="competency-icon">
+                      <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="competency-content">
+                      <h3>AI Integration</h3>
+                      <p>Implementing AI-powered features with ChatGPT and Gemini Vision APIs</p>
+                    </div>
+                  </div>
+                  <div class="competency-item">
+                    <div class="competency-icon">
+                      <i class="fas fa-universal-access"></i>
+                    </div>
+                    <div class="competency-content">
+                      <h3>Accessible Design</h3>
+                      <p>Creating inclusive user interfaces following WCAG guidelines</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="detail-item">
-              <i class="fas fa-heart"></i>
-              <span
-                ><strong>Interests:</strong> AI Development, Mobile App
-                Development</span
-              >
+
+            <!-- Philosophy Section -->
+            <div class="doc-section philosophy-section">
+              <h2 class="section-title">
+                <i class="fas fa-lightbulb"></i>
+                Development Philosophy
+              </h2>
+              <div class="section-content">
+                <div class="philosophy-grid">
+                  <div class="philosophy-card">
+                    <div class="philosophy-header">
+                      <div class="philosophy-icon">🎯</div>
+                      <h3>User-Centered Design</h3>
+                    </div>
+                    <p>Every feature should solve a real problem and enhance the user experience</p>
+                  </div>
+                  <div class="philosophy-card">
+                    <div class="philosophy-header">
+                      <div class="philosophy-icon">♿</div>
+                      <h3>Accessibility First</h3>
+                    </div>
+                    <p>Technology should be inclusive and available to everyone, regardless of ability</p>
+                  </div>
+                  <div class="philosophy-card">
+                    <div class="philosophy-header">
+                      <div class="philosophy-icon">📈</div>
+                      <h3>Continuous Learning</h3>
+                    </div>
+                    <p>Staying current with evolving technologies and best practices</p>
+                  </div>
+                  <div class="philosophy-card">
+                    <div class="philosophy-header">
+                      <div class="philosophy-icon">🤝</div>
+                      <h3>Collaborative Spirit</h3>
+                    </div>
+                    <p>Best solutions emerge from diverse perspectives working together</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="detail-item">
-              <i class="fas fa-code"></i>
-              <span
-                ><strong>Favorite Languages:</strong> React, JavaScript,
-                SQL</span
-              >
+
+            <!-- Quick Links Section -->
+            <div class="doc-section links-section">
+              <h2 class="section-title">
+                <i class="fas fa-external-link-alt"></i>
+                Quick Access
+              </h2>
+              <div class="section-content">
+                <div class="quick-links-grid">
+                  <button class="quick-link-card" onclick="windowManager.openWindow('projects')">
+                    <div class="link-icon">
+                      <i class="fas fa-folder-open"></i>
+                    </div>
+                    <div class="link-content">
+                      <h3>Projects Portfolio</h3>
+                      <p>View my development work</p>
+                    </div>
+                    <div class="link-arrow">
+                      <i class="fas fa-chevron-right"></i>
+                    </div>
+                  </button>
+                  <button class="quick-link-card" onclick="windowManager.openWindow('skills')">
+                    <div class="link-icon">
+                      <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="link-content">
+                      <h3>Technical Skills</h3>
+                      <p>Technologies & expertise</p>
+                    </div>
+                    <div class="link-arrow">
+                      <i class="fas fa-chevron-right"></i>
+                    </div>
+                  </button>
+                  <button class="quick-link-card" onclick="windowManager.openWindow('resume')">
+                    <div class="link-icon">
+                      <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="link-content">
+                      <h3>Professional Resume</h3>
+                      <p>Experience & education</p>
+                    </div>
+                    <div class="link-arrow">
+                      <i class="fas fa-chevron-right"></i>
+                    </div>
+                  </button>
+                  <button class="quick-link-card" onclick="windowManager.openWindow('contact')">
+                    <div class="link-icon">
+                      <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="link-content">
+                      <h3>Contact Information</h3>
+                      <p>Get in touch</p>
+                    </div>
+                    <div class="link-arrow">
+                      <i class="fas fa-chevron-right"></i>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="document-footer">
+              <div class="footer-content">
+                <div class="footer-item">
+                  <i class="fas fa-globe"></i>
+                  <span>Available for new opportunities where I can solve problems and grow</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -237,12 +395,22 @@
                 <span class="tech-tag">HTML/CSS</span>
                 <span class="tech-tag">Render</span>
               </div>
+              <div class="project-reflection">
+                <div class="reflection-header">
+                  <i class="fas fa-heart"></i>
+                  <span>What I'm proud of</span>
+                </div>
+                <p>This project taught me the beauty of asynchronous programming and proper error handling. I'm particularly proud of implementing a robust caching system that improved load times by 60%. It was my first time building a production-ready API consumer, and seeing real users interact with GitHub data through my interface was incredibly rewarding.</p>
+              </div>
               <div class="project-links">
-                <a href="#" class="project-link primary"
+                <a href="https://consume-frontend.onrender.com/" class="project-link primary" target="_blank"
                   ><i class="fas fa-external-link-alt"></i> Live Demo</a
                 >
-                <a href="#" class="project-link"
-                  ><i class="fab fa-github"></i> GitHub</a
+                <a href="https://github.com/KatekaniN/consume-frontend" class="project-link" target="_blank"
+                  ><i class="fab fa-github"></i> GitHub Frontend</a
+                >
+                <a href="https://github.com/KatekaniN/consume-backend" class="project-link" target="_blank"
+                  ><i class="fab fa-github"></i> GitHub Backend</a
                 >
               </div>
             </div>
@@ -250,29 +418,71 @@
             <div class="project-card">
               <div class="project-header">
                 <i class="fas fa-leaf project-icon"></i>
-                <h3>AI-Powered Plant Care Assistant</h3>
+                <h3>Plantly - Plant Care Assistant</h3>
               </div>
               <p>
                 Self-taught React Native development to build a mobile plant
-                care application, integrating AI API for intelligent plant care
-                advice and Gemini Vision API for camera-based plant
-                identification.
+                care application, integrating the PlantNet API for intelligent plant identification and care advice.
               </p>
               <div class="tech-stack">
                 <span class="tech-tag">React Native</span>
-                <span class="tech-tag">ChatGPT API</span>
-                <span class="tech-tag">Gemini Vision API</span>
+                <span class="tech-tag">PlantNet API</span>
+                <span class="tech-tag">Zustand</span>
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">Expo</span>
+              </div>
+              <div class="project-reflection">
+                <div class="reflection-header">
+                  <i class="fas fa-seedling"></i>
+                  <span>Learning journey</span>
+                </div>
+                <p>Teaching myself React Native while building this was like learning to swim by jumping in the deep end! The most fulfilling moment was when my friend successfully identified her sick tomato plant and saved it in time using the app. It showed me how technology can bridge generations and solve real problems that matter to people's daily lives.</p>
               </div>
               <div class="project-links">
-                <a href="#" class="project-link primary"
+                <a href="https://katekanin.github.io/plantly-website/" class="project-link primary" target="_blank"
                   ><i class="fas fa-external-link-alt"></i> Demo</a
                 >
-                <a href="#" class="project-link"
+                <a href="https://github.com/KatekaniN/plantly" class="project-link" target="_blank"
                   ><i class="fab fa-github"></i> GitHub</a
                 >
               </div>
             </div>
 
+            <div class="project-card">
+              <div class="project-header">
+                <i class="fas fa-chocolate-bar project-icon"></i>
+                <h3>Cadbury Mood-to-Chocolate AI Recommendation App</h3>
+              </div>
+              <p>
+                Built an innovative AI-powered recommendation engine that reads your mood and suggests the perfect Cadbury chocolate to match! Integrated Gemini Vision API for real-time emotion analysis through camera input, creating a fun and personalized chocolate discovery experience.
+              </p>
+              <div class="tech-stack">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">Gemini Vision API</span>
+                <span class="tech-tag">Camera Integration</span>
+                <span class="tech-tag">Tailwind CSS</span>
+              </div>
+              <div class="project-reflection">
+                <div class="reflection-header">
+                  <i class="fas fa-smile"></i>
+                  <span>Sweet innovation</span>
+                </div>
+                <p>This project combined my love for AI with something unexpectedly fun - chocolate! The challenge was making emotion detection accurate enough to give meaningful recommendations. I learned so much about computer vision APIs and user experience design. Watching people's faces light up when the app correctly identified their mood and suggested the perfect chocolate was absolutely magical!</p>
+              </div>
+              <div class="project-links">
+                <a href="https://cadbury-globe-frontend.onrender.com/" class="project-link primary" target="_blank"
+                  ><i class="fas fa-external-link-alt"></i> Live Demo</a
+                >
+                <a href="https://github.com/KatekaniN/cadbury-globe-frontend" class="project-link" target="_blank"
+                  ><i class="fab fa-github"></i> GitHub Frontend</a
+                >
+                <a href="https://github.com/KatekaniN/cadbury-globe-backend" class="project-link" target="_blank"
+                  ><i class="fab fa-github"></i> GitHub Backend</a
+                >
+              </div>
+            </div>
+
+            <!-- HACKATHON PROJECTS COMMENTED OUT
             <div class="project-card">
               <div class="project-header">
                 <i class="fas fa-money-bill-wave project-icon"></i>
@@ -288,6 +498,13 @@
                 <span class="tech-tag">React</span>
                 <span class="tech-tag">Firebase</span>
                 <span class="tech-tag">Python</span>
+              </div>
+              <div class="project-reflection">
+                <div class="reflection-header">
+                  <i class="fas fa-trophy"></i>
+                  <span>Impact & growth</span>
+                </div>
+                <p>Winning FNB App of the Year was surreal, but what really moved me was hearing township entrepreneurs say our solution could change their lives. Leading a team under pressure taught me that great code means nothing without understanding the human problem you're solving. This project opened my eyes to fintech's potential for social impact.</p>
               </div>
               <div class="project-links">
                 <a href="#" class="project-link primary"
@@ -314,6 +531,13 @@
                 <span class="tech-tag">Mapbox</span>
                 <span class="tech-tag">HTML/CSS</span>
               </div>
+              <div class="project-reflection">
+                <div class="reflection-header">
+                  <i class="fas fa-users"></i>
+                  <span>Personal mission</span>
+                </div>
+                <p>Building this safety platform felt deeply personal - creating technology that could potentially save lives carried enormous responsibility. I learned that frontend development isn't just about pretty interfaces; it's about creating intuitive experiences when people are vulnerable and need help quickly. Every optimization meant someone could get help faster.</p>
+              </div>
               <div class="project-links">
                 <a href="#" class="project-link primary"
                   ><i class="fas fa-external-link-alt"></i> Project Info</a
@@ -323,9 +547,10 @@
                 >
               </div>
             </div>
+            END HACKATHON PROJECTS -->
           </div>
         </div>
-      </div>
+      </div--!>
 
       <div
         class="window"
@@ -455,138 +680,121 @@
             Feel free to reach out through any of these channels!
           </p>
 
-          <div class="contact-methods">
-            <div class="contact-item">
-              <i class="fas fa-envelope"></i>
-              <div>
-                <strong>Email</strong>
-                <p>
-                  <a href="mailto:knyamandi99@gmail.com"
-                    >knyamandi99@gmail.com</a
-                  >
-                </p>
-              </div>
+          <div class="unified-contact-form">
+            <div class="contact-header">
+              <h3>Get In Touch</h3>
+              <p>Ready to collaborate? Let's connect through your preferred method!</p>
             </div>
 
-            <div class="contact-item">
-              <i class="fas fa-phone"></i>
-              <div>
-                <strong>Phone</strong>
-                <p>
-                  <a href="tel:+27676878729">067 687 8729</a>
-                </p>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <i class="fab fa-linkedin"></i>
-              <div>
-                <strong>LinkedIn</strong>
-                <p>
-                  <a href="https://linkedin.com/in/katekanin" target="_blank"
-                    >linkedin.com/in/katekanin</a
-                  >
-                </p>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <i class="fab fa-github"></i>
-              <div>
-                <strong>GitHub</strong>
-                <p>
-                  <a href="https://github.com/katekanin" target="_blank"
-                    >github.com/katekanin</a
-                  >
-                </p>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <i class="fas fa-map-marker-alt"></i>
-              <div class="contact-container">
-                <div class="contact-header">
-                  <h1>Get In Touch</h1>
-                  <p>I'd love to hear from you. Send me a message!</p>
+            <!-- Contact Methods Section -->
+            <div class="contact-methods-grid">
+              <div class="contact-method">
+                <i class="fas fa-envelope"></i>
+                <div>
+                  <strong>Email</strong>
+                  <a href="mailto:knyamandi99@gmail.com">knyamandi99@gmail.com</a>
                 </div>
-
-                <div class="success-message" id="successMessage">
-                  <i class="fas fa-check-circle"></i>
-                  Thank you! Your message has been sent successfully.
+              </div>
+              <div class="contact-method">
+                <i class="fas fa-calendar-alt"></i>
+                <div>
+                  <strong>Book a Quick Chat</strong>
+                  <a href="https://calendar.app.google/LnkWXbra3MUtCyQM9" target="_blank" class="booking-link">Schedule a Meeting</a>
                 </div>
-
-                <div class="error-message" id="errorMessage">
-                  <i class="fas fa-exclamation-triangle"></i>
-                  <span id="errorText"
-                    >Something went wrong. Please try again.</span
-                  >
+              </div>
+              <div class="contact-method">
+                <i class="fab fa-linkedin"></i>
+                <div>
+                  <strong>LinkedIn</strong>
+                  <a href="https://linkedin.com/in/katekanin" target="_blank">linkedin.com/in/katekanin</a>
                 </div>
+              </div>
+              <div class="contact-method">
+                <i class="fab fa-github"></i>
+                <div>
+                  <strong>GitHub</strong>
+                  <a href="https://github.com/katekanin" target="_blank">github.com/katekanin</a>
+                </div>
+              </div>
+            </div>
 
-                <form id="contactForm">
+            <!-- Divider -->
+            <div class="contact-divider">
+              <span>or send me a message right here</span>
+            </div>
+
+            <!-- Message Form Section -->
+            <div class="message-form-section">
+              <div class="success-message" id="successMessage">
+                <i class="fas fa-check-circle"></i>
+                Thank you! Your message has been sent successfully.
+              </div>
+
+              <div class="error-message" id="errorMessage">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span id="errorText">Something went wrong. Please try again.</span>
+              </div>
+
+              <form id="contactForm">
+                <div class="form-row">
                   <div class="form-group">
-                    <label class="form-label" for="name">Full Name *</label>
+                    <label class="form-label" for="name">First Name *</label>
                     <input
                       type="text"
                       id="name"
                       name="name"
                       class="form-input"
+                      autocapitalize="words"
+                      autocomplete="name"
+                      placeholder="Your preferred name"
                       required
                     />
                   </div>
-
                   <div class="form-group">
-                    <label class="form-label" for="email"
-                      >Email Address *</label
-                    >
+                    <label class="form-label" for="email">Email Address *</label>
                     <input
                       type="email"
                       id="email"
                       name="email"
                       class="form-input"
+                      autocomplete="email"
+                      placeholder="your.email@example.com"
                       required
                     />
                   </div>
-
-                  <div class="form-group">
-                    <label class="form-label" for="subject">Subject *</label>
-                    <input
-                      type="text"
-                      id="subject"
-                      name="subject"
-                      class="form-input"
-                      required
-                    />
-                  </div>
-
-                  <div class="form-group">
-                    <label class="form-label" for="message">Message *</label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      class="form-textarea"
-                      required
-                      placeholder="Tell me about your project or just say hello..."
-                    ></textarea>
-                  </div>
-
-                  <button type="submit" class="form-button" id="submitButton">
-                    <span id="buttonText">Send Message</span>
-                    <i class="fas fa-paper-plane" id="buttonIcon"></i>
-                    <div
-                      class="loading-spinner"
-                      id="loadingSpinner"
-                      style="display: none"
-                    ></div>
-                  </button>
-                </form>
-
-                <div class="back-link">
-                  <a href="index.html">
-                    <i class="fas fa-arrow-left"></i>
-                    Back to Portfolio
-                  </a>
                 </div>
-              </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="subject">Subject *</label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    required
+                    class="form-input"
+                    autocapitalize="words"
+                    placeholder="What would you like to discuss?"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="message">Message *</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    class="form-textarea"
+                    autocapitalize="sentences"
+                    required
+                    placeholder="Tell me about your project, collaboration idea, or just say hello!"
+                  ></textarea>
+                </div>
+
+                <button type="submit" class="form-submit-btn" id="submitButton">
+                  <span id="buttonText">Send Message</span>
+                  <i class="fas fa-paper-plane" id="buttonIcon"></i>
+                  <div class="loading-spinner" id="loadingSpinner" style="display: none"></div>
+                </button>
+              </form>
             </div>
           </div>
 
@@ -609,7 +817,7 @@
       >
         <div class="window-header">
           <div class="window-title">
-            <i class="fas fa-heart"></i> Personal Life
+            <i class="fas fa-route"></i> My Development Journey
           </div>
           <div class="window-controls">
             <button
@@ -630,84 +838,173 @@
           </div>
         </div>
         <div class="window-content">
-          <h2>Beyond the Code</h2>
-          <p>
-            When I'm not coding, I'm exploring the world, capturing moments, and
-            pursuing various hobbies that keep me inspired and creative.
-          </p>
-
-          <div class="personal-grid">
-            <div class="personal-item">
-              <div class="personal-icon">
-                <i class="fas fa-mobile-alt" style="color: #5059c9"></i>
-              </div>
-              <h3>AI Development</h3>
-              <p>
-                Passionate about integrating AI into practical applications, as
-                demonstrated by my Plant Care Assistant project that uses
-                ChatGPT and Gemini Vision APIs to provide intelligent plant care
-                recommendations.
-              </p>
+          <div class="journey-timeline">
+            <div class="journey-header">
+              <h2>From Numbers to Code</h2>
+              <p>The personal story behind my transition from mathematics to software development</p>
             </div>
+            
+            <div class="journey-content">
+              <div class="timeline-container">
+                
+                <!-- University Phase -->
+                <div class="timeline-item phase-education">
+                  <div class="timeline-card">
+                    <div class="timeline-period">
+                      <i class="fas fa-graduation-cap"></i>
+                      2018 - 2023
+                    </div>
+                    <div class="timeline-title">BSc Mathematical Statistics</div>
+                    <div class="timeline-description">
+                      Started my journey at University of Pretoria, falling in love with the logic and problem-solving nature of mathematics. I was fascinated by how numbers could tell stories and predict patterns.
+                    </div>
+                    <div class="timeline-highlights">
+                      <h4><i class="fas fa-lightbulb"></i> What I learned</h4>
+                      <ul>
+                        <li>Analytical thinking and logical problem-solving</li>
+                        <li>Working with complex datasets and statistical models</li>
+                        <li>The beauty of finding patterns in chaos</li>
+                      </ul>
+                    </div>
+                    <div class="timeline-reflection">
+                      <h4>The struggle was real</h4>
+                      <p>Financial constraints forced me to pause my studies with just 3 modules left. It felt like failure, but looking back, it was the push I needed to find my true calling. Sometimes the detour becomes the path.</p>
+                    </div>
+                    <div class="timeline-emotions">
+                      <span class="emotion-tag">curious</span>
+                      <span class="emotion-tag">determined</span>
+                      <span class="emotion-tag">challenged</span>
+                    </div>
+                  </div>
+                </div>
 
-            <div class="personal-item">
-              <div class="personal-icon">
-                <i class="fas fa-mobile-alt"></i>
-              </div>
-              <h3>Mobile Development</h3>
-              <p>
-                Self-taught React Native developer, building cross-platform
-                mobile applications during my free time to expand my technical
-                skillset beyond web development.
-              </p>
-            </div>
+                <!-- Business Development Phase -->
+                <div class="timeline-item phase-business">
+                  <div class="timeline-card">
+                    <div class="timeline-period">
+                      <i class="fas fa-briefcase"></i>
+                      2023 - Early 2024
+                    </div>
+                    <div class="timeline-title">Business Development Coordinator</div>
+                    <div class="timeline-description">
+                      Joined a US startup remotely, diving into the world of business strategy and client relationships. I was helping companies grow, but something was missing - I wanted to build the tools that made that growth possible.
+                    </div>
+                    <div class="timeline-highlights">
+                      <h4><i class="fas fa-chart-line"></i> Skills gained</h4>
+                      <ul>
+                        <li>Understanding user needs and business requirements</li>
+                        <li>Cross-cultural communication and remote collaboration</li>
+                        <li>Seeing technology from a business perspective</li>
+                      </ul>
+                    </div>
+                    <div class="timeline-reflection">
+                      <h4>The turning point</h4>
+                      <p>Every day I worked with developers and saw how they brought ideas to life. I realized I didn't just want to talk about solutions - I wanted to build them. The seed of my coding journey was planted here.</p>
+                    </div>
+                    <div class="timeline-emotions">
+                      <span class="emotion-tag">ambitious</span>
+                      <span class="emotion-tag">restless</span>
+                      <span class="emotion-tag">inspired</span>
+                    </div>
+                  </div>
+                </div>
 
-            <div class="personal-item">
-              <div class="personal-icon">
-                <i class="fas fa-leaf"></i>
-              </div>
-              <h3>Plant Care</h3>
-              <p>
-                Enthusiast for indoor plants and gardening, which inspired my
-                AI-powered Plant Care Assistant app that helps users maintain
-                healthy plants through personalized care recommendations.
-              </p>
-            </div>
+                <!-- Transition Phase -->
+                <div class="timeline-item phase-transition">
+                  <div class="timeline-card">
+                    <div class="timeline-period">
+                      <i class="fas fa-crossroads"></i>
+                      Early 2024
+                    </div>
+                    <div class="timeline-title">The Leap of Faith</div>
+                    <div class="timeline-description">
+                      Applied to Umuzi's learnership program. I had no formal coding experience, but I knew deep down this was my path. The math background helped with logical thinking, but I was starting from zero in a completely new field.
+                    </div>
+                    <div class="timeline-highlights">
+                      <h4><i class="fas fa-heart"></i> Why this felt right</h4>
+                      <ul>
+                        <li>Coding felt like solving mathematical puzzles</li>
+                        <li>The creative aspect of building something from nothing</li>
+                        <li>The immediate feedback loop of seeing code come to life</li>
+                      </ul>
+                    </div>
+                    <div class="timeline-reflection">
+                      <h4>Fear and excitement</h4>
+                      <p>I was terrified of being the least experienced person in the room, but also thrilled by the possibility of learning something completely new. Best decision I ever made - sometimes you have to trust your gut over your resume.</p>
+                    </div>
+                    <div class="timeline-emotions">
+                      <span class="emotion-tag">nervous</span>
+                      <span class="emotion-tag">hopeful</span>
+                      <span class="emotion-tag">brave</span>
+                    </div>
+                  </div>
+                </div>
 
-            <div class="personal-item">
-              <div class="personal-icon">
-                <i class="fas fa-graduation-cap"></i>
-              </div>
-              <h3>Continuous Learning</h3>
-              <p>
-                Dedicated to ongoing professional development, constantly
-                exploring new technologies and frameworks to enhance my skills
-                as a developer.
-              </p>
-            </div>
+                <!-- Learning Phase -->
+                <div class="timeline-item phase-learning">
+                  <div class="timeline-card">
+                    <div class="timeline-period">
+                      <i class="fas fa-code"></i>
+                      March 2024 - March 2025
+                    </div>
+                    <div class="timeline-title">Umuzi Learnership Journey</div>
+                    <div class="timeline-description">
+                      Intensive full-stack development training through Umuzi and Ogilvy. From writing my first "Hello World" to building complex applications, every day brought new challenges and victories.
+                    </div>
+                    <div class="timeline-highlights">
+                      <h4><i class="fas fa-tools"></i> Technical growth</h4>
+                      <ul>
+                        <li>Mastered JavaScript, React, Node.js, and PostgreSQL</li>
+                        <li>Built real projects that solved actual problems</li>
+                        <li>Learned the art of debugging and persistence</li>
+                        <li>Won hackathons and gained recognition</li>
+                      </ul>
+                    </div>
+                    <div class="timeline-reflection">
+                      <h4>The grind was worth it</h4>
+                      <p>There were nights I dreamed in JavaScript and weekends spent debugging. But seeing my Plant Care Assistant help people, or winning the FNB hackathon - those moments made every struggle worthwhile. I found my superpower.</p>
+                    </div>
+                    <div class="timeline-emotions">
+                      <span class="emotion-tag">focused</span>
+                      <span class="emotion-tag">growing</span>
+                      <span class="emotion-tag">proud</span>
+                    </div>
+                  </div>
+                </div>
 
-            <div class="personal-item">
-              <div class="personal-icon">
-                <i class="fas fa-laptop-code"></i>
-              </div>
-              <h3>Hackathons</h3>
-              <p>
-                Active participant in hackathons, having contributed to
-                award-winning projects like BizBacker (FNB App of the Year) and
-                Safe Spaces (Geekulcha Annual Hackathon).
-              </p>
-            </div>
+                <!-- Professional Phase -->
+                <div class="timeline-item phase-professional">
+                  <div class="timeline-card">
+                    <div class="timeline-period">
+                      <i class="fas fa-rocket"></i>
+                      March 2025 - Present
+                    </div>
+                    <div class="timeline-title">Junior Developer at Ogilvy</div>
+                    <div class="timeline-description">
+                      Absorbed as a junior developer, now contributing to real client projects and mentoring the next cohort of learners. The boy who struggled with university finances is now building enterprise applications.
+                    </div>
+                    <div class="timeline-highlights">
+                      <h4><i class="fas fa-star"></i> Current impact</h4>
+                      <ul>
+                        <li>Leading frontend development for major charity projects</li>
+                        <li>Mentoring new developers and sharing knowledge</li>
+                        <li>Contributing to enterprise-level applications</li>
+                        <li>Building technology that makes a difference</li>
+                      </ul>
+                    </div>
+                    <div class="timeline-reflection">
+                      <h4>Still growing</h4>
+                      <p>Every day I'm amazed that I get paid to solve problems and create solutions. The imposter syndrome is real, but so is the progress. I'm not the same person who left university - I'm stronger, more resilient, and finally doing what I love.</p>
+                    </div>
+                    <div class="timeline-emotions">
+                      <span class="emotion-tag">grateful</span>
+                      <span class="emotion-tag">confident</span>
+                      <span class="emotion-tag">purposeful</span>
+                    </div>
+                  </div>
+                </div>
 
-            <div class="personal-item">
-              <div class="personal-icon">
-                <i class="fas fa-users"></i>
               </div>
-              <h3>Mentoring</h3>
-              <p>
-                Enjoy mentoring junior developers and sharing knowledge, having
-                provided technical guidance and code review support for the 2025
-                AI Software Development cohort.
-              </p>
             </div>
           </div>
         </div>
@@ -857,108 +1154,97 @@
           </div>
         </div>
         <div class="window-content">
-          <div class="resume-header">
-            <h2>Katekani Nyamandi</h2>
-            <p>Junior Full Stack Developer</p>
-            <p style="color: #6b7280; margin-bottom: 16px">
-              Johannesburg, Gauteng • knyamandi99@gmail.com • 067 687 8729
+          <div class="resume-download-container">
+            <h2>My Resume</h2>
+            <p>
+              Download my complete professional resume with detailed work experience, 
+              education, and technical skills.
             </p>
-            <a href="#" class="download-resume"
-              ><i class="fas fa-download"></i> Download PDF Resume</a
-            >
-          </div>
-
-          <div class="resume-section">
-            <h3><i class="fas fa-briefcase"></i> Professional Experience</h3>
-
-            <div class="experience-item">
-              <div class="experience-header">
-                <strong>Junior Developer</strong>
-                <span class="date">Mar 2025 - Present</span>
+            
+            <a href="#" class="download-resume">
+              <i class="fas fa-download"></i>
+              Download PDF Resume
+            </a>
+            
+            <div class="resume-file-info">
+              <div class="file-detail">
+                <span>File Type:</span>
+                <span>PDF Document</span>
               </div>
-              <div class="company">Ogilvy South Africa • Johannesburg</div>
-              <ul>
-                <li>
-                  Spearheaded frontend development for a charity foundation
-                  website rebuild by translating complex Figma mock-ups into
-                  pixel-perfect, accessible web interfaces using React.js
-                </li>
-                <li>
-                  Mentored 2025 AI Software Development cohort by providing
-                  technical guidance and code review support for MVP application
-                  development
-                </li>
-                <li>
-                  Enhanced data retrieval performance and user experience by
-                  architecting and optimizing RESTful API integrations with
-                  Node.js and Express.js
-                </li>
-                <li>
-                  Orchestrated content management operations for City of Cape
-                  Town website and Audi SA CMS platforms by leveraging WordPress
-                  and Adobe Experience Manager
-                </li>
-              </ul>
-            </div>
-
-            <div class="experience-item">
-              <div class="experience-header">
-                <strong>Full stack Web Development Learner</strong>
-                <span class="date">Mar 2024 - Mar 2025</span>
+              <div class="file-detail">
+                <span>File Size:</span>
+                <span>~250 KB</span>
               </div>
-              <div class="company">
-                Ogilvy South Africa & Umuzi.org • Johannesburg
+              <div class="file-detail">
+                <span>Last Updated:</span>
+                <span>August 2025</span>
               </div>
-              <ul>
-                <li>
-                  Architected and developed backend services using Node.js,
-                  Express.js, and PostgreSQL with connection pooling for visitor
-                  management systems
-                </li>
-                <li>
-                  Implemented comprehensive testing strategies including unit
-                  tests with Jasmine/Jest, integration testing for database
-                  operations, and TDD practices
-                </li>
-                <li>
-                  Built full stack JavaScript applications with file I/O
-                  operations, JSON data manipulation, and asynchronous
-                  programming patterns
-                </li>
-                <li>
-                  Configured CI/CD pipelines using Webpack for module bundling,
-                  Docker for containerization, and deployment through Render
-                </li>
-              </ul>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div class="resume-section">
-            <h3><i class="fas fa-graduation-cap"></i> Education</h3>
-            <div class="education-item">
-              <strong>Higher Certificate: Systems Development</strong><br />
-              Umuzi.org • March 2025<br />
+      <!-- Games Window -->
+      <div
+        class="window"
+        id="games"
+        style="top: 120px; left: 220px; width: 720px; height: 520px"
+      >
+        <div class="window-header">
+          <div class="window-title">
+            <i class="fas fa-gamepad"></i> Games
+          </div>
+          <div class="window-controls">
+            <button
+              class="window-control minimize"
+              onclick="windowManager.minimizeWindow('games')"
+              title="Minimize"
+            ></button>
+            <button
+              class="window-control maximize"
+              onclick="windowManager.maximizeWindow('games')"
+              title="Maximize"
+            ></button>
+            <button
+              class="window-control close"
+              onclick="windowManager.closeWindow('games')"
+              title="Close"
+            ></button>
+          </div>
+        </div>
+        <div class="window-content" style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div id="games-title" style="font-weight: 600;">Snake</div>
+              <div id="games-score" style="opacity: 0.8;">Score: 0</div>
             </div>
-            <div class="education-item" style="margin-top: 12px">
-              <strong>BSc in Mathematical Statistics (Final Year)</strong><br />
-              University of Pretoria<br />
-              <em>3 modules outstanding, paused studies due to finances</em
-              ><br />
-              <em
-                >Pivoted to pursue gaining industry experience and practical
-                learning</em
-              >
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <label style="font-size: 12px; opacity: 0.8; display: flex; align-items: center; gap: 6px;">
+                Game
+                <select id="games-game" style="padding: 4px 6px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); color: #2032a7;">
+                  <option value="snake" selected>Snake</option>
+                  <option value="pong">Pong</option>
+                  <option value="flappy">Flappy</option>
+                </select>
+              </label>
+              <button id="games-start" style="padding: 6px 10px; border-radius: 6px; border: none; background: #1e90ff; color: #fff; cursor: pointer;">Start</button>
+              <button id="games-pause" style="padding: 6px 10px; border-radius: 6px; border: none; background: #5a606b; color: #fff; cursor: pointer;">Pause</button>
+              <button id="games-restart" style="padding: 6px 10px; border-radius: 6px; border: none; background: #059b69; color: #fff; cursor: pointer;">Restart</button>
+              <label style="font-size: 12px; opacity: 0.8; display: flex; align-items: center; gap: 6px;">
+                Speed
+                <select id="games-speed" style="padding: 4px 6px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); color: #2032a7;">
+                  <option value="130">Easy</option>
+                  <option value="100" selected>Normal</option>
+                  <option value="70">Hard</option>
+                </select>
+              </label>
             </div>
           </div>
-
-          <div class="resume-section">
-            <h3><i class="fas fa-trophy"></i> Achievements</h3>
-            <div class="education-item">
-              <strong>FNB App of the Year Hackathon</strong> • BizBacker
-              Project<br />
-              <strong>Geekulcha Annual Hackathon</strong> • Safe Spaces
-              Project<br />
-            </div>
+          <div id="games-stage" style="flex: 1; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden;">
+            <canvas id="games-canvas" width="640" height="400" style="width: 100%; height: 100%; background: rgba(0,0,0,0.25); display: block;"></canvas>
+          </div>
+          <div id="games-help" style="font-size: 12px; opacity: 0.7; text-align: center;">
+            Use arrow keys or WASD to move. Eat the squares, avoid walls and yourself.
           </div>
         </div>
       </div>
@@ -975,284 +1261,18 @@
       <div class="taskbar-time" id="clock"></div>
     </div>
 
+    <!-- Inject profile data and hydrate the UI -->
+    <script src="profile-data.js"></script>
+    <script src="profile-hydrate.js"></script>
+    <script src="about-modern.js"></script>
+
     <script src="index.js"></script>
     <script src="weather-news.js"></script>
     <script src="contact.js"></script>
     <script src="ai-chat.js"></script>
+    <script src="games.js"></script>
   </body>
 </html>
 
-<!-- Kanban Board Window 
-      <div
-        class="window"
-        id="kanban"
-        style="top: 80px; left: 200px; width: 1000px; height: 700px"
-      >
-        <div class="window-header">
-          <div class="window-title">
-            <i class="fas fa-tasks"></i> Project Board - Live GitHub Integration
-          </div>
-          <div class="window-controls">
-            <button
-              class="window-control minimize"
-              onclick="windowManager.minimizeWindow('kanban')"
-              title="Minimize"
-            ></button>
-            <button
-              class="window-control maximize"
-              onclick="windowManager.maximizeWindow('kanban')"
-              title="Maximize"
-            ></button>
-            <button
-              class="window-control close"
-              onclick="windowManager.closeWindow('kanban')"
-              title="Close"
-            ></button>
-          </div>
-        </div>
-        <div class="window-content" style="padding: 0; overflow: hidden">
-      
-          <div class="kanban-header">
-            <div class="kanban-controls">
-              <button
-                class="kanban-btn primary"
-                onclick="kanbanManager.syncGitHub()"
-              >
-                <i class="fas fa-sync"></i> Sync GitHub
-              </button>
-              <button
-                class="kanban-btn"
-                onclick="kanbanManager.showAddTaskModal()"
-              >
-                <i class="fas fa-plus"></i> Add Task
-              </button>
-              <button class="kanban-btn" onclick="kanbanManager.showStats()">
-                <i class="fas fa-chart-bar"></i> Stats
-              </button>
-            </div>
-            <div class="kanban-status">
-              <span id="kanbanStatus">Ready</span>
-              <div class="sync-indicator" id="syncIndicator"></div>
-            </div>
-          </div>
 
-        
-          <div class="repo-filter">
-            <div class="filter-tabs">
-              <button
-                class="filter-tab active"
-                data-repo="all"
-                onclick="kanbanManager.filterByRepo('all')"
-              >
-                All Projects
-              </button>
-              <button
-                class="filter-tab"
-                data-repo="plantly"
-                onclick="kanbanManager.filterByRepo('plantly')"
-              >
-                <i class="fas fa-leaf"></i> Plantly
-              </button>
-              <button
-                class="filter-tab"
-                data-repo="cadbury-frontend"
-                onclick="kanbanManager.filterByRepo('cadbury-frontend')"
-              >
-                <i class="fas fa-candy-cane"></i> Cadbury
-              </button>
-              <button
-                class="filter-tab"
-                data-repo="spotlight-app"
-                onclick="kanbanManager.filterByRepo('spotlight-app')"
-              >
-                <i class="fas fa-spotlight"></i> Spotlight
-              </button>
-              <button
-                class="filter-tab"
-                data-repo="consume-frontend"
-                onclick="kanbanManager.filterByRepo('consume-frontend')"
-              >
-                <i class="fas fa-utensils"></i> Consume
-              </button>
-            </div>
-          </div> -->
-
-<!-- Kanban Board 
-          <div class="kanban-board" id="kanbanBoard">
-            <div class="kanban-column" data-column="Backlog">
-              <div class="column-header" style="background: #6c757d">
-                <h3><i class="fas fa-inbox"></i> Backlog</h3>
-                <span class="task-count" id="backlog-count">0</span>
-              </div>
-              <div class="column-content" id="backlog-tasks">
-                <div class="loading-tasks">
-                  <i class="fas fa-spinner fa-spin"></i> Loading tasks...
-                </div>
-              </div>
-            </div>
-
-            <div class="kanban-column" data-column="In Progress">
-              <div class="column-header" style="background: #0078d4">
-                <h3><i class="fas fa-play-circle"></i> In Progress</h3>
-                <span class="task-count" id="progress-count">0</span>
-              </div>
-              <div class="column-content" id="progress-tasks">
-                <div class="loading-tasks">
-                  <i class="fas fa-spinner fa-spin"></i> Loading tasks...
-                </div>
-              </div>
-            </div>
-
-            <div class="kanban-column" data-column="Review">
-              <div class="column-header" style="background: #f39c12">
-                <h3><i class="fas fa-eye"></i> Review</h3>
-                <span class="task-count" id="review-count">0</span>
-              </div>
-              <div class="column-content" id="review-tasks">
-                <div class="loading-tasks">
-                  <i class="fas fa-spinner fa-spin"></i> Loading tasks...
-                </div>
-              </div>
-            </div>
-
-            <div class="kanban-column" data-column="Done">
-              <div class="column-header" style="background: #28a745">
-                <h3><i class="fas fa-check-circle"></i> Done</h3>
-                <span class="task-count" id="done-count">0</span>
-              </div>
-              <div class="column-content" id="done-tasks">
-                <div class="loading-tasks">
-                  <i class="fas fa-spinner fa-spin"></i> Loading tasks...
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal" id="addTaskModal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3><i class="fas fa-plus"></i> Add New Task</h3>
-            <button
-              class="modal-close"
-              onclick="kanbanManager.closeAddTaskModal()"
-            >
-              ×
-            </button>
-          </div>
-          <form id="addTaskForm" onsubmit="kanbanManager.submitTask(event)">
-            <div class="form-group">
-              <label for="taskTitle">Task Title *</label>
-              <input
-                type="text"
-                id="taskTitle"
-                required
-                placeholder="Enter task title..."
-              />
-            </div>
-            <div class="form-group">
-              <label for="taskDescription">Description</label>
-              <textarea
-                id="taskDescription"
-                rows="3"
-                placeholder="Describe the task..."
-              ></textarea>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="taskRepo">Repository *</label>
-                <select id="taskRepo" required>
-                  <option value="">Select repository...</option>
-                  <option value="plantly">Plantly</option>
-                  <option value="cadbury-frontend">Cadbury Frontend</option>
-                  <option value="spotlight-app">Spotlight App</option>
-                  <option value="consume-frontend">Consume Frontend</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="taskPriority">Priority *</label>
-                <select id="taskPriority" required>
-                  <option value="low">Low</option>
-                  <option value="medium" selected>Medium</option>
-                  <option value="high">High</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="createdBy">Your Name *</label>
-              <input
-                type="text"
-                required
-                id="createdBy"
-                placeholder="Enter your name..."
-              />
-            </div>
-            <div class="modal-actions">
-              <button
-                type="button"
-                class="btn secondary"
-                onclick="kanbanManager.closeAddTaskModal()"
-              >
-                Cancel
-              </button>
-              <button type="submit" class="btn primary">
-                <i class="fas fa-plus"></i> Add Task
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-
- 
-      <div class="modal" id="statsModal">
-        <div class="modal-content large">
-          <div class="modal-header">
-            <h3><i class="fas fa-chart-bar"></i> Project Statistics</h3>
-            <button
-              class="modal-close"
-              onclick="kanbanManager.closeStatsModal()"
-            >
-              ×
-            </button>
-          </div>
-          <div class="stats-content">
-            <div class="stats-grid" id="statsGrid">
-              <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-tasks"></i></div>
-                <div class="stat-info">
-                  <div class="stat-number" id="totalTasks">0</div>
-                  <div class="stat-label">Total Tasks</div>
-                </div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
-                <div class="stat-info">
-                  <div class="stat-number" id="completedTasks">0</div>
-                  <div class="stat-label">Completed</div>
-                </div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-play-circle"></i></div>
-                <div class="stat-info">
-                  <div class="stat-number" id="activeTasks">0</div>
-                  <div class="stat-label">In Progress</div>
-                </div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-github"></i></div>
-                <div class="stat-info">
-                  <div class="stat-number" id="githubTasks">0</div>
-                  <div class="stat-label">From GitHub</div>
-                </div>
-              </div>
-            </div>
-            <div class="repo-stats" id="repoStats">
-              <h4>Repository Breakdown</h4>
-              <div class="repo-stats-list" id="repoStatsList">
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div-->
+   

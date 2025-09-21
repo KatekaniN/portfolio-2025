@@ -1,0 +1,328 @@
+/* Dark Theme for Skills and Resume Windows */
+
+/* Skills Window Dark Theme */
+#skills .window-content {
+  background: rgba(30, 30, 34, 0.95);
+  backdrop-filter: blur(20px) saturate(125%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 4px 16px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow-y: auto;
+  height: calc(100% - 40px);
+  color: #ffffff;
+}
+
+#skills .window-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #60a5fa, #3b82f6, #2563eb);
+  border-radius: 2px 2px 0 0;
+}
+
+#skills .window-content h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.01em;
+}
+
+#skills .window-content p {
+  color: #d1d5db;
+  font-size: 16px;
+  margin: 0 0 24px 0;
+  opacity: 0.9;
+}
+
+/* Skills Categories Dark Theme */
+.skills-category {
+  margin-bottom: 24px;
+  padding: 24px;
+  background: rgba(45, 45, 50, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.skills-category::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #60a5fa, #3b82f6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.skills-category:hover {
+  background: rgba(55, 55, 60, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(96, 165, 250, 0.15);
+  border-color: rgba(96, 165, 250, 0.3);
+}
+
+.skills-category:hover::before {
+  opacity: 1;
+}
+
+.skills-category h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.skills-category i {
+  color: #60a5fa;
+  font-size: 20px;
+}
+
+/* Skill Tags Dark Theme */
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-tag {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 2px solid;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+  cursor: default;
+}
+
+.skill-tag:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.skill-tag.expert {
+  background: rgba(52, 211, 153, 0.15);
+  color: #34d399;
+  border-color: #10b981;
+}
+
+.skill-tag.advanced {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+  border-color: #f59e0b;
+}
+
+.skill-tag.intermediate {
+  background: rgba(156, 163, 175, 0.15);
+  color: #9ca3af;
+  border-color: #6b7280;
+}
+
+/* Resume Window Dark Theme */
+#resume .window-content {
+  background: rgba(30, 30, 34, 0.95);
+  backdrop-filter: blur(20px) saturate(125%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 4px 16px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  height: calc(100% - 40px);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#resume .window-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #60a5fa, #3b82f6, #2563eb);
+  border-radius: 2px 2px 0 0;
+}
+
+/* Resume Download Container */
+.resume-download-container {
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.resume-download-container h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.01em;
+}
+
+.resume-download-container p {
+  color: #d1d5db;
+  font-size: 18px;
+  margin: 0 0 32px 0;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+/* Download Resume Button Dark Theme */
+.download-resume {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #0375f0 0%, #0d7aec 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(96, 165, 250, 0.25);
+  border: 2px solid transparent;
+}
+
+.download-resume:hover {
+  background: linear-gradient(135deg, #0d7aec 0%, #2563eb 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(96, 165, 250, 0.4);
+  text-decoration: none;
+  color: white;
+  border-color: rgba(96, 165, 250, 0.5);
+}
+
+.download-resume:active {
+  transform: translateY(-1px);
+}
+
+.download-resume i {
+  font-size: 18px;
+}
+
+/* Resume File Info */
+.resume-file-info {
+  margin-top: 24px;
+  padding: 16px;
+  background: rgba(45, 45, 50, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  font-size: 14px;
+  color: #d1d5db;
+  opacity: 0.8;
+}
+
+.resume-file-info .file-detail {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.resume-file-info .file-detail:last-child {
+  margin-bottom: 0;
+}
+
+/* Custom Scrollbar for Skills */
+#skills .window-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+#skills .window-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+#skills .window-content::-webkit-scrollbar-thumb {
+  background: rgba(96, 165, 250, 0.3);
+  border-radius: 4px;
+}
+
+#skills .window-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(96, 165, 250, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #skills .window-content,
+  #resume .window-content {
+    padding: 24px;
+  }
+
+  .skills-category {
+    padding: 20px;
+  }
+
+  .skill-tags {
+    gap: 8px;
+  }
+
+  .skill-tag {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .resume-download-container h2 {
+    font-size: 28px;
+  }
+
+  .resume-download-container p {
+    font-size: 16px;
+  }
+
+  .download-resume {
+    padding: 14px 24px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  #skills .window-content,
+  #resume .window-content {
+    padding: 20px;
+  }
+
+  .resume-download-container {
+    max-width: 320px;
+  }
+
+  .resume-download-container h2 {
+    font-size: 24px;
+  }
+
+  .resume-download-container p {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  .download-resume {
+    padding: 12px 20px;
+    font-size: 14px;
+    gap: 8px;
+  }
+
+  .resume-file-info {
+    padding: 12px;
+    font-size: 13px;
+  }
+}
