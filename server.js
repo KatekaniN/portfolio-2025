@@ -1,14 +1,36 @@
 // server.js
 const express = require("express");
 const cors = require("cors");
-const contactRoutes = require("./routes/contact.js");
 const dotenv = require("dotenv");
 const rateLimit = require("express-rate-limit");
-const chatRoutes = require("./routes/chat.js");
-const weatherNewsRoutes = require("./routes/weather-news.js"); // Add this
 
-// Load environment variables
+// Load environment variables first
 dotenv.config();
+
+console.log("🔧 Loading server modules...");
+
+let contactRoutes, chatRoutes, weatherNewsRoutes;
+
+try {
+  contactRoutes = require("./routes/contact.js");
+  console.log("✅ Contact routes loaded");
+} catch (error) {
+  console.error("❌ Error loading contact routes:", error.message);
+}
+
+try {
+  chatRoutes = require("./routes/chat.js");
+  console.log("✅ Chat routes loaded");
+} catch (error) {
+  console.error("❌ Error loading chat routes:", error.message);
+}
+
+try {
+  weatherNewsRoutes = require("./routes/weather-news.js");
+  console.log("✅ Weather/News routes loaded");
+} catch (error) {
+  console.error("❌ Error loading weather/news routes:", error.message);
+}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -48,18 +70,47 @@ const limiter = rateLimit({
 app.use("/api", limiter);
 
 // Routes
-app.use("/api/chat", chatRoutes);
-app.use("/api", weatherNewsRoutes);
-app.use("/api/contact", contactRoutes);
+console.log("🔧 Setting up routes...");
+
+if (chatRoutes) {
+  app.use("/api/chat", chatRoutes);
+  console.log("✅ Chat routes mounted");
+}
+
+if (weatherNewsRoutes) {
+  app.use("/api", weatherNewsRoutes);
+  console.log("✅ Weather/News routes mounted");
+}
+
+if (contactRoutes) {
+  app.use("/api/contact", contactRoutes);
+  console.log("✅ Contact routes mounted");
+}
 // Health check endpoint
 app.get("/health", (req, res) => {
-  res.status(200).json({
-    status: "ok",
-    message: "Server is running",
-    apiKeyConfigured: !!process.env.GEMINI_API_KEY,
-    weatherApiConfigured: !!process.env.WEATHER_API_KEY, // Add this
-    newsApiConfigured: !!process.env.NEWS_API_KEY, // Add this
-  });
+  console.log("🏥 Health check requested");
+  try {
+    const healthData = {
+      status: "ok",
+      message: "Server is running",
+      timestamp: new Date().toISOString(),
+      environment: process.env.NODE_ENV || "development",
+      port: PORT,
+      apiKeyConfigured: !!process.env.GEMINI_API_KEY,
+      weatherApiConfigured: !!process.env.WEATHER_API_KEY,
+      newsApiConfigured: !!process.env.NEWSDATA_API_KEY,
+      emailApiConfigured: !!process.env.BREVO_API_KEY,
+    };
+    console.log("✅ Health check successful:", healthData);
+    res.status(200).json(healthData);
+  } catch (error) {
+    console.error("❌ Health check error:", error);
+    res.status(500).json({
+      status: "error",
+      message: error.message,
+      timestamp: new Date().toISOString(),
+    });
+  }
 });
 
 // Error handling middleware
@@ -115,17 +166,30 @@ app.get("/test-brevo", async (req, res) => {
 });*/
 
 // Start server
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 Portfolio server running on port ${PORT}`);
+console.log("🚀 Starting server...");
+
+const server = app.listen(PORT, "0.0.0.0", () => {
+  console.log("=".repeat(50));
+  console.log(`🚀 Portfolio server STARTED successfully!`);
   console.log(`📍 Environment: ${process.env.NODE_ENV || "development"}`);
-  console.log(`🔗 Health check: http://localhost:${PORT}/health`);
-  console.log(
-    `🤖 Gemini API: ${process.env.GEMINI_API_KEY ? "✅ Configured" : "❌ Missing"}`
-  );
-  console.log(
-    `🌤️ Weather API: ${process.env.WEATHER_API_KEY ? "✅ Configured" : "❌ Missing"}`
-  );
-  console.log(
-    `📧 Email API: ${process.env.BREVO_API_KEY ? "✅ Configured" : "❌ Missing"}`
-  );
+  console.log(`🌐 Port: ${PORT}`);
+  console.log(`🔗 Health check: http://0.0.0.0:${PORT}/health`);
+  console.log(`🤖 Gemini API: ${process.env.GEMINI_API_KEY ? "✅ Configured" : "❌ Missing"}`);
+  console.log(`🌤️ Weather API: ${process.env.WEATHER_API_KEY ? "✅ Configured" : "❌ Missing"}`);
+  console.log(`📧 Email API: ${process.env.BREVO_API_KEY ? "✅ Configured" : "❌ Missing"}`);
+  console.log(`📰 News API: ${process.env.NEWSDATA_API_KEY ? "✅ Configured" : "❌ Missing"}`);
+  console.log("=".repeat(50));
+});
+
+server.on('error', (error) => {
+  console.error("❌ Server error:", error);
+  process.exit(1);
+});
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+  console.log('🛑 SIGTERM received, shutting down gracefully');
+  server.close(() => {
+    console.log('✅ Process terminated');
+  });
 });
