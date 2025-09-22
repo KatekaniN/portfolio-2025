@@ -36,7 +36,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Trust proxy (required for Railway and other hosting platforms)
-app.set('trust proxy', 1);
+app.set("trust proxy", 1);
 
 // Middleware
 const corsOptions = {
@@ -177,22 +177,30 @@ const server = app.listen(PORT, "0.0.0.0", () => {
   console.log(`📍 Environment: ${process.env.NODE_ENV || "development"}`);
   console.log(`🌐 Port: ${PORT}`);
   console.log(`🔗 Health check: http://0.0.0.0:${PORT}/health`);
-  console.log(`🤖 Gemini API: ${process.env.GEMINI_API_KEY ? "✅ Configured" : "❌ Missing"}`);
-  console.log(`🌤️ Weather API: ${process.env.WEATHER_API_KEY ? "✅ Configured" : "❌ Missing"}`);
-  console.log(`📧 Email API: ${process.env.BREVO_API_KEY ? "✅ Configured" : "❌ Missing"}`);
-  console.log(`📰 News API: ${process.env.NEWSDATA_API_KEY ? "✅ Configured" : "❌ Missing"}`);
+  console.log(
+    `🤖 Gemini API: ${process.env.GEMINI_API_KEY ? "✅ Configured" : "❌ Missing"}`
+  );
+  console.log(
+    `🌤️ Weather API: ${process.env.WEATHER_API_KEY ? "✅ Configured" : "❌ Missing"}`
+  );
+  console.log(
+    `📧 Email API: ${process.env.BREVO_API_KEY ? "✅ Configured" : "❌ Missing"}`
+  );
+  console.log(
+    `📰 News API: ${process.env.NEWSDATA_API_KEY ? "✅ Configured" : "❌ Missing"}`
+  );
   console.log("=".repeat(50));
 });
 
-server.on('error', (error) => {
+server.on("error", (error) => {
   console.error("❌ Server error:", error);
   process.exit(1);
 });
 
 // Graceful shutdown
-process.on('SIGTERM', () => {
-  console.log('🛑 SIGTERM received, shutting down gracefully');
+process.on("SIGTERM", () => {
+  console.log("🛑 SIGTERM received, shutting down gracefully");
   server.close(() => {
-    console.log('✅ Process terminated');
+    console.log("✅ Process terminated");
   });
 });

@@ -9,9 +9,13 @@ dotenv.config();
 // Debug environment variables
 console.log("🔍 Environment variable debug:");
 console.log("NODE_ENV:", process.env.NODE_ENV);
-console.log("Available env vars:", Object.keys(process.env).filter(key => 
-  key.includes('GEMINI') || key.includes('API') || key.includes('KEY')
-));
+console.log(
+  "Available env vars:",
+  Object.keys(process.env).filter(
+    (key) =>
+      key.includes("GEMINI") || key.includes("API") || key.includes("KEY")
+  )
+);
 console.log("GEMINI_API_KEY exists:", !!process.env.GEMINI_API_KEY);
 console.log("GEMINI_API_KEY length:", process.env.GEMINI_API_KEY?.length || 0);
 
@@ -34,7 +38,7 @@ function initializeGemini() {
     console.log("Successfully initialized Google Generative AI client");
 
     model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash", 
+      model: "gemini-1.5-flash",
       generationConfig: {
         temperature: 0.7,
         topK: 40,
@@ -67,7 +71,9 @@ exports.generateResponse = async (message, history) => {
     if (!isInitialized || !model) {
       // Try to initialize again
       if (!initializeGemini()) {
-        throw new Error("Gemini API is not configured. Please contact the site administrator.");
+        throw new Error(
+          "Gemini API is not configured. Please contact the site administrator."
+        );
       }
     }
 

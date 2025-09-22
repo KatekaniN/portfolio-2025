@@ -41,7 +41,7 @@ class ContactForm {
     };
 
     try {
-      const response = await fetch(API_CONFIG.getURL('contact'), {
+      const response = await fetch(API_CONFIG.getURL("contact"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

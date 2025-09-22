@@ -187,7 +187,7 @@ class WeatherNewsWidget {
 
     console.log("Fetching fresh weather data from API");
     try {
-      const response = await fetch(API_CONFIG.getURL('weather', `/${city}`));
+      const response = await fetch(API_CONFIG.getURL("weather", `/${city}`));
       if (!response.ok) {
         throw new Error(`Weather API error: ${response.status}`);
       }
@@ -220,7 +220,7 @@ class WeatherNewsWidget {
     console.log("Fetching fresh news data from API");
     try {
       const response = await fetch(
-        API_CONFIG.getURL('news', '?country=za&pageSize=5')
+        API_CONFIG.getURL("news", "?country=za&pageSize=5")
       );
       console.log("News API response status:", response.status);
 
@@ -739,7 +739,7 @@ class WeatherNewsWidget {
       return;
     }
 
-    const articles = data.articles.slice(0, 8); 
+    const articles = data.articles.slice(0, 8);
     console.log("About to render", articles.length, "articles");
 
     const fallbackImage = "./icons/news.png";

@@ -22,22 +22,33 @@ const portfolioData = {
       technologies: ["Node.js", "Express", "Jasmine", "HTML", "CSS", "Render"],
     },
     {
-      name: "AI-Powered Plant Care Assistant",
+      name: "Plantly - Plant Care Assistant",
       description:
-        "Self-taught React Native development during downtime periods to build a mobile plant care application, integrating AI API for intelligent plant care advice and Gemini Vision API for camera-based plant identification, creating a fully functional app with AI-powered watering reminders that helps users maintain healthy plants through personalized care recommendations.",
-      technologies: ["React Native", "ChatGPT API", "Gemini Vision API"],
+        "Self-taught React Native development to build a mobile plant care application. Passionate about integrating AI into practical applications, this app uses ChatGPT and Gemini Vision APIs to provide intelligent plant identification through camera input, creating a fully functional app with watering reminders that helps users maintain healthy plants through personalized care recommendations.",
+      technologies: ["React Native", "ChatGPT API", "Gemini Vision API", "Expo", "Zustand"],
+    },
+    {
+      name: "Cadbury Globe - Mood-Based Chocolate Recommender",
+      description:
+        "Built an innovative AI-powered recommendation engine that reads your mood and suggests the perfect Cadbury chocolate to match! Integrated Gemini Vision API for real-time emotion analysis through camera input, creating a fun and personalized chocolate discovery experience with gift recommendation system based on user surveys.",
+      technologies: ["React", "Node.js", "Gemini Vision API", "Express", "Tailwind CSS", "Camera Integration"],
+      links: {
+        demo: "https://cadbury-globe-frontend.onrender.com/",
+        frontend: "https://github.com/KatekaniN/cadbury-globe-frontend",
+        backend: "https://github.com/KatekaniN/cadbury-globe-backend"
+      }
     },
     {
       name: "BizBacker (FNB App of the Year Hackathon 2024 Entry)",
       description:
-        "Collaborated to build a full-stack fintech solution addressing financial inclusion in township economies. Developed innovative royalty-based micro-investment model connecting investors with small businesses.",
+        "Collaborated to build a full-stack fintech solution addressing financial inclusion in township economies. Developed innovative royalty-based micro-investment model connecting investors with small businesses, featuring comprehensive business validation, investor matching, and ROI tracking systems.",
       technologies: ["React", "Firebase", "Python"],
     },
     {
       name: "Safe Spaces (Geekulcha Annual Hackathon 2024 Entry)",
       description:
-        "Collaborated to build fullstack development of real-time safety network, creating community-driven safety platform for vulnerable populations.",
-      technologies: ["JavaScript", "Mapbox", "HTML/CSS"],
+        "Collaborated to build fullstack development of real-time safety network, creating community-driven safety platform for vulnerable populations. Features crowd-sourced safety reports, emergency contact integration, and location-based alerts with real-time mapping.",
+      technologies: ["JavaScript", "Mapbox", "Real-time APIs", "HTML/CSS"],
     },
   ],
   skills: {
@@ -69,8 +80,8 @@ const portfolioData = {
   contact: {
     email: "knyamandi99@gmail.com",
     phone: "067 687 8729",
-    linkedin: "linkedin.com/in/katekanin",
-    github: "github.com/katekanin",
+    linkedin: "https://linkedin.com/in/katekanin",
+    github: "https://github.com/katekanin",
     location:
       "Johannesburg, Gauteng (willing to relocate for the right opportunity)",
   },
@@ -97,6 +108,17 @@ const portfolioData = {
         "Configured CI/CD pipelines using Webpack for module bundling, Docker for containerization, and deployment through Render",
       ],
     },
+    {
+      title: "Business Development Coordinator",
+      company: "US Startup (Remote)",
+      period: "2023 - Early 2024",
+      responsibilities: [
+        "Supported business strategy development and client relationship management for a remote US-based startup",
+        "Gained valuable insights into understanding user needs and business requirements from a technology perspective",
+        "Developed cross-cultural communication skills and experience in remote collaboration",
+        "Discovered passion for building technological solutions rather than just discussing them, leading to career pivot into development",
+      ],
+    },
   ],
   education: [
     {
@@ -108,22 +130,25 @@ const portfolioData = {
       degree:
         "BSc in Mathematical Statistics (Final Year, 3 modules outstanding)",
       institution: "University of Pretoria",
+      period: "2018-2023",
       note: "Paused studies due to finances. Pivoted to pursue gaining industry experience and practical learning",
     },
   ],
   personal: {
     aiDevelopment:
-      "Passionate about integrating AI into practical applications, as demonstrated by my Plant Care Assistant project that uses ChatGPT and Gemini Vision APIs to provide intelligent plant care recommendations.",
+      "Passionate about integrating AI into practical applications, as demonstrated by the Plantly - Plant Care Assistant mobile app that uses ChatGPT and Gemini Vision APIs for intelligent plant identification, and the innovative Cadbury Globe project that uses emotion detection to recommend chocolates based on mood.",
     mobileDevelopment:
-      "Self-taught React Native developer, building cross-platform mobile applications during my free time to expand my technical skillset beyond web development.",
+      "Self-taught React Native developer, building cross-platform mobile applications during free time to expand technical skillset beyond web development.",
     plantCare:
-      "Enthusiast for indoor plants and gardening, which inspired my AI-powered Plant Care Assistant app that helps users maintain healthy plants through personalized care recommendations.",
+      "Enthusiast for indoor plants and gardening, which inspired the AI-powered Plant Care Assistant app that helps users maintain healthy plants through personalized care recommendations.",
     continuousLearning:
-      "Dedicated to ongoing professional development, constantly exploring new technologies and frameworks to enhance my skills as a developer.",
+      "Dedicated to ongoing professional development, constantly exploring new technologies and frameworks to enhance skills as a developer.",
     hackathons:
       "Active participant in hackathons, having contributed to award-winning projects like BizBacker (FNB App of the Year) and Safe Spaces (Geekulcha Annual Hackathon).",
     mentoring:
       "Enjoy mentoring junior developers and sharing knowledge, having provided technical guidance and code review support for the 2025 AI Software Development cohort.",
+    businessBackground:
+      "Previous experience as a Business Development Coordinator provided valuable perspective on understanding user needs and business requirements, which now informs approach to building technology solutions.",
   },
 };
 
@@ -172,17 +197,17 @@ Remember, your goal is to represent Katekani professionally while making visitor
  */
 exports.getSpecificPrompt = (type) => {
   const prompts = {
-    projects: `Focus on describing Katekani's projects in detail, including technologies used, challenges overcome, and outcomes achieved. Highlight her role and contributions, especially in the GitHub API Consumer, AI-Powered Plant Care Assistant, and hackathon projects.`,
+    projects: `Focus on describing Katekani's projects in detail, including technologies used, challenges overcome, and outcomes achieved. Highlight her role and contributions, especially in the GitHub API Consumer, Plantly Plant Care Assistant (using ChatGPT and Gemini Vision APIs), the innovative Cadbury Globe mood-to-chocolate AI recommendation app, and hackathon projects like BizBacker and Safe Spaces. Mention live demos where available.`,
 
     skills: `Provide a comprehensive overview of Katekani's technical skills, categorized by area (frontend, backend, etc.). Mention her proficiency in JavaScript, React, Node.js, and database technologies, as well as her experience with content management systems like WordPress and Adobe Experience Manager.`,
 
-    experience: `Discuss Katekani's professional experience at Ogilvy South Africa, focusing on her achievements in frontend development, API optimization, and content management. Highlight her mentoring experience and technical contributions to client projects.`,
+    experience: `Discuss Katekani's professional experience at Ogilvy South Africa, focusing on her achievements in frontend development, API optimization, and content management. Highlight her mentoring experience and technical contributions to client projects. Also mention her previous role as Business Development Coordinator at a US startup (2023-2024), which provided valuable business perspective that now informs her approach to building technology solutions.`,
 
     education: `Share information about Katekani's educational background, including her BSc in Mathematical Statistics at University of Pretoria (though currently paused) and her Higher Certificate in Systems Development from Umuzi.org. Mention her commitment to continuous learning and practical skill development.`,
 
     personal: `Share insights about Katekani's personal interests in AI development, mobile app development, and plant care. Explain how these interests inform her creative process and problem-solving approach, particularly in her self-initiated projects.`,
 
-    contact: `Provide clear contact information for Katekani, including her email (knyamandi99@gmail.com), phone (067 687 8729), LinkedIn (linkedin.com/in/katekanin), and GitHub (github.com/katekanin). Mention that she's based in Johannesburg, Gauteng.`,
+    contact: `Provide clear contact information for Katekani, including her email (knyamandi99@gmail.com), phone (067 687 8729), LinkedIn (https://linkedin.com/in/katekanin), and GitHub (https://github.com/katekanin). Mention that she's based in Johannesburg, Gauteng.`,
   };
 
   return prompts[type] || "";

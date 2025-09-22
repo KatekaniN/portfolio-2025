@@ -43,14 +43,16 @@ class Windows11Manager {
 
   initializeWindowStructure() {
     // Ensure all windows are properly attached to body and not nested
-    const windows = document.querySelectorAll('.window');
-    windows.forEach(window => {
+    const windows = document.querySelectorAll(".window");
+    windows.forEach((window) => {
       if (window.parentElement !== document.body) {
-        console.log(`Moving window ${window.id} to body level (was nested in ${window.parentElement.tagName})`);
+        console.log(
+          `Moving window ${window.id} to body level (was nested in ${window.parentElement.tagName})`
+        );
         document.body.appendChild(window);
       }
       // Ensure proper initial styling
-      window.style.position = 'absolute';
+      window.style.position = "absolute";
     });
     console.log(`Initialized ${windows.length} windows at body level`);
   }
@@ -809,12 +811,17 @@ class Windows11Manager {
 
     // CRITICAL: Ensure window is attached to body, not nested inside another window
     if (window.parentElement !== document.body) {
-      console.log(`Moving window ${windowId} to body (was in ${window.parentElement.id || 'unknown'})`);
+      console.log(
+        `Moving window ${windowId} to body (was in ${window.parentElement.id || "unknown"})`
+      );
       document.body.appendChild(window);
     }
 
     // If window is already active, just bring it to front
-    if (this.activeWindows.includes(windowId) && window.classList.contains('active')) {
+    if (
+      this.activeWindows.includes(windowId) &&
+      window.classList.contains("active")
+    ) {
       window.style.zIndex = ++this.zIndexCounter;
       this.addFocusEffect(window);
       console.log(`Window ${windowId} brought to front`);
@@ -822,10 +829,10 @@ class Windows11Manager {
     }
 
     // Remove active class from all other windows to unfocus them
-    this.activeWindows.forEach(activeId => {
+    this.activeWindows.forEach((activeId) => {
       const activeWindow = document.getElementById(activeId);
       if (activeWindow && activeId !== windowId) {
-        activeWindow.classList.remove('focused');
+        activeWindow.classList.remove("focused");
       }
     });
 
@@ -833,7 +840,7 @@ class Windows11Manager {
     this.resetWindowState(window);
 
     // Force proper positioning and display
-    window.style.position = 'absolute';
+    window.style.position = "absolute";
 
     // Windows 11 opening animation
     window.classList.add("opening");
@@ -853,8 +860,10 @@ class Windows11Manager {
 
     // Add focus ring effect
     this.addFocusEffect(window);
-    
-    console.log(`Window ${windowId} opened successfully at zIndex ${window.style.zIndex}`);
+
+    console.log(
+      `Window ${windowId} opened successfully at zIndex ${window.style.zIndex}`
+    );
   }
 
   resetWindowState(window) {
@@ -882,7 +891,7 @@ class Windows11Manager {
     window.style.transform = "";
     window.style.borderRadius = "0px";
     window.style.boxShadow = "";
-    
+
     // Ensure proper positioning
     window.style.position = "absolute";
 
@@ -3935,5 +3944,3 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }, 1000);
 });
-
-
