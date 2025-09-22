@@ -50,6 +50,31 @@ class AIPortfolioChat {
         this.messageInput.focus();
       }
     });
+
+    // Handle suggestion button clicks
+    this.attachSuggestionListeners();
+  }
+
+  attachSuggestionListeners() {
+    // Add event listeners to suggestion buttons
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('ai-suggestion-btn')) {
+        const question = e.target.getAttribute('data-question');
+        if (question) {
+          // Populate the input field with the suggested question
+          this.messageInput.value = question;
+          this.messageInput.focus();
+          
+          // Update character count
+          const length = question.length;
+          this.charCount.textContent = `${length}/500`;
+          this.charCount.style.color = length > 450 ? "#dc3545" : "#666";
+          
+          // Scroll to the input area
+          this.messageInput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+    });
   }
 
   async sendMessage() {
@@ -121,6 +146,9 @@ class AIPortfolioChat {
     this.scrollToBottom();
     this.messageCount++;
     this.updateMessageCount();
+
+    // Re-attach suggestion listeners for any new buttons
+    this.attachSuggestionListeners();
 
     // Store in chat history for context
     this.chatHistory.push({
