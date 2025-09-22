@@ -38,6 +38,21 @@ class Windows11Manager {
     this.startClockUpdate();
     this.setupWindowSnapping();
     this.addWindows11Animations();
+    this.initializeWindowStructure(); // Add this
+  }
+
+  initializeWindowStructure() {
+    // Ensure all windows are properly attached to body and not nested
+    const windows = document.querySelectorAll('.window');
+    windows.forEach(window => {
+      if (window.parentElement !== document.body) {
+        console.log(`Moving window ${window.id} to body level (was nested in ${window.parentElement.tagName})`);
+        document.body.appendChild(window);
+      }
+      // Ensure proper initial styling
+      window.style.position = 'absolute';
+    });
+    console.log(`Initialized ${windows.length} windows at body level`);
   }
 
   showPowerOptions() {
@@ -792,6 +807,12 @@ class Windows11Manager {
       return;
     }
 
+    // CRITICAL: Ensure window is attached to body, not nested inside another window
+    if (window.parentElement !== document.body) {
+      console.log(`Moving window ${windowId} to body (was in ${window.parentElement.id || 'unknown'})`);
+      document.body.appendChild(window);
+    }
+
     // If window is already active, just bring it to front
     if (this.activeWindows.includes(windowId) && window.classList.contains('active')) {
       window.style.zIndex = ++this.zIndexCounter;
@@ -833,7 +854,7 @@ class Windows11Manager {
     // Add focus ring effect
     this.addFocusEffect(window);
     
-    console.log(`Window ${windowId} opened successfully`);
+    console.log(`Window ${windowId} opened successfully at zIndex ${window.style.zIndex}`);
   }
 
   resetWindowState(window) {
