@@ -17,6 +17,13 @@ body {
   user-select: none;
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-color: #008000;
+  transition: background-color 0.3s ease-in-out;
+}
+
+body.bg-loaded {
   background-image: url("./icons/wallpaper.png");
 }
 
@@ -559,7 +566,6 @@ img.ai-avatar {
     transform: translate(-50%, -50%) scale(1);
   }
 }
-
 
 /* Desktop Icons - Windows 11 Style */
 .desktop-icon {

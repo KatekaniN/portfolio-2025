@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Katekani Nyamandi - Portfolio</title>
+
+    <!-- Preload critical background image -->
+    <link rel="preload" href="./icons/wallpaper.png" as="image" />
+
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="contact-unified.css" />
     <link rel="stylesheet" href="about-modern.css" />
@@ -1594,6 +1598,18 @@
     </div>
 
     <!-- Inject profile data and hydrate the UI -->
+    <!-- Background Image Optimization Script -->
+    <script>
+      // Preload background image for faster loading
+      (function () {
+        const bgImage = new Image();
+        bgImage.onload = function () {
+          document.body.classList.add("bg-loaded");
+        };
+        bgImage.src = "./icons/wallpaper.png";
+      })();
+    </script>
+
     <!-- Scripts -->
     <script src="frontend-config.js"></script>
     <script src="profile-data.js"></script>
