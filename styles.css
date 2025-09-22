@@ -17,7 +17,7 @@ body {
   user-select: none;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url("./icons/wallpaper.png");
+  background-image: url("./icons/river.gif");
 }
 
 img.ai-message-avatar {
@@ -572,7 +572,7 @@ img.ai-avatar {
     #2563eb 100%
   );
   position: relative;
-  background-image: url("./icons/wallpaper.png");
+  background-image: url("./icons/river.gif");
   background-size: 100% 100%;
   animation: backgroundShift 20s ease-in-out infinite alternate;
 }
