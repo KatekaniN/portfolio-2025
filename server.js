@@ -35,6 +35,9 @@ try {
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust proxy (required for Railway and other hosting platforms)
+app.set('trust proxy', 1);
+
 // Middleware
 const corsOptions = {
   origin: function (origin, callback) {

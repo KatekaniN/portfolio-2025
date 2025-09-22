@@ -6,31 +6,54 @@ const dotenv = require("dotenv");
 // Load environment variables
 dotenv.config();
 
+// Debug environment variables
+console.log("🔍 Environment variable debug:");
+console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log("Available env vars:", Object.keys(process.env).filter(key => 
+  key.includes('GEMINI') || key.includes('API') || key.includes('KEY')
+));
+console.log("GEMINI_API_KEY exists:", !!process.env.GEMINI_API_KEY);
+console.log("GEMINI_API_KEY length:", process.env.GEMINI_API_KEY?.length || 0);
+
 // Get API key from environment variables
 const apiKey = process.env.GEMINI_API_KEY;
 
-if (!apiKey) {
-  console.error("Error: GEMINI_API_KEY not found in environment variables");
-  throw new Error(
-    "Missing API key. Please add GEMINI_API_KEY to your .env file"
-  );
+let genAI = null;
+let model = null;
+let isInitialized = false;
+
+function initializeGemini() {
+  if (!apiKey) {
+    console.error("Error: GEMINI_API_KEY not found in environment variables");
+    return false;
+  }
+
+  try {
+    // Initialize Gemini API
+    genAI = new GoogleGenerativeAI(apiKey);
+    console.log("Successfully initialized Google Generative AI client");
+
+    model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash", 
+      generationConfig: {
+        temperature: 0.7,
+        topK: 40,
+        topP: 0.95,
+        maxOutputTokens: 1024,
+      },
+    });
+
+    console.log("Gemini model initialized with model: gemini-1.5-flash");
+    isInitialized = true;
+    return true;
+  } catch (error) {
+    console.error("Failed to initialize Gemini:", error);
+    return false;
+  }
 }
 
-// Initialize Gemini API
-const genAI = new GoogleGenerativeAI(apiKey);
-console.log("Successfully initialized Google Generative AI client");
-
-const model = genAI.getGenerativeModel({
-  model: "gemini-2.5-flash", 
-  generationConfig: {
-    temperature: 0.7,
-    topK: 40,
-    topP: 0.95,
-    maxOutputTokens: 1024,
-  },
-});
-
-console.log("Gemini model initialized with model: gemini-1.5-flash");
+// Try to initialize on module load, but don't throw if it fails
+initializeGemini();
 
 /**
  * Generate a response using Gemini API
@@ -40,6 +63,14 @@ console.log("Gemini model initialized with model: gemini-1.5-flash");
  */
 exports.generateResponse = async (message, history) => {
   try {
+    // Check if Gemini is initialized
+    if (!isInitialized || !model) {
+      // Try to initialize again
+      if (!initializeGemini()) {
+        throw new Error("Gemini API is not configured. Please contact the site administrator.");
+      }
+    }
+
     console.log("Generating response for message:", message);
 
     // Get system prompt
