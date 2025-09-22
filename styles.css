@@ -559,32 +559,7 @@ img.ai-avatar {
     transform: translate(-50%, -50%) scale(1);
   }
 }
-/* Desktop Background - Windows 11 Style */
-.desktop {
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(
-    135deg,
-    #0078d4 0%,
-    #106ebe 25%,
-    #1e3a8a 50%,
-    #1e40af 75%,
-    #2563eb 100%
-  );
-  position: relative;
-  background-image: url("./icons/wallpaper.png");
-  background-size: 100% 100%;
-  animation: backgroundShift 20s ease-in-out infinite alternate;
-}
 
-@keyframes backgroundShift {
-  0% {
-    filter: hue-rotate(0deg) brightness(1);
-  }
-  100% {
-    filter: hue-rotate(10deg) brightness(1.1);
-  }
-}
 
 /* Desktop Icons - Windows 11 Style */
 .desktop-icon {
