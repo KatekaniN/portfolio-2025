@@ -1,8 +1,4 @@
 // prompts/portfolioPrompt.js
-
-/**
- * Portfolio information - customized with Katekani's actual data
- */
 const portfolioData = {
   owner: {
     name: "Katekani Nyamandi",
@@ -25,18 +21,31 @@ const portfolioData = {
       name: "Plantly - Plant Care Assistant",
       description:
         "Self-taught React Native development to build a mobile plant care application. Passionate about integrating AI into practical applications, this app uses ChatGPT and Gemini Vision APIs to provide intelligent plant identification through camera input, creating a fully functional app with watering reminders that helps users maintain healthy plants through personalized care recommendations.",
-      technologies: ["React Native", "ChatGPT API", "Gemini Vision API", "Expo", "Zustand"],
+      technologies: [
+        "React Native",
+        "ChatGPT API",
+        "Gemini Vision API",
+        "Expo",
+        "Zustand",
+      ],
     },
     {
       name: "Cadbury Globe - Mood-Based Chocolate Recommender",
       description:
         "Built an innovative AI-powered recommendation engine that reads your mood and suggests the perfect Cadbury chocolate to match! Integrated Gemini Vision API for real-time emotion analysis through camera input, creating a fun and personalized chocolate discovery experience with gift recommendation system based on user surveys.",
-      technologies: ["React", "Node.js", "Gemini Vision API", "Express", "Tailwind CSS", "Camera Integration"],
+      technologies: [
+        "React",
+        "Node.js",
+        "Gemini Vision API",
+        "Express",
+        "Tailwind CSS",
+        "Camera Integration",
+      ],
       links: {
         demo: "https://cadbury-globe-frontend.onrender.com/",
         frontend: "https://github.com/KatekaniN/cadbury-globe-frontend",
-        backend: "https://github.com/KatekaniN/cadbury-globe-backend"
-      }
+        backend: "https://github.com/KatekaniN/cadbury-globe-backend",
+      },
     },
     {
       name: "BizBacker (FNB App of the Year Hackathon 2024 Entry)",

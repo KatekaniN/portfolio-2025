@@ -99,7 +99,7 @@ app.get("/health", (req, res) => {
       timestamp: new Date().toISOString(),
       environment: process.env.NODE_ENV || "development",
       port: PORT,
-      apiKeyConfigured: !!process.env.GEMINI_API_KEY,
+      apiKeyConfigured: !!process.env.OPENAI_API_KEY,
       weatherApiConfigured: !!process.env.WEATHER_API_KEY,
       newsApiConfigured: !!process.env.NEWSDATA_API_KEY,
       emailApiConfigured: !!process.env.BREVO_API_KEY,
@@ -178,7 +178,7 @@ const server = app.listen(PORT, "0.0.0.0", () => {
   console.log(`🌐 Port: ${PORT}`);
   console.log(`🔗 Health check: http://0.0.0.0:${PORT}/health`);
   console.log(
-    `🤖 Gemini API: ${process.env.GEMINI_API_KEY ? "✅ Configured" : "❌ Missing"}`
+    `🤖 OpenAI API: ${process.env.OPENAI_API_KEY ? "✅ Configured" : "❌ Missing"}`
   );
   console.log(
     `🌤️ Weather API: ${process.env.WEATHER_API_KEY ? "✅ Configured" : "❌ Missing"}`

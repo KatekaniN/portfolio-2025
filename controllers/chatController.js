@@ -1,4 +1,4 @@
-const geminiService = require("../services/geminiService");
+const openaiService = require("../services/openaiService");
 
 // In-memory chat history (replace with database in production)
 const chatSessions = {};
@@ -29,8 +29,8 @@ exports.processChat = async (req, res, next) => {
     // Create a new history array with the user message
     const updatedHistory = [...chatHistory, userMessage];
 
-    // Get response from Gemini
-    const response = await geminiService.generateResponse(
+    // Get response from OpenAI
+    const response = await openaiService.generateResponse(
       message,
       updatedHistory
     );
